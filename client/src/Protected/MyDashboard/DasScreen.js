@@ -55,7 +55,7 @@ const data = [{title:'Dashboard',link:"/dashboard",ele:8},
 {title:'Add Category',link:"/AddCategory",ele:8},
 {title:'Add Tender',link:"/AddTender",ele:8},
 {title:'Add Department',link:"/AddDepartment",ele:8},
-{title:'Location Master',link:"/LocationMaster",ele:8},
+{title:'Add State',link:"/AddState",ele:8},
 {title:'Sign Up',link:"/signup",ele:8},
 {title:'Login',link:"/login",ele:8}]
 

@@ -2,14 +2,18 @@ import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Login/Login";
 import { MainContext } from "../Context/MainContext";
+//Addition
 import AddCategory from "../../Protected/Addition/Category/AddCategory"
 import AddTender from "../../Protected/Addition/Tender/AddTender"
 import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
+// Addition -> Location
+import AddState from "../../Protected/Addition/Location/AddState"
+
+
 import Home from "../../PublicPage/Home"
 
 import Dashboard from "../../Protected/MyDashboard/Dashboard";
 import App from "../../App";
-import LocationMaster from "../../Protected/DropDown/LocationMaster";
 // public
 
 const PrivateRoute = ({ children }) => {
@@ -46,6 +50,9 @@ export default function MainRoute() {
               <Route  path="/AddTender" element={
           <PrivateRoute children={<AddTender />} />        
         } />
+              <Route  path="/AddState" element={
+          <PrivateRoute children={<AddState />} />        
+        } />
         <Route  path="/AddCategory" element={
           <PrivateRoute children={<AddCategory />} />     
         } />
@@ -54,9 +61,7 @@ export default function MainRoute() {
         } />
 
   
-        <Route  path="/LocationMaster" element={
-        <PrivateRoute children={<LocationMaster />} />         
-        } />
+
         {/* public */}
 
         
