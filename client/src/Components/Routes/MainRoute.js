@@ -8,6 +8,7 @@ import AddTender from "../../Protected/Addition/Tender/AddTender"
 import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
 import AddState from "../../Protected/Addition/Location/AddState"
+import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
 
 
 import Home from "../../PublicPage/Home"
@@ -52,6 +53,9 @@ export default function MainRoute() {
         } />
               <Route  path="/AddState" element={
           <PrivateRoute children={<AddState />} />        
+        } />
+              <Route  path="/AddDistrict" element={
+          <PrivateRoute children={<AddDistrict />} />        
         } />
         <Route  path="/AddCategory" element={
           <PrivateRoute children={<AddCategory />} />     

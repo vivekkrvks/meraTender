@@ -230,6 +230,7 @@ router.get(
 // @desc    route for getting all data from  state
 // @access  PRIVATE
 
+// /api/v1/addition/location/state
 router.get(
   "/allStateForPublic",
   // passport.authenticate("jwt", { session: false }),

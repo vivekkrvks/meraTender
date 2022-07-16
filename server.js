@@ -87,6 +87,7 @@ app.use("/api/v1/addition/department", department);
 app.use("/api/v1/addition/tender", tender);
 // add -> loc
 app.use("/api/v1/addition/location/state", state);
+app.use("/api/v1/addition/location/district", district);
 
 
 
