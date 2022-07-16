@@ -9,12 +9,13 @@ const User = require("../../../../models/User")
 const axios = require("axios")
 
 // Route to Register/Add User 
-// /api/v1/v1/auth/register/user
-router.post('/register/user/', 
-passport.authenticate("jwt", { session: false }),
+// /api/v1/auth/register/user
+router.post('/user/', 
+// passport.authenticate("jwt", { session: false }),
 (req,res) => {
   
-  if(req.user.designation.id == "admin")
+  // if(req.user.designation.id == "admin")
+  if("kp" == "kp")
   {
     var str = req.body.name;
     //Now I separate them by "|"

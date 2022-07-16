@@ -24,6 +24,8 @@ const loginApi = require("./routes/api/v1/auth/loginApi");
 const otpLogin = require("./routes/api/v1/auth/otpLogin");
 // Addition
 const category = require("./routes/api/v1/addition/category");
+const department = require("./routes/api/v1/addition/department");
+const tender = require("./routes/api/v1/addition/tender");
 
 
 // other
@@ -78,6 +80,8 @@ app.use("/api/v1/auth/loginApi", loginApi);
 app.use("/api/v1/auth/otpLogin", otpLogin);
 // Addition
 app.use("/api/v1/addition/category", category);
+app.use("/api/v1/addition/department", department);
+app.use("/api/v1/addition/tender", tender);
 
 
 //other

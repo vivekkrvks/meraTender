@@ -37,7 +37,7 @@ export default function AddDepartment() {
 	const [logoUrl, setLogoUrl] = useState("");
 	const [logoId, setLogoId] = useState("");
 	const [description, setDescription] = useState("");
-	const [allCat, setAllCat] = useState([]);
+	const [allDep, setAllDep] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [err] = useState({ errIn: "", msg: "" });
@@ -56,16 +56,16 @@ export default function AddDepartment() {
 	
 		await axios
 			.get(`/api/v1/addition/department/alldepartment/${word}`)
-			.then((res) => (setAllCat(res.data)))
+			.then((res) => (setAllDep(res.data)))
 			.catch((err) => console.log(err));
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		handleOpen();
-		let newCat = { _id: id, departmentName,link,  logoUrl,logoId, description };
+		let newDep = { _id: id, departmentName,link,  logoUrl,logoId, description };
 		await axios
-			.post(`/api/v1/addition/department/${id}`, newCat)
+			.post(`/api/v1/addition/department/${id}`, newDep)
 			.then((res) => {
 				snackRef.current.handleSnack(res.data);
 				getData("");
@@ -111,6 +111,17 @@ export default function AddDepartment() {
 			})
 			.catch((err) => console.log(err));
 			handleClose();
+	};
+	const linkCreator = async (value) => {
+		var strs = value.replace(/    /g,'-').replace(/   /g,'-').replace(/  /g,'-').replace(/ /g,'-');
+		var rests = strs.replace(/  | |   |    |      /gi, function (x) {
+			return  "";
+		  });
+		var rests = strs.replace(/--| |   |    |      /gi, function (x) {
+			return  "";
+		  });
+		setLink(rests.toLowerCase());
+
 	};
 
 	const imgUpload = async (e, name) => {
@@ -202,7 +213,7 @@ export default function AddDepartment() {
 									label={err.errIn === "departmentName" ? err.msg : "Department Name"}
 									placeholder="Name of the Department.."
 									value={departmentName}
-									onChange={(e) => setDepartmentName(e.target.value)}
+									onChange={(e) => (setDepartmentName(e.target.value),linkCreator(e.target.value))}
 								/>
 							</Grid>
 							<Grid item xs={12} md={6}>
@@ -239,7 +250,7 @@ export default function AddDepartment() {
 										variant="outlined"
 										type="file"
 										InputLabelProps={{ shrink: true }}
-										inputProps={{ accept: "image/png*" }}
+										inputProps={{ accept: "image/*" }}
 										fullWidth
 										onBlur={() => handleErr("logo")}
 										error={err.errIn === "logo" ? true : false}
@@ -319,7 +330,7 @@ export default function AddDepartment() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{allCat.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+								{allDep.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
 									<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 										<TableCell component="td" scope="row">
 											Name : {data.departmentName} ; Description : {data.description} <br />
@@ -330,7 +341,7 @@ export default function AddDepartment() {
 							<TableFooter>
 								<TableRow>
 									<TablePagination
-										count={allCat.length}
+										count={allDep.length}
 										rowsPerPage={rowsPerPage}
 										page={page}
 										onChangePage={(e, page) => setPage(page)}

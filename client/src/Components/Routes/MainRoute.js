@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Login/Login";
 import { MainContext } from "../Context/MainContext";
 import AddCategory from "../../Protected/Addition/Category/AddCategory"
-import AddBlog from "../../Protected/Addition/Blog/AddBlog"
+import AddTender from "../../Protected/Addition/Tender/AddTender"
 import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 import Home from "../../PublicPage/Home"
 
@@ -43,8 +43,8 @@ export default function MainRoute() {
         <Route  path="/Dashboard" element={
           <PrivateRoute children={<Dashboard />} />        
         } />
-              <Route  path="/AddBlog" element={
-          <PrivateRoute children={<AddBlog />} />        
+              <Route  path="/AddTender" element={
+          <PrivateRoute children={<AddTender />} />        
         } />
         <Route  path="/AddCategory" element={
           <PrivateRoute children={<AddCategory />} />     
