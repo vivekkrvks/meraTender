@@ -21,7 +21,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CategoryIcon from '@mui/icons-material/Category';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { red } from '@mui/material/colors';
+import { red, yellow,purple  } from '@mui/material/colors';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import KayakingIcon from '@mui/icons-material/Kayaking';
+import CottageIcon from '@mui/icons-material/Cottage';
+import ChaletIcon from '@mui/icons-material/Chalet';
+import GroupIcon from '@mui/icons-material/Group';
 
 const drawerWidth = 240;
 
@@ -198,12 +203,13 @@ const handleLogout = () => {
 
 const listData1 = [
 	{ text: "Dashboard", link: "/dashboard", icon: <DashboardIcon color="primary"  />,admin:true,supervisor:true,fieldPartner:true  },
-	{ text: "Add Category", link: "/AddCategory", icon: <CategoryIcon color="success" />,admin:true },
-  { text: "Location Master", link: "/LocationMaster", icon: <CategoryIcon color="success" />,admin:true },
+  { text: "Add Tender", link: "/AddTender", icon: <AddBoxIcon color="success" />,admin:true },
+  { text: "Add Department", link: "/AddDepartment", icon: <KayakingIcon color="success" />,admin:true },
+  { text: "Add State", link: "/AddState", icon: <CottageIcon color="success" />,admin:true },
+  { text: "Add District", link: "/AddDistrict", icon: <ChaletIcon color="success" />,admin:true },
 ];
 const listData2 = [
-	// { text: "Sign Up", link: "/signup", icon: <ApiSharpIcon color="success"/>,admin:true },
-	// { text: "Login", link: "/login", icon: <LogoutIcon sx={{ color: red[500] }}/> },
+	{ text: "All User", link: "/AllUser", icon: <GroupIcon sx={{ color: purple [500] }}/> },
 
 
 ];

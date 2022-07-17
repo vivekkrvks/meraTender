@@ -29,7 +29,8 @@ const tender = require("./routes/api/v1/addition/tender");
 // Addition --> Location
 const state = require("./routes/api/v1/addition/location/state");
 const district = require("./routes/api/v1/addition/location/district");
-
+// Report 
+const getUserReport = require("./routes/api/v1/report/getUserReport")
 
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
@@ -88,6 +89,8 @@ app.use("/api/v1/addition/tender", tender);
 // add -> loc
 app.use("/api/v1/addition/location/state", state);
 app.use("/api/v1/addition/location/district", district);
+// Report
+app.use("/api/v1/report/getUserReport", getUserReport);
 
 
 

@@ -1,4 +1,6 @@
 import  React ,{useEffect, useState} from 'react';
+import CachedIcon from '@mui/icons-material/Cached';
+
 import { DataGrid } from '@mui/x-data-grid';
 import CommonDash from './../../Protected/MyDashboard/CommonDash';
 import Paper from '@mui/material/Paper';
@@ -7,11 +9,12 @@ import axios from "axios";
 import { Autocomplete, TextField, Card,
      Accordion, AccordionSummary,
       FormControlLabel, Switch, AccordionDetails,
-       Button, Chip,    
+       Button, Chip, Tooltip, Fab,    
     } from '@mui/material';
 import { FcExpand,FcSearch,FcRefresh,} from "react-icons/fc";
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { MdClearAll } from 'react-icons/md';
 const useStyles = styled((theme) => ({
 	dashbody: {
 		height: "100vh",
@@ -45,7 +48,6 @@ const Item = styled(Paper)(({ theme }) => ({
     height: 60,
     lineHeight: '60px',
   }));
-
 export default function DataTable() {
     
     const [tableData,setTableData]=useState([]);
@@ -75,7 +77,7 @@ export default function DataTable() {
       let dataToSend = {
       }
       await axios
-        .post(`/api/v1/addition/business/getBusiness/withoutFilterData`,dataToSend)
+        .post(`/api/v1/report/getUserReport/getAll`,dataToSend)
         .then((res) => (setTableData(res.data)))
         .catch((err) => console.log(err));
     };
@@ -108,11 +110,17 @@ const classes = useStyles();
           aria-controls="basic-filter"
           id="basic-filter"
         >  
+             <Button variant="outlined"
+             onClick={() => (getTableData())}
+             startIcon={<CachedIcon />}>
+        Refresh Data
+      </Button>
           <span style={{flexGrow:0.5}}/>
           <FormControlLabel
         control={<Switch color="secondary" checked={showAdv} onChange={() => {setAdv(!showAdv);setExpand(true)}} />}
         label={showAdv?"Advance Filter":"Basic Filter"} labelPlacement="start"
       />
+   
         </AccordionSummary>
         
            {showAdv&&(<><AccordionDetails>
@@ -177,9 +185,11 @@ const classes = useStyles();
 
     const coData = [
     
-      { field: '_id1', headerName: 'Date', width: 210 },
-      { field: '_id', headerName: 'Mobile No', width: 210 },
-      { field: 'categoryName', headerName: 'Name', width: 130 },
+      { field: 'date', headerName: 'Date', width: 210 },
+      { field: 'mobileNo', headerName: 'Mobile No', width: 210 },
+      { field: 'mobileVerified', headerName: 'Mobile Verified', width: 210 },
+      { field: 'name', headerName: 'Name', width: 130 },
+      { field: '_id', headerName: 'ID ', width: 210 },
       
     ];
     const visibilityOption = [

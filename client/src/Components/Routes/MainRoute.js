@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Login/Login";
 import { MainContext } from "../Context/MainContext";
 //Addition
-import AddCategory from "../../Protected/Addition/Category/AddCategory"
 import AddTender from "../../Protected/Addition/Tender/AddTender"
 import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
@@ -63,9 +62,7 @@ export default function MainRoute() {
               <Route  path="/AllUser" element={
           <PrivateRoute children={<AllUser />} />        
         } />
-        <Route  path="/AddCategory" element={
-          <PrivateRoute children={<AddCategory />} />     
-        } />
+
         <Route  path="/AddDepartment" element={
           <PrivateRoute children={<AddDepartment />} />     
         } />
