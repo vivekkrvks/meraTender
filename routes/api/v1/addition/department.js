@@ -20,14 +20,14 @@ router.post(
     departmentValues.user = req.user.id;
     departmentValues.creationDate = new Date();
     departmentValues.departmentName = req.body.departmentName;
-//link start
+//departmentLink start
 
-    var strs = req.body.link;
+    var strs = req.body.departmentLink;
     var rests = strs.replace(/  | |   |    |      /gi, function (x) {
       return  "";
     });
 
-    departmentValues.link = rests.toLowerCase()
+    departmentValues.departmentLink = rests.toLowerCase()
     departmentValues.logo.url = req.body.logoUrl;
     departmentValues.logo.publicId = req.body.logoId;
     departmentValues.description = req.body.description;
@@ -36,11 +36,11 @@ router.post(
     //Do database stuff
 if(
   req.body.departmentName == undefined || req.body.departmentName == "" ||
-  req.body.link == undefined || req.body.link == ""
+  req.body.departmentLink == undefined || req.body.departmentLink == ""
 ){
 
   res.json({
-    message: "Title, link are Required field",
+    message: "Title, departmentLink are Required field",
     variant: "error"
 })  
     } 
@@ -60,13 +60,13 @@ if(
                 });
               } else {
                 Department.findOne({
-                  link: departmentValues.link
+                  departmentLink: departmentValues.departmentLink
                 })
                   .then(department => {
                     //Username already exists
                     if (department) {
                       res.json({
-                        message: "link Already exist ",
+                        message: "departmentLink Already exist ",
                         variant: "error"
                       });
                     } else {
@@ -101,7 +101,7 @@ router.get(
   async(req, res) => {
    let allData = await Department.aggregate(
         [
-            {$project:{departmentName:1,description:1}}
+            {$project:{departmentName:1,description:1,departmentLink:1}}
         ]
     )   .catch(err =>
         res
@@ -247,7 +247,7 @@ router.get(
 
       let departmentData = await Department.aggregate([
        {$project: { departmentName:1,
-        link:1,
+        departmentLink:1,
         logo:1,
           }  
          }    

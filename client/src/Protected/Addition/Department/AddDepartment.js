@@ -17,7 +17,7 @@ import {
 	TablePagination,
 	Divider,
 } from "@mui/material";
-import ImagePreviewDelete from "./../../../Components/Common/ImagePreviewDelete";
+import FileUploadDelete from "./../../../Components/Common/FileUploadDelete";
 
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdLock, MdPublic, MdDeleteForever } from "react-icons/md";
@@ -33,7 +33,7 @@ export default function AddDepartment() {
 	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [departmentName, setDepartmentName] = useState("");
-	const [link, setLink] = useState("");
+	const [departmentLink, setDepartmentLink] = useState("");
 	const [logoUrl, setLogoUrl] = useState("");
 	const [logoId, setLogoId] = useState("");
 	const [description, setDescription] = useState("");
@@ -63,7 +63,7 @@ export default function AddDepartment() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		handleOpen();
-		let newDep = { _id: id, departmentName,link,  logoUrl,logoId, description };
+		let newDep = { _id: id, departmentName,departmentLink,  logoUrl,logoId, description };
 		await axios
 			.post(`/api/v1/addition/department/${id}`, newDep)
 			.then((res) => {
@@ -80,7 +80,7 @@ export default function AddDepartment() {
 	const handleClear = () => {
 		setId("");
 		setDepartmentName("");
-		setLink("");
+		setDepartmentLink("");
 
 		setLogoUrl("");
 		setLogoId("");
@@ -102,7 +102,7 @@ export default function AddDepartment() {
 			.then((res) => {		
 				setId(res.data._id);
 				setDepartmentName(res.data.departmentName);
-				setLink(res.data.link);
+				setDepartmentLink(res.data.departmentLink);
 			
 				setLogoUrl(res.data.logo.url);
 				setLogoId(res.data.logo.publicId);				
@@ -112,7 +112,7 @@ export default function AddDepartment() {
 			.catch((err) => console.log(err));
 			handleClose();
 	};
-	const linkCreator = async (value) => {
+	const departmentLinkCreator = async (value) => {
 		var strs = value.replace(/    /g,'-').replace(/   /g,'-').replace(/  /g,'-').replace(/ /g,'-');
 		var rests = strs.replace(/  | |   |    |      /gi, function (x) {
 			return  "";
@@ -120,43 +120,11 @@ export default function AddDepartment() {
 		var rests = strs.replace(/--| |   |    |      /gi, function (x) {
 			return  "";
 		  });
-		setLink(rests.toLowerCase());
+		setDepartmentLink(rests.toLowerCase());
 
 	};
 
-	const imgUpload = async (e, name) => {
-		if (e) {
-			const selectedFile = e;
-			const imgData = new FormData();
-			imgData.append("photo", selectedFile, selectedFile.name);
-			let link = `/api/v1/other/fileupload/mainfolder/:folderName`
-			if(name === "image"){
-				link = `/api/v1/other/fileupload/mainfolder/departmentImage`
-			} else if(name === "logo"){
-				link = `/api/v1/other/fileupload/mainfolder/departmentLogo`
-			}
-			
-				await axios
-					.post(link, imgData, {
-						headers: {
-							accept: "application/json",
-							"Accept-Language": "en-US,en;q=0.8",
-							"Content-Type": `multipart/form-data; boundary=${imgData._boundary}`,
-						},
-					})
-					.then((res) => {
-						if (name === "image") {
-				
-						}else if (name === "logo") {
-							setLogoUrl(res.data.result.secure_url)
-							setLogoId(res.data.result.public_id)
-						}
-					
-					})
-					.catch((err) => console.log(err));
-			
-		}
-	};
+
 	const handleDelete = (id) => {
 		axios
 			.delete(`/api/v1/addition/department/delete/${id}`)
@@ -213,7 +181,7 @@ export default function AddDepartment() {
 									label={err.errIn === "departmentName" ? err.msg : "Department Name"}
 									placeholder="Name of the Department.."
 									value={departmentName}
-									onChange={(e) => (setDepartmentName(e.target.value),linkCreator(e.target.value))}
+									onChange={(e) => (setDepartmentName(e.target.value),departmentLinkCreator(e.target.value))}
 								/>
 							</Grid>
 							<Grid item xs={12} md={6}>
@@ -222,45 +190,33 @@ export default function AddDepartment() {
 									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
-									onBlur={() => handleErr("linkName")}
-									error={err.errIn === "linkName" ? true : false}
-									label={err.errIn === "Link" ? err.msg : "Department link"}
+									onBlur={() => handleErr("departmentLinkName")}
+									error={err.errIn === "departmentLinkName" ? true : false}
+									label={err.errIn === "Link" ? err.msg : "Department Link"}
 									placeholder="Link of the Department.."
-									value={link}
-									onChange={(e) => setLink(e.target.value)}
+									value={departmentLink}
+									onChange={(e) => setDepartmentLink(e.target.value)}
 								/>
 							</Grid>
-						
-							<Grid item xs={12} md={6}>
-							{logoUrl !== "" && (
-							<ImagePreviewDelete 
-							type ={"Logo"} 
-							imageLink={logoUrl} 
-							imageId={logoId} 
-							clearImage ={clearImage} 
-							clearLogo={clearLogo}
-							dataId={id}
-							/>
-
-							)} 
-							{
-								logoUrl === "" && (
-									<TextField
-									// required
-										variant="outlined"
-										type="file"
-										InputLabelProps={{ shrink: true }}
-										inputProps={{ accept: "image/*" }}
-										fullWidth
-										onBlur={() => handleErr("logo")}
-										error={err.errIn === "logo" ? true : false}
-										label={err.errIn === "logo" ? err.msg : "Logo (PNG Only)"}
-										onChange={(e) =>  imgUpload(e.target.files[0],"logo")}
-									/> 
-								)
-							}			
-	  						</Grid>
 							
+							<Grid item  xs={12} md={6}>
+								<FileUploadDelete
+								fileUrl={logoUrl}
+								setFileUrl={setLogoUrl}
+								fileId={logoId}
+								setFileId={setLogoId}
+								moduleId={id}
+								buttonName={"logo"}
+								fileType={{ accept: "png/*" }}
+								handleErr={handleErr}
+								folderName={"logo"}	
+								fieldName={"logo"}	
+								labelName={"Logo (PNG Only)"}
+								updateApi={`/api/v1/addition/department/${id}`}
+								noFileData={{"logoUrl":"","logoId":""}}							
+								/> 
+							</Grid>
+								
 							<Grid item xs={12}>
 								<TextField
 									variant="outlined"

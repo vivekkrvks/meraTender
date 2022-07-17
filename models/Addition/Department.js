@@ -11,7 +11,7 @@ const DepartmentSchema = new Schema({
        type:String,
        required:true
    },
-   link:{
+   departmentLink:{
        type:String,
        required:true
    },

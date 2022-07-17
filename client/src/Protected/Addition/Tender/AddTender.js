@@ -35,33 +35,37 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function AddTender() {
 	const classes = useStyles();
 	const [id, setId] = useState("");
-	const [visibility, setVisibility] = useState(true);
-	const [isAdvance, setIsAdvance] = useState(true);
-	const [html, switchHtml] = useState(false);
-	const [text, setText] = useState("");
+	const [visibility, setVisibility] = useState({
+		name:"Public",
+		id:"public"
+	});
 
-	const [title, setTitle] = useState("");
-	const [link, setLink] = useState("");
+	const [tenderNumber, setTenderNumber] = useState("");
+	const [tenderTitle, setTenderTitle] = useState("");
+	const [openingDate, setOpeningDate] = useState("");
+	const [closingDate, setClosingDate] = useState("");
+	const [tenderAmount, setTenderAmount] = useState("");
+
+	const [department, setDepartment] = useState({departmentName:"",departmentLink:""});
+	const [allDepartment, setAllDepartment] = useState([]);
+	const [state, setState] = useState({stateName:"Bihar",stateLink:"bihar"});
+	const [allState, setAllState] = useState([]);
+	const [district, setDistrict] = useState({districtName:"",districtLink:""});
+	const [allDistrict, setAllDistrict] = useState([]);
+	
 	const [file1Url, setFile1Url] = useState("");
 	const [file1Id, setFile1Id] = useState("");
 	const [file2Url, setFile2Url] = useState("");
-	const [file2Id, setFile2Id] = useState("");
+	const [file2Id, setFile2Id] = useState("");	
+	const [shortDescription, setShortDescription] = useState("");
+
+	const [isAdvance, setIsAdvance] = useState(true);
+	const [tenderLink, setTenderLink] = useState("");
 	const [coverImgUrl, setCoverImgUrl] = useState("");
-	const [coverImgId, setCoverImgId] = useState("");
+	const [coverImgId, setCoverImgId] = useState("");	
+	const [isHtml, switchHtml] = useState(false);
+	const [longDescription, setLongDescription] = useState("");
 
-	const [openingDate, setOpeningDate] = useState("");
-	const [closingDate, setClosingDate] = useState("");
-	const [tenderNumber, setTenderNumber] = useState("");
-	const [tenderAmount, setTenderAmount] = useState("");
-	const [department, setDepartment] = useState("");
-	const [allDepartment, setAllDepartment] = useState([]);
-	const [state, setState] = useState("");
-	const [allState, setAllState] = useState([]);
-	const [district, setDistrict] = useState("");
-	const [allDistrict, setAllDistrict] = useState([]);
-
-	
-	const [description, setDescription] = useState("");
 	const [allTender, setAllTender] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -74,11 +78,40 @@ export default function AddTender() {
 	const handleOpen = () => {
 	  setOpen(true);
 	};
+	const swithVisibility = () => {
+		getAllDepartment()
+	  if(visibility.id === "private"){
+		setVisibility({
+			name:"Public",
+			id:"public"
+		})
+	  } else {
+		setVisibility({
+			name:"Private",
+			id:"private"
+		})
+	  }
+	};
 	useEffect(() => {
 		getData("");
+		getAllDepartment();
+		getAllDistrict();
 	}, []);
-	const getData = async (word) => {
-	
+	const getAllDepartment = async () => {	
+		await axios
+			.get(`/api/v1/addition/department/alldepartment`)
+			.then((res) => (setAllDepartment(res.data)))
+			.catch((err) => console.log(err));
+	};
+
+	const getAllDistrict = async () => {
+	let stateLink = "bihar"
+		await axios
+			.get(`/api/v1/addition/location/district/bystate/${stateLink}`)
+			.then((res) => (setAllDistrict(res.data)))
+			.catch((err) => console.log(err));
+	};
+	const getData = async (word) => {	
 		await axios
 			.get(`/api/v1/addition/tender/alltender/${word}`)
 			.then((res) => (setAllTender(res.data)))
@@ -88,9 +121,15 @@ export default function AddTender() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		handleOpen();
-		let newCat = { _id: id, title,link, file1Url,file1Id, description };
+		let newTen = { _id: id,
+			visibility,tenderNumber,tenderTitle,
+			openingDate,closingDate,tenderAmount,
+			department,state,district,file1Url,file1Id,
+			file2Url,file2Id,shortDescription,isAdvance,
+			tenderLink,coverImgUrl,coverImgId,isHtml,longDescription
+			};
 		await axios
-			.post(`/api/v1/addition/tender/${id}`, newCat)
+			.post(`/api/v1/addition/tender/${id}`, newTen)
 			.then((res) => {
 				snackRef.current.handleSnack(res.data);
 				getData("");
@@ -104,28 +143,78 @@ export default function AddTender() {
 	};
 	const handleClear = () => {
 		setId("");
-		setTitle("");
-		setLink("");
+		setVisibility({
+			name:"Public",
+			id:"public"
+		})
+		setTenderNumber("");
+		setTenderTitle("");
+		setOpeningDate("");
+		setClosingDate("");
+		setTenderAmount("");
+
+		setDepartment({departmentName:"",departmentLink:""})
+		setState({stateName:"Bihar",stateLink:"bihar"});
+		setDistrict({districtName:"",districtLink:""});
 		setFile1Url("");
 		setFile1Id("");
-	
-	
-		setDescription("");
-	};
+		setFile2Url("");
+		setFile2Id("");	
+		setShortDescription("");
 
+		setIsAdvance(false);	
+		setTenderLink("");	
+		setCoverImgUrl("");	
+		setCoverImgId("");	
+		switchHtml(false);	
+		setLongDescription("");	
+
+
+	};
+	const tenderLinkCreator = async (value) => {
+		var strs = value.replace(/    /g,'-').replace(/   /g,'-').replace(/  /g,'-').replace(/ /g,'-');
+		var rests = strs.replace(/  | |   |    |      /gi, function (x) {
+			return  "";
+		  });
+		var rests = strs.replace(/--| |   |    |      /gi, function (x) {
+			return  "";
+		  });
+		setTenderLink(rests.toLowerCase());
+
+	};
 
 	const setData = async (id) => {
 		handleOpen();
 		await axios
 			.get(`/api/v1/addition/tender/get/${id}`)
 			.then((res) => {		
-				setId(res.data._id);
-				setTitle(res.data.title);
-				setLink(res.data.link);
-				setFile1Url(res.data.image.url);
-				setFile1Id(res.data.image.publicId);
-			
-				setDescription(res.data.description);
+		setId(res.data._id);
+		setVisibility({
+			name:"Public",
+			id:"public"
+		})
+		setVisibility(res.data.visibility)
+		setTenderNumber(res.data.tenderNumber);
+		setTenderTitle(res.data.tenderTitle);
+		setOpeningDate(res.data.openingDate);
+		setClosingDate(res.data.closingDate);
+		setTenderAmount(res.data.tenderAmount);
+
+		setDepartment(res.data.department)
+		setState({stateName:"Bihar",stateLink:"bihar"});
+		setDistrict(res.data.district);
+		setFile1Url(res.data.file1.url);
+		setFile1Id(res.data.file1.publicId);
+		setFile2Url(res.data.file2.url);
+		setFile2Id(res.data.file2.publicId);	
+		setShortDescription(res.data.shortDescription);
+
+		setIsAdvance(res.data.isAdvance);	
+		setTenderLink(res.data.tenderLink);	
+		setCoverImgUrl(res.data.coverImg.url);	
+		setCoverImgId(res.data.coverImg.publicId);	
+		switchHtml(res.data.isHtml);	
+		setLongDescription(res.data.longDescription);	
 				
 			})
 			.catch((err) => console.log(err));
@@ -141,8 +230,8 @@ export default function AddTender() {
 	};
 	const handleErr = (errIn) => {
 		switch (errIn) {
-			case "title":
-				// if(title.length  < 10){
+			case "tenderTitle":
+				// if(tenderTitle.length  < 10){
 				//     setErr({errIn:"mobileNo", msg:"Enter 10 Digits Mobile No."})
 				// }else setErr({errIn:"", msg:""})
 				break;
@@ -157,7 +246,7 @@ export default function AddTender() {
 		<Grid container>
 			<Grid item xs={12} md={8}>
 	
-				<Paper className={visibility?  classes.entryAreaGreen : classes.entryAreaRed}>
+				<Paper className={(visibility.id === "public")?  classes.entryAreaGreen : classes.entryAreaRed}>
 					
 				<Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -177,8 +266,8 @@ export default function AddTender() {
 							</Grid>
 							<Grid item xs={4}>
                             <FormControlLabel
-										control={<Switch checked={visibility} onChange={() => setVisibility(!visibility)} name="checkedA" />}
-										label={visibility ? "Public" :"Private" }
+										control={<Switch checked={(visibility.id === "public")} onChange={() => swithVisibility()} name="checkedA" />}
+										label={visibility.name }
 									/>
                             </Grid>
 							<Grid item xs={12} md={4}>
@@ -193,7 +282,7 @@ export default function AddTender() {
 									label={err.errIn === "tenderNumber" ? err.msg : "Tender Number"}
 									placeholder="Enter the tender Number.."
 									value={tenderNumber}
-									onChange={(e) => setTenderNumber(e.target.value)}
+									onChange={(e) => (setTenderNumber(e.target.value))}
 								/>
 							</Grid>		
 							<Grid item xs={12}  md={8}>
@@ -202,12 +291,12 @@ export default function AddTender() {
 									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
-									onBlur={() => handleErr("title")}
-									error={err.errIn === "title" ? true : false}
-									label={err.errIn === "title" ? err.msg : "Tender Name"}
+									onBlur={() => handleErr("tenderTitle")}
+									error={err.errIn === "tenderTitle" ? true : false}
+									label={err.errIn === "tenderTitle" ? err.msg : "Tender Title"}
 									placeholder="Title of the Tender"
-									value={title}
-									onChange={(e) => setTitle(e.target.value)}
+									value={tenderTitle}
+									onChange={(e) => (setTenderTitle(e.target.value),tenderLinkCreator(e.target.value))}
 								/>
 							</Grid>
 							<Grid item xs={12} md={4}>              
@@ -269,6 +358,7 @@ export default function AddTender() {
 							<Grid item xs={12} md={4}> 
 			 						 <Autocomplete										
 										options={allState}
+										disabled
 										filterSelectedOptions
 										getOptionLabel={(option) => option?.stateName}
 										isOptionEqualToValue={(option, value) => (option.stateName === value.stateName )}
@@ -309,7 +399,7 @@ export default function AddTender() {
 								folderName={"file1"}	
 								fieldName={"file1"}	
 								labelName={"File 1"}
-								updateApi={`/api/v1/addition/category/${id}`}
+								updateApi={`/api/v1/addition/tender/${id}`}
 								noFileData={{"file1Url":"","file1Id":""}}							
 								/> 
 							</Grid>
@@ -326,7 +416,7 @@ export default function AddTender() {
 								folderName={"file2"}	
 								fieldName={"file2"}	
 								labelName={"File 2"}
-								updateApi={`/api/v1/addition/category/${id}`}
+								updateApi={`/api/v1/addition/tender/${id}`}
 								noFileData={{"file2Url":"","file2Id":""}}							
 								/> 
 							</Grid>
@@ -334,12 +424,12 @@ export default function AddTender() {
 								<TextField
 									variant="outlined"
 									fullWidth
-									onBlur={() => handleErr("description")}
-									error={err.errIn === "description" ? true : false}
-									label={err.errIn === "description" ? err.msg : "Short Description                                                                                             "}
+									onBlur={() => handleErr("shortDescription")}
+									error={err.errIn === "shortDescription" ? true : false}
+									label={err.errIn === "shortDescription" ? err.msg : "Short Description                                                                                             "}
 									placeholder="few words..."
-									value={description}
-									onChange={(e) => setDescription(e.target.value)}
+									value={shortDescription}
+									onChange={(e) => setShortDescription(e.target.value)}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -353,12 +443,12 @@ export default function AddTender() {
 									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
-									onBlur={() => handleErr("linkName")}
-									error={err.errIn === "linkName" ? true : false}
-									label={err.errIn === "Link" ? err.msg : "Tender link"}
+									onBlur={() => handleErr("tenderLink")}
+									error={err.errIn === "tenderLink" ? true : false}
+									label={err.errIn === "tenderLink" ? err.msg : "Tender link"}
 									placeholder="Link of the Tender.."
-									value={link}
-									onChange={(e) => setLink(e.target.value)}
+									value={tenderLink}
+									onChange={(e) => setTenderLink(e.target.value)}
 								/>
 							</Grid>						
 							<Grid item  xs={12} md={6}>
@@ -374,17 +464,17 @@ export default function AddTender() {
 								folderName={"coverImgUrl"}	
 								fieldName={"coverImgUrl"}	
 								labelName={"Cover Img "}
-								updateApi={`/api/v1/addition/category/${id}`}
+								updateApi={`/api/v1/addition/tender/${id}`}
 								noFileData={{"coverImgUrl":"","coverImgId":""}}							
 								/> 
 							</Grid>
 						
                             <Grid item xs={12}>
 									<FormControlLabel
-										control={<Switch checked={html} onChange={() => switchHtml(!html)} name="checkedA" />}
-										label={html ? "HTML Mode" : "Editor Mode"}
+										control={<Switch checked={isHtml} onChange={() => switchHtml(!isHtml)} name="checkedA" />}
+										label={isHtml ? "HTML Mode" : "Editor Mode"}
 									/>
-									{html ? (
+									{isHtml ? (
 										<TextField
 											variant="filled"
 											fullWidth
@@ -393,16 +483,16 @@ export default function AddTender() {
 											required
 											placeholder="Paste Your HTML Code here"
 											helperText="You may use wordhtml.com"
-											value={text}
-											onChange={(e) => setText(e.target.value)}
+											value={longDescription}
+											onChange={(e) => setLongDescription(e.target.value)}
 										/>
 									) : (
 										<CKEditor
 											editor={ClassicEditor}
-											data={text}
+											data={longDescription}
 											onChange={(event, editor) => {
 												const data = editor.getData();
-												setText(data);
+												setLongDescription(data);
 											}}
 										/>
 									)}
@@ -469,7 +559,7 @@ export default function AddTender() {
 								{allTender.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
 									<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 										<TableCell component="td" scope="row">
-											Name : {data.title} ; Description : {data.description} <br />
+											Name : {data.tenderTitle} ; Short Des : {data.shortDescription} <br />
 										</TableCell>
 									</TableRow>
 								))}

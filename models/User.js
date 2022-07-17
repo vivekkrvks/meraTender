@@ -27,13 +27,39 @@ const UserSchema = new Schema({
     type: String,
     default:"createYourPassword"
   },
-  state: {
-    type: String,
-    default:""
+accountType:{
+  type: String,
+  default:"free"
+},
+validityStatus:{
+    startDate:{
+      type: String,
+      default:""
+    },
+    endDate:{
+      type: String,
+      default:""
+    }
+},
+state: {
+    stateName:{
+        type: String,
+        default:"Bihar"
+    },
+    stateLink:{
+        type: String,
+        default:"bihar"
+    }
 },    
 district: {
-type: String,
-default:""
+    districtName:{
+        type: String,
+        default:""
+    },
+    districtLink:{
+        type: String,
+        default:""
+    }
 },  
   // user , admin , 
   // supervisor , fieldPartner

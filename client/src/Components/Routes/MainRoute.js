@@ -9,6 +9,9 @@ import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
 import AddState from "../../Protected/Addition/Location/AddState"
 import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
+// Report
+import AllUser from "../../Protected/Report/AllUser"
+
 
 
 import Home from "../../PublicPage/Home"
@@ -56,6 +59,9 @@ export default function MainRoute() {
         } />
               <Route  path="/AddDistrict" element={
           <PrivateRoute children={<AddDistrict />} />        
+        } />
+              <Route  path="/AllUser" element={
+          <PrivateRoute children={<AllUser />} />        
         } />
         <Route  path="/AddCategory" element={
           <PrivateRoute children={<AddCategory />} />     

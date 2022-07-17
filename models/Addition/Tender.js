@@ -7,15 +7,24 @@ const TenderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "myUser"
       },
+    visibility:{
+        name:{
+            type:String,
+            default:""
+        },
+        id:{
+            type:String,
+            default:""
+        },
+    },
       tenderNumber:{
         type:String,
         default:""
     },
-   tenderName:{
+    tenderTitle:{
        type:String,
        required:true
    },
-
    openingDate:{
        type:String,
        default:""
@@ -34,7 +43,7 @@ const TenderSchema = new Schema({
         type:String,
         default:""
     },
-    link:{
+    departmentLink:{
         type:String,
         default:""
     }
@@ -44,7 +53,7 @@ const TenderSchema = new Schema({
             type: String,
             default:"Bihar"
         },
-        link:{
+        stateLink:{
             type: String,
             default:"bihar"
         }
@@ -54,7 +63,7 @@ const TenderSchema = new Schema({
             type: String,
             default:""
         },
-        link:{
+        districtLink:{
             type: String,
             default:""
         }
@@ -86,11 +95,15 @@ const TenderSchema = new Schema({
         default:""
     },
    /////////////////////////////
-   link:{
+   isAdvance:{
+    type:Boolean,
+    default:false
+},
+tenderLink:{
     type:String,
     required:true
 },
-image:{
+coverImg:{
     url:{
      type:String,
      default:""
@@ -101,15 +114,14 @@ image:{
 
     }
 },
-   blogBody:{
+isHtml:{
+    type:Boolean,
+    default:false
+},
+longDescription:{
        type:String,
        default:""
    },
-   visibility:{
-       type:String,
-       default:"Public"
-   },
-
    date: {
     type: Date,
     default: Date.now

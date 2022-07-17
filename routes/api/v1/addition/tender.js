@@ -13,65 +13,67 @@ router.post(
   "/",
    passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    
     const tenderValues = {
+        visibility:{},
         department:{},
-        image:{}
+        state:{},
+        district:{},
+        file1:{},
+        file2:{},
+        coverImg:{},
     };
     tenderValues.user = req.user.id;
     tenderValues.creationDate = new Date();
-    tenderValues.tenderName = req.body.tenderName;
-//link start
 
-    var strs = req.body.link;
-    var rests = strs.replace(/  | |   |    |      /gi, function (x) {
-      return  "";
-    });
+    tenderValues.visibility.name = req.body.visibility.name;
+    tenderValues.visibility.id = req.body.visibility.id;
+    tenderValues.tenderNumber = req.body.tenderNumber;
+    tenderValues.tenderTitle = req.body.tenderTitle;
     tenderValues.openingDate = req.body.openingDate;
     tenderValues.closingDate = req.body.closingDate;
     tenderValues.tenderAmount = req.body.tenderAmount;
-    tenderValues.shortDescription = req.body.shortDescription;
     tenderValues.department.departmentName = req.body.department.departmentName;
-    tenderValues.department.link = req.body.department.link;
+    tenderValues.department.departmentLink = req.body.department.departmentLink;
     tenderValues.state.stateName = req.body.state.stateName;
-    tenderValues.state.link = req.body.state.link;
+    tenderValues.state.stateLink = req.body.state.stateLink;
     tenderValues.district.districtName = req.body.district.districtName;
-    tenderValues.district.link = req.body.district.link;
-    tenderValues.file1 = req.body.file1;
-    tenderValues.file2 = req.body.file2;
+    tenderValues.district.districtLink = req.body.district.districtLink;
+    tenderValues.file1.url = req.body.file1Url;
+    tenderValues.file1.publicId = req.body.file1Id;
+    tenderValues.file2.url = req.body.file2Url;
+    tenderValues.file2.publicId = req.body.file2Id;
+    tenderValues.shortDescription = req.body.shortDescription;
 
-    tenderValues.link = rests.toLowerCase()
-    tenderValues.image.url = req.body.imageUrl;
-    tenderValues.image.publicId = req.body.imageId;
-    tenderValues.blogBody = req.body.blogBody;
+    tenderValues.isAdvance = req.body.isAdvance;
+    //link start
 
+    var strs = req.body.tenderLink;
+    var rests = strs.replace(/  | |   |    |      /gi, function (x) {
+      return  "";
+    });
+    tenderValues.tenderLink = rests.toLowerCase();
+    tenderValues.coverImg.url = req.body.coverImgUrl;
+    tenderValues.coverImg.publicId = req.body.coverImgId;
+    tenderValues.isHtml = req.body.isHtml;
+    tenderValues.longDescription = req.body.longDescription;
 
     //Do database stuff
 if(
-  req.body.tenderName == undefined || req.body.tenderName == "" ||
-  tenderValues.link == undefined || tenderValues.link == ""
+  req.body.tenderTitle == undefined || req.body.tenderTitle == "" ||
+  tenderValues.tenderLink == undefined || tenderValues.tenderLink == ""
 ){
 
   res.json({
     message: "Title, link are Required field",
     variant: "error"
 })  
-    } else if(
-        req.body.tenderAmount == undefined || req.body.tenderAmount == "" ||
-        req.body.openingDate == undefined || req.body.openingDate == "" ||
-        req.body.closingDate == undefined || req.body.closingDate == "" 
-        
-    ){
-        res.json({
-            message: "tender Amount opening & closing Date are Required field",
-            variant: "error"
-        })  
+    
     }  else if(
-        tenderValues.department.link == undefined || tenderValues.department.link == "" || 
-        tenderValues.district.link == undefined || tenderValues.district.link == "" 
+        tenderValues.department.departmentLink == undefined || tenderValues.department.departmentLink == "" || 
+        tenderValues.district.districtLink == undefined || tenderValues.district.districtLink == "" 
     ){
         res.json({
-            message: "tender Amount opening & closing Date are Required field",
+            message: "Please Select Department and District",
             variant: "error"
         })  
     }
@@ -79,7 +81,7 @@ if(
     else {
     
           Tender.findOne({
-            tenderName: tenderValues.tenderName
+            tenderTitle: tenderValues.tenderTitle
           })
             .then(tender => {
               //Username already exists
@@ -90,7 +92,7 @@ if(
                 });
               } else {
                 Tender.findOne({
-                  link: tenderValues.link
+                  link: tenderValues.tenderLink
                 })
                   .then(tender => {
                     //Username already exists
@@ -131,7 +133,7 @@ router.get(
   async(req, res) => {
    let allData = await Tender.aggregate(
         [
-            {$project:{tenderName:1,description:1}}
+            {$project:{tenderTitle:1,shortDescription:1}}
         ]
     )   .catch(err =>
         res
@@ -153,7 +155,7 @@ router.get(
   (req, res) => {
     Tender.findOne({
       _id: req.params.id
-    }).then(Tender => res.json(Tender)).catch(err => res.json({message: "Problem in finding With this Id", variant: "error"}));
+    }).then(Tender => (res.json(Tender))).catch(err => res.json({message: "Problem in finding With this Id", variant: "error"}));
   }
 );
 
@@ -162,7 +164,6 @@ router.get(
 // @desc    route to update/edit tender
 // @access  PRIVATE
 async function updateMe(req,res,tenderValues){
-
   Tender.findOneAndUpdate(
     { _id: req.params.id },
     { $set: tenderValues },
@@ -188,71 +189,143 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   async(req, res) => {
 
-    
     const tenderValues = {
-        department:{},
-        image:{}
-    };
-    tenderValues.user = req.user.id;
-    if(req.body.tenderName)tenderValues.tenderName = req.body.tenderName;
 
-    if(req.body.openingDate)tenderValues.openingDate = req.body.openingDate;
-    if(req.body.closingDate)tenderValues.closingDate = req.body.closingDate;
-    if(req.body.tenderAmount)tenderValues.tenderAmount = req.body.tenderAmount;
-    if(req.body.shortDescription)tenderValues.shortDescription = req.body.shortDescription;
-    if(req.body.department.departmentName)tenderValues.department.departmentName = req.body.department.departmentName;
-    if(req.body.department.link)tenderValues.department.link = req.body.department.link;
-    if(req.body.state.stateName)tenderValues.state.stateName = req.body.state.stateName;
-    if(req.body.state.link)tenderValues.state.link = req.body.state.link;
-    if(req.body.district.districtName)tenderValues.district.districtName = req.body.district.districtName;
-    if(req.body.district.link)tenderValues.district.link = req.body.district.link;
-    if(req.body.file1)tenderValues.file1 = req.body.file1;
-    if(req.body.file2)tenderValues.file2 = req.body.file2;
-//link start
+  };
+  if(req.user.id)tenderValues.user = req.user.id;
 
-var strs = req.body.link;
-var rests = strs.replace(/  | |   |    |      /gi, function (x) {
-  return  "";
-});
-    if(req.body.link)tenderValues.link = rests.toLowerCase()
-    if(req.body.imageUrl)tenderValues.image.url = req.body.imageUrl;
-    if(req.body.imageId)tenderValues.image.publicId = req.body.imageId;
-    if(req.body.blogBody)tenderValues.blogBody = req.body.blogBody;
-
-
-    //Do database stuff
-if(
-  tenderValues.tenderName == undefined || tenderValues.tenderName == "" ||
-  tenderValues.link == undefined || tenderValues.link == ""
-){
-
-  res.json({
-    message: "Title, link are Required field",
-    variant: "error"
-})  
-    } else if(
-        tenderValues.tenderAmount == undefined || tenderValues.tenderAmount == "" ||
-        tenderValues.openingDate == undefined || tenderValues.openingDate == "" ||
-        tenderValues.closingDate == undefined || tenderValues.closingDate == "" 
-        
-    ){
-        res.json({
-            message: "tender Amount opening & closing Date are Required field",
-            variant: "error"
-        })  
-    }  else if(
-        tenderValues.department.link == undefined || tenderValues.department.link == "" || 
-        tenderValues.district.link == undefined || tenderValues.district.link == "" 
-    ){
-        res.json({
-            message: "tender Amount opening & closing Date are Required field",
-            variant: "error"
-        })  
+  if(req.body.visibility?.id){
+    tenderValues.visibility = {
+      id : req.body.visibility.id,
+      name : req.body.visibility.name
     }
-    
-    else {
+  }
+  if(req.body.tenderNumber)tenderValues.tenderNumber = req.body.tenderNumber;
+  if(req.body.tenderTitle)tenderValues.tenderTitle = req.body.tenderTitle;
+  if(req.body.openingDate)tenderValues.openingDate = req.body.openingDate;
+  if(req.body.closingDate)tenderValues.closingDate = req.body.closingDate;
+  if(req.body.tenderAmount)tenderValues.tenderAmount = req.body.tenderAmount;
+  if(req.body.department?.departmentLink){
+    tenderValues.department ={
+      departmentLink : req.body.department.departmentLink,
+      departmentName : req.body.department.departmentName
+    }
+  }
+  if(req.body.state?.stateLink){
+    tenderValues.state = {
+      stateLink : req.body.state.stateLink,
+      stateName : req.body.state.stateName
+    }
+  }
+  if(req.body.district?.districtLink){
+    tenderValues.district = {
+      districtLink : req.body.district.districtLink,
+      districtName : req.body.district.districtName
+    }}
+  if(req.body.file1Id){
+    tenderValues.file1 = {
+      publicId : req.body.file1Id,
+      url : req.body.file1Url
+    }}
+  if(req.body.file1Id == ""){
+    tenderValues.file1 = {
+      url: req.body.file1Url,
+      publicId: req.body.file1Id
+    }
+  }
+  if(req.body.file2Id){
+    tenderValues.file2 = {
+      publicId : req.body.file2Id,
+      url : req.body.file2Url
+    }}
+  if(req.body.file2Id == ""){
+    tenderValues.file2 = {
+      url: req.body.file2Url,
+      publicId: req.body.file2Id
+    }
+  }
+  if(req.body.shortDescription)tenderValues.shortDescription = req.body.shortDescription;
 
-updateMe(req,res,tenderValues) }
+  if(req.body.isAdvance==true || req.body.isAdvance==false )tenderValues.isAdvance = req.body.isAdvance;
+  //link start
+  if(req.body.tenderLink){
+  var strs = req.body.tenderLink;
+  var rests = strs.replace(/  | |   |    |      /gi, function (x) {
+    return  "";
+  });
+  tenderValues.tenderLink = rests.toLowerCase();}
+  if(req.body.coverImgId){
+    tenderValues.coverImg = {
+      publicId : req.body.coverImgId,
+      url : req.body.coverImgUrl
+    }}
+  if(req.body.coverImgId == ""){
+    tenderValues.coverImg = {
+      url: req.body.coverImgUrl,
+      publicId: req.body.coverImgId
+    }
+  }
+  if(req.body.isHtml == true || req.body.isHtml == false )tenderValues.isHtml = req.body.isHtml;
+  if(req.body.longDescription)tenderValues.longDescription = req.body.longDescription;   
+
+  Tender.findOne({
+    tenderTitle: tenderValues.tenderTitle
+  })
+    .then(tender => {
+      //Username already exists
+      if (tender) {
+        if(tender._id != req.params.id)
+        {
+          res.json({
+          message: "Title Already exist ",
+          variant: "error"
+        });
+      } else {
+          Tender.findOne({
+            link: tenderValues.tenderLink
+          })
+            .then(tender => {
+              //Username already exists
+              if (tender) {
+                if(tender._id != req.params.id){
+                  res.json({
+                    message: "link Already exist ",
+                    variant: "error"
+                  });
+                } else {
+                updateMe(req,res,tenderValues) 
+                }             
+              } else {
+                updateMe(req,res,tenderValues) 
+  
+                
+              }})
+              .catch(err => console.log(err));
+        }
+      } else {
+        Tender.findOne({
+          link: tenderValues.tenderLink
+        })
+          .then(tender => {
+            //Username already exists
+            if (tender) {
+              if(tender._id != req.params.id){
+                res.json({
+                  message: "link Already exist ",
+                  variant: "error"
+                });
+              } else {
+              updateMe(req,res,tenderValues) 
+              }             
+            } else {
+              updateMe(req,res,tenderValues) 
+
+              
+            }})
+            .catch(err => console.log(err));
+      }
+    })
+    .catch(err => console.log(err)); 
 
 }
 );
@@ -300,9 +373,9 @@ console.log(search)
         let allData = await Tender.aggregate(
             [
                 {$match:{
-                    tenderName: new RegExp(search, "i")
+                    tenderTitle: new RegExp(search, "i")
                   }},
-                {$project:{tenderName:1,description:1}}
+                  {$project:{tenderTitle:1,shortDescription:1}}
             ]
         )   .catch(err =>
             res

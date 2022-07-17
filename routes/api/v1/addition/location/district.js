@@ -118,6 +118,30 @@ router.get(
    
   }
 );
+// @type    GET
+//@route    /api/v1/addition/location/district/alldistrict
+// @desc    route for getting all data from  district
+// @access  PRIVATE
+
+router.get(
+  "/bystate/:stateLink",
+  // passport.authenticate("jwt", { session: false }),
+  async(req, res) => {
+    let stateLink=req.params.stateLink;
+   let allData = await District.aggregate(
+        [
+            {$match:{"state.stateLink":stateLink}},
+            {$project:{districtName:1,districtLink:1}}
+        ]
+    )   .catch(err =>
+        res
+          .status(404)
+          .json({ message: "No District Found", variant: "error" })
+      );
+      res.json(allData)
+   
+  }
+);
 
 // @type    get
 //@route    /api/v1/addition/location/district/get/:id
