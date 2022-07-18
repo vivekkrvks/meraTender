@@ -11,6 +11,8 @@ import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
 // Report
 import AllUser from "../../Protected/Report/AllUser"
 
+import CommonPubDash from "../Navigation/PublicAppBarNavBar/CommonPubDash"
+import AllTender from "../../PublicPage/Tender/AllTender"
 
 
 import Home from "../../PublicPage/Home"
@@ -65,6 +67,12 @@ export default function MainRoute() {
 
         <Route  path="/AddDepartment" element={
           <PrivateRoute children={<AddDepartment />} />     
+        } />
+        <Route  path="/CommonPubDash" element={
+          <PrivateRoute children={<CommonPubDash />} />     
+        } />
+        <Route  path="/AllTender" element={
+          <PrivateRoute children={<AllTender />} />     
         } />
 
   
