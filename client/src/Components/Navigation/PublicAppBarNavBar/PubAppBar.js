@@ -51,7 +51,6 @@ export default function PubAppBarCom(props) {
 
   return (
     <>
-      <CssBaseline />
       <AppBar style={{marginBottom:"auto"}} color="default" position="fixed" open={props.open}>
         <Toolbar>
           <IconButton

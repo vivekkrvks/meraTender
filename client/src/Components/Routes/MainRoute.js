@@ -12,14 +12,16 @@ import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
 import AllUser from "../../Protected/Report/AllUser"
 
 import CommonPubDash from "../Navigation/PublicAppBarNavBar/CommonPubDash"
-import AllTender from "../../PublicPage/Tender/AllTender"
 
-
-import Home from "../../PublicPage/Home"
 
 import Dashboard from "../../Protected/MyDashboard/Dashboard";
 import App from "../../App";
 // public
+import LoginMobile from "../../ProUser/LoginMobile";
+import LoginOtp from "../../ProUser/LoginOtp";
+import Pricing from "../../ProUser/Pricing";
+import MainApp from "../../ProUser/MainApp";
+
 
 const PrivateRoute = ({ children }) => {
 	const { state } = useContext(MainContext);
@@ -32,21 +34,12 @@ const PrivateRoute = ({ children }) => {
     // return <Login />
   }
 };
-const AdminRoute = ({ children }) => {
-	const { state } = useContext(MainContext);
-	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" ) ? true : false;
-	if(isAuthenticated){
-   return children
-  } else {
-    return <Dashboard />
-  }
-};
+
 
 export default function MainRoute() {
 	return (
 		<Routes>
       	<Route path="/" element={<App />}/>
-      	<Route path="/home" element={<Home />}/>
         <Route  path="/login" element={<Login />} />
   
         <Route  path="/Dashboard" element={
@@ -71,13 +64,20 @@ export default function MainRoute() {
         <Route  path="/CommonPubDash" element={
           <PrivateRoute children={<CommonPubDash />} />     
         } />
-        <Route  path="/AllTender" element={
-          <PrivateRoute children={<AllTender />} />     
-        } />
-
-  
 
         {/* public */}
+        <Route  path="/LoginMobile" element={
+          <PrivateRoute children={<LoginMobile />} />     
+        } /> 
+        <Route  path="/LoginOtp" element={
+          <PrivateRoute children={<LoginOtp />} />     
+        } /> 
+        <Route  path="/Pricing" element={
+          <PrivateRoute children={<Pricing />} />     
+        } /> 
+        <Route  path="/MainApp" element={
+          <PrivateRoute children={<MainApp />} />     
+        } /> 
 
         
     	</Routes>

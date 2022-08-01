@@ -1,0 +1,172 @@
+.bg1 {
+  /* background-image: url("https://svgshare.com/i/j_p.svg"); */
+  background-repeat: no-repeat;
+  background-position: 100% 90%;
+  min-height: 100vh;
+}
+.bg2 {
+  /* background-image: url("https://svgshare.com/i/jb4.svg"); */
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  min-height: 100vh;
+}
+
+
+.otpBox{
+  display: flex;
+  align-items: center;
+  justify-content:center
+}
+
+.otpBox input{
+  background-color: #f6f6f6;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 2.5rem;
+  text-align:center;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.pricingBg{
+  background-image: url("https://i.ibb.co/7z84N08/bgn2.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card{
+  box-shadow: rgba(179, 40, 40, 0.65) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 300px;
+  margin: 0 auto;
+  height: 180px;
+  border-radius: 15px;
+  padding: 0px;
+    cursor: pointer;
+    
+  }
+
+.card p {
+  font-size: 30px;
+  color: red;
+  padding: 0px;
+  margin: 0px;
+}
+.card h6  {
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0px;
+  border: 1px solid blue;
+  color: blue;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-decoration: underline overline #293ad2;
+}
+.card button{
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color:navy;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  bottom: -20px;
+  border: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+  cursor: pointer;
+
+}
+.card span{
+  position: relative;
+  left: 80px;
+  top: -15px;
+  border: #c779d0;
+  width: 90px;
+  text-align: center;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 0px;
+  height: 30px;
+  font-weight: 600;
+  color:#6d037d;
+  font-family:"Charm";
+  background: linear-gradient(to right, #fdfc47, #24fe41)
+}
+
+.benefit{
+  margin-top: 30px;
+  height: auto;
+  width: "100%";
+  background: rgb(252,255,92);
+  background: linear-gradient(132deg, rgba(252,255,92,0.8076272745426296) 41%, rgba(247,141,12,0.8048261540944502) 61%, rgba(163,244,152,0.8300362381280637) 78%);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 0px;
+  margin-bottom: 0px;
+}
+.benefit ul{
+ list-style-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/treehouse-marker.png");
+}
+.benefit ul li{
+  color: rgb(16, 7, 101);
+  text-align: left;
+  padding-left: 10px;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.mainbg{
+  min-height: 100vh;
+  background-image: url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp");
+  background-color: #fff;
+  background-attachment: fixed;
+  
+}
+.mainCard{
+  margin-top: 10px;
+  padding: 10px;
+  height: 150px;
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items:center ;
+  
+}
+.imgBox{
+  width: 100%;
+  height: 110px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3o63l2rB-NEn7qm4K3qOz7MPIlE7ZeH_aieDMtoLpBeLk5qnL9D311eF2QrCYguJr_mY&usqp=CAU");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.mainCard p{
+ font-family: fangsong;
+ margin: 0px;
+ padding: 0px;
+ color: rgba(0,0,0,0.7);
+ line-height: normal;
+ font-size: 0.75rem;
+
+
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
