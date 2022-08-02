@@ -4,6 +4,7 @@ import CommonPubDash from "../Components/Navigation/PublicAppBarNavBar/CommonPub
 import {Grid,Container,TextField,MenuItem,Typography, Box,Tabs,Tab} from '@mui/material/';
 import { useState } from 'react';
 import { FcHome,FcBusinessman,FcLike } from "react-icons/fc";
+import OneTenderCom from './ProComponent/Tender/OneTender';
 
 
 export default function FullWidthTabs() {
@@ -16,16 +17,13 @@ export default function FullWidthTabs() {
               <Box sx={{ width: '100%' }} className="mainbg" >
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={tabValue} variant="fullWidth" onChange={(e,v)=>setTabValue(v)} aria-label="tabs">
-                  <Tab label="Health" icon={<FcBusinessman style={{fontSize:"1.2rem"}}/>}  />        
-                  <Tab label="Insurance" icon={<FcLike style={{fontSize:"1.2rem"}}/>}  />
+                  <Tab label="All Tender" icon={<FcBusinessman style={{fontSize:"1.2rem"}}/>}  />        
+                  <Tab label="Favourite" icon={<FcLike style={{fontSize:"1.2rem"}}/>}  />
         
                 </Tabs>
               </Box>
-              {tabValue===0 ? 
-              <div>
-                Tab 1
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam, amet quidem.
-              </div> : 
+             
+        
                <div>
                 <Container>
                     <br/>
@@ -69,29 +67,12 @@ export default function FullWidthTabs() {
                 </TextField>
                     </Grid>
                 </Grid>
-        
-                <div className='mainCard'>
-                    <Grid container spacing={2} className="center">
-                        <Grid item xs={4}>
-                        <div className="imgBox">
-                        </div>
-                        </Grid>
-                          <Grid item xs={8}>
-                            <Typography variant="subtitle2" color="primary">Ultra Saving Plan ~ {`${years} Years`}</Typography>
-                            <span style={{display:"flex",flexDirection:"row"}}>
-                                <FcHome style={{fontSize:"1.2rem", paddingRight:"10px"}}/>
-                            <Typography variant="subtitle2" color="secondary">Delhi, Rajib Chowk</Typography>
-                            </span>
-                            <p ><b>{`${plan} Plane`}</b> is the masterstock from Amway Pharma, This has been awarded from 3th Best Reliable plan is India. Feel free to ask our expert for more details. </p>
-        
-                        </Grid>
-                    </Grid>
-                   
-        
-                </div>
+               <OneTenderCom />
+               <OneTenderCom />
+               <OneTenderCom />
         
                 </Container>
-              </div>}
+              </div>
             </Box>
 	} />
 	</>
