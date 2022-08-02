@@ -21,8 +21,7 @@ export default function FullWidthTabs() {
                   <Tab label="Favourite" icon={<FcLike style={{fontSize:"1.2rem"}}/>}  />
         
                 </Tabs>
-              </Box>
-             
+              </Box>           
         
                <div>
                 <Container>
