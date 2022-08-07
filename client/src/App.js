@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dashboard from './../src/Protected/MyDashboard/Dashboard'; 
+import LoginMobile from './../src/ProUser/LoginMobile'; 
 
 
 export default function App() {
@@ -7,7 +7,7 @@ export default function App() {
 
   return (
   <>
-  <Dashboard/>
+  <LoginMobile/>
   </>
   );
 }
