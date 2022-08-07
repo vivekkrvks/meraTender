@@ -1,21 +1,45 @@
 import './App.css';
 import {Container,Typography,Button, Grid, TextField} from '@mui/material/';
-import { useState } from 'react';
 import { Navigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from 'react'
+import MySnackbar from "../../src/Components/MySnackbar";
+const axios = require("axios")
 
 function Otp() {
-    const mobile = localStorage.getItem('mobile');
+	const snackRef = useRef();
+
+    const mobileNo = localStorage.getItem('mobileNo');
     const [otp, setOtp]= useState("")
     const [redirect, setRedirect] = useState(false)
+
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleOpen = () => {
+      setOpen(true);
+    };
+
     const handleChangeOtp = (e) => {
       if(e.length<=4){
         setOtp(e)
       }
     }
-
-    const handleSubmit = () => {
+  
+    const handleSubmit = async(e) => {
       if(otp.length == 4){
-        setRedirect(true)
+        handleOpen();
+        let newData = { mobileNo,otp };
+        await axios
+          .post(`/api/v1/auth/otpLogin/check`, newData)
+          .then((res) => {
+            snackRef.current.handleSnack(res.data);
+            handleClose()
+            if(res.data.variant==="success"){
+              setRedirect(true)
+            }
+          })
+          .catch((err) => console.log(err));
       } else {
         alert("Enter a Valid otp")
       }
@@ -25,6 +49,9 @@ function Otp() {
     if(redirect){
     return <Navigate to="/pricing"/>
   }
+
+
+
   return (
     <div >
      <Container maxWidth="sm" className="bg2">
@@ -37,7 +64,7 @@ function Otp() {
       </Grid>
       <Grid item xs={12}>
          <Typography variant="caption" textAlign="center" gutterBottom component="div">
-      Enter the OTP sent to - +91- {mobile}
+      Enter the OTP sent to - +91- {mobileNo}
       </Typography>
       </Grid>
       
@@ -61,8 +88,11 @@ function Otp() {
       </Grid>
       <Grid item xs={12}>
          <Typography variant="subtitle1" textAlign="center" gutterBottom component="div">
-            00:120 Sec
+             Sec
+
       </Typography>
+      {/* <h2>{timer}</h2>
+            <button onClick={() =>( clearTimer(getDeadTime()))}>Reset</button> */}
       </Grid>  
       <Grid item xs={12}>
          <Typography variant="subtitle1" color="textSecondary" textAlign="center" gutterBottom component="div">
@@ -80,6 +110,7 @@ function Otp() {
     </Grid>
          
       
+		<MySnackbar ref={snackRef} />
       
      </Container>
     </div>

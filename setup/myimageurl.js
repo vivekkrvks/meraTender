@@ -2,11 +2,8 @@ module.exports = {
 
     //cloudinary
       //Category default
-      defaultPoster:"https://res.cloudinary.com/qualifier/image/upload/v1588942774/Default/Qualifier.co.in_1_ejysvh.webp",
-      defaultLogo: "https://res.cloudinary.com/qualifier/image/upload/v1580075035/Important/Quiztones_SVG_logo_ycauba.png",
-      bankSvg:"https://res.cloudinary.com/qualifier/image/upload/v1577167616/bank-po_xvajlk.svg",
-      userImage: "https://vetdeniz.com/wp-content/uploads/2017/10/default-user.jpg",
-      endScreen:"https://res.cloudinary.com/qualifier/image/upload/v1577619570/Important/rat_fynigu.jpg"
+  "biharGovLogo":"https://res.cloudinary.com/mera-tender/image/upload/v1657983613/defaultLogo/biharLogo_bqdrr5.jpg",
+  "biharGovLogoCircle":"https://res.cloudinary.com/mera-tender/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1657983613/defaultLogo/biharLogo_bqdrr5.jpg",
       
 };
   

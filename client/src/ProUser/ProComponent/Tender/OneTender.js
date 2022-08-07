@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FcLike,FcInternal,FcLowPriority } from "react-icons/fc";
+import { FiBookmark } from "react-icons/fi";
+import { FcBookmark } from "react-icons/fc";
 
 const Img = styled('img')({
   margin: 'auto',
@@ -14,7 +16,8 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
-export default function OneTenderCom() {
+export default function OneTenderCom(props) {
+  
   return (
     <Paper
       sx={{
@@ -31,76 +34,81 @@ export default function OneTenderCom() {
           <Grid container spacing={2}  >
         <Grid item xs={3} >
           <ButtonBase sx={{ width: "auto", height: "auto" }}>
-            <Img style={{borderRadius:"12px"}} alt="complex" src="https://res.cloudinary.com/mera-tender/image/upload/v1657983613/defaultLogo/biharLogo_bqdrr5.jpg" />
+            <Img style={{borderRadius:"12px"}} alt="complex" src={props.departmentLogo} />
           </ButtonBase>
         </Grid>
         <Grid item xs={9} sm container >
           <Grid item xs container direction="column" spacing={1}  >
             <Grid item xs>
-            <Typography variant="subtitle2" gutterBottom component="div">
-            Road Construction Department 
+            <Typography style={{color: "#447eed"}} variant="subtitle2" gutterBottom component="div">
+           { props.tenderTitle }
             </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-                 {<FaMapMarkerAlt/>} Araria
+                 {<FaMapMarkerAlt/>} {props.district?.districtName}
                  </Typography>
               <Typography variant="body2" color="text.secondary">
-              Name of Work: Construction of HL RCC Bridge under ROB
+              {props.shortDescription}
               </Typography>
+              <Typography variant="caption" display="block" gutterBottom>
+                 Tender Amount : ₹<b> {props.tenderAmount}</b>
+                 </Typography>
             </Grid>   
           </Grid>         
         </Grid>
       </Grid>
                    
 
-          <Grid item xs style={{marginTop:"12px"}}>
-          <Grid item xs container  spacing={2}>
-          <Grid item xs={3} container direction="column">
-          <Typography variant="body2" color="text.secondary">
-              Opening
+          <Grid item xs container style={{ marginTop:"1px"}}  spacing={1}>
+          <Grid item xs={3} container style={{display:"flex", justifyContent:"space-between"}} direction="column">
+          <Typography variant="caption" style={{fontSize:"x-small"}} display="block" gutterBottom>
+              Opening Date
               </Typography>
-          <Typography variant="caption" display="block" gutterBottom>
-              02/08/2022
+              <Typography variant="button" style={{fontSize:"small",color:"green"}} display="block" gutterBottom>
+              {props.openingDate}
               </Typography>
          </Grid>             
-          <Grid item xs={3} container direction="column">
-          <Typography variant="body2" color="text.secondary">
-          Closing 
+          <Grid item xs={3} container style={{display:"flex", justifyContent:"space-between"}} direction="column">
+          <Typography variant="caption" style={{fontSize:"x-small"}} display="block" gutterBottom>
+          Closing Date
               </Typography>
-          <Typography variant="caption" display="block" gutterBottom>
-              02/08/2022
+              <Typography variant="button" style={{fontSize:"small",color:"red"}} display="block" gutterBottom>
+             {props.closingDate}
               </Typography>
          </Grid>             
                    
-          <Grid item xs={2} >
+          {/* <Grid item xs={2} >
           <Typography variant="body2" color="text.secondary">
               Amount
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-              20,000
+              {props.tenderAmount}
               </Typography>
-         </Grid>             
-          <Grid item container xs={4} >
+         </Grid>              */}
+          <Grid item container xs={6} >
           <Grid item  xs={1} >
          </Grid>             
-          <Grid item  xs={3} >
-             <FcLike style={{width:"100%",height:"100%"}}/> 
+          <Grid 
+          onClick={() => props.saveThisTender(props.id,props.district,props.department,props.from,props.position)}
+          item  xs={3} style={{borderStyle:"outset",cursor:"pointer"}} >
+          {props.isSaved? <FcBookmark style={{width:"100%",height:"100%"}}/> : <FiBookmark style={{width:"100%",height:"100%"}}/> }  
          </Grid> 
          <Grid item  xs={1} >
          </Grid>            
-         <Grid item  xs={3} >
-             <FcInternal style={{width:"100%",height:"100%"}}/>
-         </Grid>   
+         {(props.file1Url)&&(<Grid item style={{borderStyle:"outset"}} xs={3} >
+          <a href={props.file1Url} target="_blank" download>
+             <FcInternal style={{width:"100%",height:"100%"}}/></a>
+         </Grid>   )}
          <Grid item  xs={1} >
          </Grid>          
-         <Grid item  xs={3} >
-            <FcLowPriority style={{width:"100%",height:"100%"}}/>
-         </Grid>             
+        {(props.file2Url)&&( <Grid item style={{borderStyle:"outset"}} xs={3} >
+          <a href={props.file2Url} target="_blank" download>
+            <FcLowPriority style={{width:"100%",height:"100%"}}/></a>
+         </Grid>  )}           
 
          </Grid>             
 
          
          </Grid>             
-        </Grid>
         </Grid>
    
     </Paper>

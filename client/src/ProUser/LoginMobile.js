@@ -1,9 +1,15 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
+
 import {Container,Typography,TextField,Button, Grid} from '@mui/material/';
 import { Navigate } from "react-router-dom";
+import MySnackbar from "../../src/Components/MySnackbar";
+
+const axios = require("axios")
 
 function App() {
+	const snackRef = useRef();
+
   const [mobileNo, setMobileNo] = useState("")
   const [redirect, setRedirect] = useState(false)
   const handleChangeMobileNo = (e) => {
@@ -11,14 +17,34 @@ function App() {
       setMobileNo(e)
     }
   }
+  const [open, setOpen] = useState(false);
+	const handleClose = () => {
+	  setOpen(false);
+	};
+	const handleOpen = () => {
+	  setOpen(true);
+	};
 
-  const handlemobileNo=()=>{
+  const handleSubmit= async(e)=>{
     if(mobileNo.length === 10){
-      console.log(mobileNo)
-      localStorage.setItem('mobileNo', mobileNo);
-      setRedirect(true)
+      e.preventDefault();
+      handleOpen();
+      let newData = { mobileNo };
+      await axios
+        .post(`/api/v1/auth/otpLogin/sendOtp`, newData)
+        .then((res) => {
+          snackRef.current.handleSnack(res.data);
+          handleClose()
+          if(res.data.variant==="success"){
+            localStorage.setItem('mobileNo', mobileNo);
+            setRedirect(true)
+          }
+        })
+        .catch((err) => console.log(err));
+
+ 
     }else{
-      alert("mobileNo No is not Valid")
+      alert("Mobile No is not Valid")
     }
   }
   if(redirect){
@@ -33,7 +59,7 @@ function App() {
         Login or Register
       </Typography>
        <Typography variant="h6" style={{fontWeight: 700}} gutterBottom component="div">
-        Enter your mobileNo No below👇👇
+        Enter your Mobile No below👇👇
       </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -49,7 +75,7 @@ function App() {
      onChange={e=>handleChangeMobileNo(e.target.value)} label="Enter the phone Number" type="number" placeholder='Enter the phone Number' fullWidth variant="outlined" />
       </Grid>
       <Grid item xs={12}>
-     <Button variant="contained" fullWidth style={{borderRadius:10}} onClick={handlemobileNo}>Continue</Button>
+     <Button variant="contained" fullWidth style={{borderRadius:10}} onClick={handleSubmit}>Continue</Button>
       </Grid>
       <Grid item xs={12}>
       <img src="https://svgshare.com/i/j_p.svg" alt="Girl in a jacket" width="100%" height="auto" m/>
@@ -57,6 +83,7 @@ function App() {
     </Grid>
          
       
+		<MySnackbar ref={snackRef} />
       
      </Container>
     </div>

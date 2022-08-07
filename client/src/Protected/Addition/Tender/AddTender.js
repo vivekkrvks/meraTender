@@ -327,7 +327,6 @@ export default function AddTender() {
 								<TextField
 								type="number"
 									variant="outlined"
-									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
 									onBlur={() => handleErr("tenderAmount")}

@@ -31,6 +31,11 @@ const state = require("./routes/api/v1/addition/location/state");
 const district = require("./routes/api/v1/addition/location/district");
 // Report 
 const getUserReport = require("./routes/api/v1/report/getUserReport")
+// Dropdown data
+const publicDropDown = require("./routes/api/v1/dropDown/publicDropDown")
+// for public web
+const getTender = require("./routes/api/v1/forPublicWeb/getTender")
+const saveTender = require("./routes/api/v1/forPublicWeb/saveTender")
 
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
@@ -91,7 +96,12 @@ app.use("/api/v1/addition/location/state", state);
 app.use("/api/v1/addition/location/district", district);
 // Report
 app.use("/api/v1/report/getUserReport", getUserReport);
+// Dropdown data
+app.use("/api/v1/dropDown/publicDropDown", publicDropDown);
 
+// for public web
+app.use("/api/v1/forPublicWeb/getTender", getTender);
+app.use("/api/v1/forPublicWeb/saveTender", saveTender);
 
 
 //other
