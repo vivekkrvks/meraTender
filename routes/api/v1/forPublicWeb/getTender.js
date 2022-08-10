@@ -54,8 +54,10 @@ router.post(
                }  
               }    
             ]).exec()
+    var userObjectId = mongoose.Types.ObjectId(req.user.id);
+
         let savedData = await SavedTender.aggregate([
-            {$match:{user:req.user.id,tenderId:td._id}},
+            {$match:{user:userObjectId,tenderId:td._id}},
             {$project: { id:1,              
                }  
               }    
