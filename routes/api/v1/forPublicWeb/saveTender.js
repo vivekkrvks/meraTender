@@ -11,7 +11,7 @@ router.post(
     "/saveThis",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        console.log(req.body.tenderId)
+        // console.log(req.body.tenderId)
       let tenderValue = {district:{},department:{}}
       tenderValue.user = req.user.id;
       tenderValue.tenderId = req.body.tenderId;

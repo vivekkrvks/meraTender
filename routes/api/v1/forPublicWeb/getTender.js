@@ -7,7 +7,7 @@ const District = require("./../../../../models/Addition/Location/District")
 const Department = require("./../../../../models/Addition/Department");
 const myimageurl = require("../../../../setup/myimageurl");
 const SavedTender = require("../../../../models/ProUser/SavedTender");
-
+var mongoose = require('mongoose');
 // @type    GET
 // /api/v1/forPublicWeb/getTender/tenderWithFilter
 
@@ -18,7 +18,7 @@ router.post(
   "/tenderWithFilter",
   // passport.authenticate("jwt", { session: false }),
   async(req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     let myMatch = {"visibility.id":"public"}
     if(req.body.district?.districtLink){
       myMatch["district.districtLink"] = req.body.district?.districtLink
@@ -26,7 +26,7 @@ router.post(
     if(req.body.department?.departmentLink){
       myMatch["department.departmentLink"] = req.body.department?.departmentLink
     }
-    console.log(myMatch)
+    // console.log(myMatch)
     let TenderData = await Tender.aggregate([
         {$match:myMatch},
         {$project: { tenderNumber:1,
@@ -54,11 +54,21 @@ router.post(
                }  
               }    
             ]).exec()
+        let savedData = await SavedTender.aggregate([
+            {$match:{tenderId:td._id}},
+            {$project: { id:1,              
+               }  
+              }    
+            ]).exec()
             td.departmentLogo = myimageurl.biharGovLogo
-            console.log(DepartmentData)
+            // console.log(DepartmentData)
             if(DepartmentData[0].logo.url)
             {td.departmentLogo = DepartmentData[0].logo.url}
-            td.isSaved = true
+            td.isSaved = false
+            if(savedData.length > 0){
+              td.isSaved = true
+
+            }
             finalData.push(td)
             x++
         }
@@ -73,15 +83,17 @@ router.post(
 
 router.post(
   "/saveTender",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   async(req, res) => {
-    let myMatch = {}
+    var userObjectId = mongoose.Types.ObjectId(req.user.id);
+    let myMatch = {user:userObjectId}
     if(req.body.district?.districtLink){
       myMatch["district.districtLink"] = req.body.district?.districtLink
     }
     if(req.body.department?.departmentLink){
       myMatch["department.departmentLink"] = req.body.department?.departmentLink
     }
+    // console.log(myMatch)
     let SavedTenderData = await SavedTender.aggregate([
         {$match:myMatch},
         {$project: { tenderId:1,
@@ -89,17 +101,21 @@ router.post(
            }  
           }    
         ]).exec()
+    // console.log(SavedTenderData)
+
         let allTenderId = []
         let k = 0
         while(k<SavedTenderData.length){
           allTenderId.push(mongoose.Types.ObjectId(SavedTenderData[k].tenderId))
           k++
         }
-        console.log("allTenderId")
-        console.log(allTenderId)
+        // console.log("allTenderId")
+        // console.log(allTenderId)
     let TenderData = await Tender.aggregate([
         {$match:{
-          tenderId:{ $all: allTenderId }
+          _id:{ 
+            $in: allTenderId
+           }
         }},
         {$project: { tenderNumber:1,
             tenderTitle:1,
@@ -114,8 +130,8 @@ router.post(
            }  
           }    
         ]).exec()
-        console.log("TenderData")
-        console.log(TenderData)
+        // console.log("TenderData")
+        // console.log(TenderData)
         let x = 0;
         let finalData = []
         while(x<TenderData.length){
@@ -129,16 +145,16 @@ router.post(
               }    
             ]).exec()
             td.departmentLogo = myimageurl.biharGovLogo
-            console.log(DepartmentData)
+            // console.log(DepartmentData)
             if(DepartmentData[0].logo.url)
             {td.departmentLogo = DepartmentData[0].logo.url}
             td.isSaved = true
             finalData.push(td)
             x++
         }
-        console.log(SavedTenderData)
+        // console.log(SavedTenderData)
         res.json(finalData)
-        console.log(finalData)
+        // console.log(finalData)
   }
 );
 

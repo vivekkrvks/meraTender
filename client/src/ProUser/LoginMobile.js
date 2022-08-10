@@ -1,17 +1,41 @@
 import './App.css';
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect,useContext, useRef } from "react";
 
 import {Container,Typography,TextField,Button, Grid} from '@mui/material/';
 import { Navigate } from "react-router-dom";
 import MySnackbar from "../../src/Components/MySnackbar";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { MainContext } from "../Components/Context/MainContext";
 
 const axios = require("axios")
 
 function App() {
+	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
+
+  const checkForAuth = () => {
+    let isSubscribed= true
+    if(isSubscribed){
+      if (state.isAuthenticated) {  
+        setRedirectToPricing(true)  
+    }
+    return () => {
+      isSubscribed = false;
+    };
+  }
+  
+  }
+    useEffect( async() => {
+      handleOpen()
+     await checkForAuth()
+      handleClose()
+  
+    }, [state.designation,state.isAuthenticated])
 
   const [mobileNo, setMobileNo] = useState("")
   const [redirect, setRedirect] = useState(false)
+  const [redirectTOPricing, setRedirectToPricing] = useState(false)
   const handleChangeMobileNo = (e) => {
     if(e.length<=10){
       setMobileNo(e)
@@ -26,6 +50,7 @@ function App() {
 	};
 
   const handleSubmit= async(e)=>{
+    handleOpen();
     if(mobileNo.length === 10){
       e.preventDefault();
       handleOpen();
@@ -46,13 +71,27 @@ function App() {
     }else{
       alert("Mobile No is not Valid")
     }
+    handleClose()
   }
+
+  if(redirectTOPricing){
+    return <Navigate to="/pricing"/>
+
+ }
   if(redirect){
     return <Navigate to="/LoginOtp"/>
   }
+
   return (
     <div >
      <Container maxWidth="sm" className="bg1">
+     <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h6" style={{marginTop:"3rem",fontWeight: 700}} component="div">
@@ -78,7 +117,7 @@ function App() {
      <Button variant="contained" fullWidth style={{borderRadius:10}} onClick={handleSubmit}>Continue</Button>
       </Grid>
       <Grid item xs={12}>
-      <img src="https://svgshare.com/i/j_p.svg" alt="Girl in a jacket" width="100%" height="auto" m/>
+      <img style={{marginTop:"40px",widht:"full"}} src="https://res.cloudinary.com/mera-tender/image/upload/v1659903946/defaultImage/in-app-bidding_nafmf5.png" alt="Girl in a jacket" width="100%" height="auto" />
       </Grid>
     </Grid>
          

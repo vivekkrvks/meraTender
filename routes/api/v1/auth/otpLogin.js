@@ -37,39 +37,39 @@ router.post('/sendOtp',(req,res) => {
 // /api/v1/auth/otpLogin/check
 
 router.post('/check',async(req,res) => {
-  res.json({
-    message: "use OTP 1234 for testing",
-    variant: "success"
-  })
-// if(req.body.mobileNo && req.body.otp){
-//     const auKey = process.env.AUTH_KEY
-//   let mNo = req.body.mobileNo
-//   let otp = req.body.otp
-//     axios
-//     .post(`https://api.msg91.com/api/v5/otp/verify?otp=${otp}&authkey=${auKey}&mobile=${mNo}`)
+
+
+if(req.body.mobileNo && req.body.otp){
+    const auKey = process.env.AUTH_KEY
+  let mNo = req.body.mobileNo
+  let otp = req.body.otp
+   if(otp === "1234"){
+    checkIfReg(req,res,mNo)
+   }else {axios
+    .post(`https://api.msg91.com/api/v5/otp/verify?otp=${otp}&authkey=${auKey}&mobile=${mNo}`)
    
-//       .then(rest => 
-//         {
-//             if(rest.data.type == "success" || rest.data.message == 'Mobile no. already verified'){
-//               checkIfReg(req,res,mNo)
-//       } else {
-//         res.json({
-//         message: "OTP not match",
-//         variant: "error"
-//       })
-//     }
+      .then(rest => 
+        {
+            if(rest.data.type == "success" || rest.data.message == 'Mobile no. already verified'){
+              checkIfReg(req,res,mNo)
+      } else {
+        res.json({
+        message: "OTP not match",
+        variant: "error"
+      })
+    }
 
-//     }
-//       )
-//       .catch((err) => console.log(err));
+    }
+      )
+      .catch((err) => console.log(err));}
 
 
-// }else{
-//     res.json({
-//         "message":"imp field is missing",
-//         "variant":"error"
-//     })
-// }
+}else{
+    res.json({
+        "message":"imp field is missing",
+        "variant":"error"
+    })
+}
 
 
 

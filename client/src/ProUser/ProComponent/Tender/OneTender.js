@@ -88,7 +88,9 @@ export default function OneTenderCom(props) {
           <Grid item  xs={1} >
          </Grid>             
           <Grid 
-          onClick={() => props.saveThisTender(props.id,props.district,props.department,props.from,props.position)}
+          onClick={() => (
+            props.saveThisTender(props.id,props.district,props.department,props.from,props.position))}
+        
           item  xs={3} style={{borderStyle:"outset",cursor:"pointer"}} >
           {props.isSaved? <FcBookmark style={{width:"100%",height:"100%"}}/> : <FiBookmark style={{width:"100%",height:"100%"}}/> }  
          </Grid> 

@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import MySnackbar from "../Components/MySnackbar";
 import CommonPubDash from "../Components/Navigation/PublicAppBarNavBar/CommonPubDash"
 
-import {Grid,Container,TextField,MenuItem,Typography, Box,Tabs,Tab, Autocomplete} from '@mui/material/';
+import {Grid,Container,TextField,MenuItem,Typography, Box,Tabs,Tab, Autocomplete, Backdrop, CircularProgress} from '@mui/material/';
 import { FcHome,FcBusinessman,FcLike } from "react-icons/fc";
 import OneTenderCom from './ProComponent/Tender/OneTender';
 import axios from "axios";
@@ -43,6 +43,7 @@ export default function FullWidthTabs() {
                 .catch(err => console.log(err))
     }
     const getAllTender = async() => {
+      handleOpen()
       let myData = {district,department}
         await axios
                 .post(`/api/v1/forPublicWeb/getTender/tenderWithFilter`,myData)
@@ -51,15 +52,22 @@ export default function FullWidthTabs() {
                 getAllSavedTender()
     }
     const getAllSavedTender = async() => {
+      handleOpen()
+
       let myData = {district,department}
         await axios
                 .post(`/api/v1/forPublicWeb/getTender/saveTender`,myData)
                 .then(
-                  // (res) => (setAllSavedTender(res.data))
+                //  res => console.log(res)
+                  (res) => (setAllSavedTender(res.data)),
+                  handleClose()
                   )
                 .catch(err => console.log(err))
+                handleClose()
     }
     const saveThisTender = async(oneId,oneDist,oneDepa,oneFrom,onePosition) => {
+      handleOpen()
+
       let myData = {tenderId:oneId,district:oneDist,department:oneDepa}
         await axios
                 .post(`/api/v1/forPublicWeb/saveTender/saveThis`,myData)
@@ -67,6 +75,7 @@ export default function FullWidthTabs() {
                  { 
                   console.log(res.data)
                   if(res.data.variant === "success"){
+                getAllSavedTender()
                     snackRef.current.handleSnack(res.data);
                     if(res.data.type === "added"){
                       let tp = allTender
@@ -80,19 +89,29 @@ export default function FullWidthTabs() {
                       console.log(allTender)
 
                     } 
+                    handleClose()
                   }else {
                     snackRef.current.handleSnack(res.data);
                   }}
                 )
                 .catch(err => console.log(err))
+                handleClose()
     }
 
   return (
 	<>
+
 	<CommonPubDash compo = {
               <Box sx={{ width: '100%' }} className="mainbg" >
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={tabValue} variant="fullWidth" onChange={(e,v)=>setTabValue(v)} aria-label="tabs">
+              <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+                <Tabs value={tabValue} variant="fullWidth" onChange={(e,v)=>(setTabValue(v))} aria-label="tabs">
                   <Tab label="All Tender" icon={<FcBusinessman style={{fontSize:"1.2rem"}}/>}  />        
                   <Tab label="Saved Tender" icon={<FcBookmark style={{fontSize:"1.2rem"}}/>}  />
         
