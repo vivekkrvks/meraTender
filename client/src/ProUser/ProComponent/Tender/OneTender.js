@@ -8,6 +8,8 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FcLike,FcInternal,FcLowPriority } from "react-icons/fc";
 import { FiBookmark } from "react-icons/fi";
 import { FcBookmark } from "react-icons/fc";
+import { GrDocumentPdf } from "react-icons/gr";
+import { VscFilePdf } from "react-icons/vsc";
 
 const Img = styled('img')({
   margin: 'auto',
@@ -98,13 +100,13 @@ export default function OneTenderCom(props) {
          </Grid>            
          {(props.file1Url)&&(<Grid item style={{borderStyle:"outset"}} xs={3} >
           <a href={props.file1Url} target="_blank" download>
-             <FcInternal style={{width:"100%",height:"100%"}}/></a>
+             <GrDocumentPdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>   )}
          <Grid item  xs={1} >
          </Grid>          
         {(props.file2Url)&&( <Grid item style={{borderStyle:"outset"}} xs={3} >
           <a href={props.file2Url} target="_blank" download>
-            <FcLowPriority style={{width:"100%",height:"100%"}}/></a>
+            <VscFilePdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>  )}           
 
          </Grid>             

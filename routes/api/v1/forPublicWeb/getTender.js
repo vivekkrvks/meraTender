@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 
 router.post(
   "/tenderWithFilter",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   async(req, res) => {
     // console.log(req.body)
     let myMatch = {"visibility.id":"public"}
@@ -55,7 +55,7 @@ router.post(
               }    
             ]).exec()
         let savedData = await SavedTender.aggregate([
-            {$match:{tenderId:td._id}},
+            {$match:{user:req.user.id,tenderId:td._id}},
             {$project: { id:1,              
                }  
               }    

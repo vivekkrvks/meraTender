@@ -1,4 +1,7 @@
-import  React  from 'react';
+import  React , {useContext} from 'react';
+import { MainContext } from "../../../Components/Context/MainContext";
+import { DRAWER, LOGOUT_USER } from "../../../Components/Context/types";
+
 
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
@@ -38,7 +41,6 @@ const AppBar = styled(MuiAppBar, {
 const drawerWidth = 240;
 
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function PubAppBarCom(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -48,7 +50,11 @@ export default function PubAppBarCom(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const { state, dispatch } = useContext(MainContext);
 
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT_USER });
+  };
   return (
     <>
       <AppBar style={{marginBottom:"auto"}} color="default" position="fixed" open={props.open}>
@@ -73,7 +79,7 @@ export default function PubAppBarCom(props) {
           <Box sx={{ flexGrow: 0 }} style={{marginRight:"2px",marginLeft:"auto"}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="https://res.cloudinary.com/mera-tender/image/upload/v1660153735/defaultIcons/icons-logos-emojis-user-icon-png-transparent-11563566676e32kbvynug_fuhfrj.png" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -92,11 +98,16 @@ export default function PubAppBarCom(props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {myList.map((value,i) => (                
+                <MenuItem key={value.link} onClick={handleCloseUserMenu}>
+                  <Link href={value.link} to={value.link}  >
+                  <Typography textAlign="center">{value.text}</Typography></Link>
                 </MenuItem>
               ))}
+              <MenuItem  onClick={handleCloseUserMenu} style={{color:"red"}}>
+				 <Link onClick={handleLogout} to={"#"} href={"#"} color="inherit" underline="hover">
+                  <Typography textAlign="center">Logout</Typography> </Link>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -105,5 +116,12 @@ export default function PubAppBarCom(props) {
       </>
   );
 }
+
+
+const myList = [
+	{ text: "Dashboard", link: "/dashboard" },
+  { text: "Transaction", link: "/AddTender"},
+  { text: "Profile", link: "/AddDepartment"},
+];
 
 

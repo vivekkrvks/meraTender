@@ -21,6 +21,14 @@ import LoginMobile from "../../ProUser/LoginMobile";
 import LoginOtp from "../../ProUser/LoginOtp";
 import Pricing from "../../ProUser/Pricing";
 import MainApp from "../../ProUser/MainApp";
+import StaticRoute from "./StaticRoute";
+import About from "../../ProUser/StaticPage/AboutUs";
+import PrivacyPolicy from "../../ProUser/StaticPage/PrivacyPolicy";
+import TermAndCondition from "../../ProUser/StaticPage/TermAndCondition";
+import RefundPolicy from "../../ProUser/StaticPage/RefundPolicy";
+import PricingContent from "../../ProUser/StaticPage/Pricing";
+import ProContact from "../../ProUser/StaticPage/ContactUs";
+import UserProfile from "../../ProUser/Profile/UserProfile";
 
 
 const PrivateRoute = ({ children }) => {
@@ -78,8 +86,14 @@ export default function MainRoute() {
         <Route  path="/MainApp" element={
           <PrivateRoute children={<MainApp />} />     
         } /> 
+      	<Route path="/about" element={<About />}/>
+      	<Route path="/PrivacyPolicy" element={<PrivacyPolicy />}/>
+      	<Route path="/TermAndCondition" element={<TermAndCondition />}/>
+      	<Route path="/RefundPolicy" element={<RefundPolicy />}/>
+      	<Route path="/PricingContent" element={<PricingContent />}/>
+      	<Route path="/ProContact" element={<ProContact />}/>
+      	<Route path="/UserProfile" element={<UserProfile />}/>
 
-        
     	</Routes>
 	);
 }

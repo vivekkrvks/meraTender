@@ -1,10 +1,13 @@
-import  React , {useContext} from 'react';
+import React, { useState, useEffect,useContext, useRef } from "react";
 import { styled, useTheme } from '@mui/material/styles';
+import { Navigate } from "react-router-dom";
 
 import Box from '@mui/material/Box';
 
 import PubAppBarCom from "./PubAppBar"
 import PubDrawerCom from "./PubDrawer"
+import { MainContext } from "../../../Components/Context/MainContext";
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -45,7 +48,31 @@ export default function PersistentDrawerLeft({compo}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+	const { state, dispatch } = useContext(MainContext);
 
+  const [redirectToLogin,setRedirectToLogin] = useState(false);
+
+  const checkForAuth = () => {
+    let isSubscribed= true
+    if(isSubscribed){
+      if (!(state.isAuthenticated)) {  
+        setRedirectToLogin(true)  
+    }
+    return () => {
+      isSubscribed = false;
+    };
+  }
+  
+  }
+    useEffect( async() => {
+     await checkForAuth()
+  
+    }, [state.designation,state.isAuthenticated])
+
+    if(redirectToLogin){
+      return <Navigate to="/"/>
+  
+   }
   return (
     <Box sx={{ display: 'flex' }}>
       <PubAppBarCom 
@@ -62,7 +89,7 @@ export default function PersistentDrawerLeft({compo}) {
       <Main open={open}>
         <DrawerHeader />
         <div
-        style={{backgroundColor:"red",marginLeft:"240px"}}
+        style={{marginLeft:"240px"}}
         >
         {compo}
         
