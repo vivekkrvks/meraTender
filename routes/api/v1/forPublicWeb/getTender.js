@@ -39,6 +39,7 @@ router.post(
             "file1.url":1,
             "file2.url":1,
             shortDescription:1,
+            showLiveOnPhoto:1
            }  
           }    
         ]).exec()
@@ -129,6 +130,7 @@ router.post(
             "file1.url":1,
             "file2.url":1,
             shortDescription:1,
+            showLiveOnPhoto:1
            }  
           }    
         ]).exec()

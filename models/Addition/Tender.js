@@ -94,6 +94,10 @@ const TenderSchema = new Schema({
         type:String,
         default:""
     },
+    showLiveOnPhoto:{
+        type:String,
+        default:false
+    },
    /////////////////////////////
    isAdvance:{
     type:Boolean,

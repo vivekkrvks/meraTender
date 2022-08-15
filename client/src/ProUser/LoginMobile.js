@@ -103,7 +103,7 @@ function App() {
       </Grid>
       <Grid item xs={12}>
       <Typography variant="caption" display="block" gutterBottom>
-        {`Don’t worry ! Your mobileNo No is save with us. Please enter the phone number we will send the OTP in this phone number.`}
+        {`Don’t worry ! Your Mobile No is safe with us. Please enter the phone number we will send the OTP in this phone number.`}
       </Typography>
       </Grid>
       <Grid item xs={12}>

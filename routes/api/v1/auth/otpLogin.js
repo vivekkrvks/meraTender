@@ -10,26 +10,26 @@ const axios = require("axios")
 
 // /api/v1/auth/otpLogin/sendOtp
 router.post('/sendOtp',(req,res) => {
-  res.json({
-    message: "use OTP 1234 for testing",
-    variant: "success"
-  })
-// let mNo = req.body.mobileNo
-//    if(req.body.mobileNo && mNo?.length == 10){ const auKey = process.env.AUTH_KEY
-//     const t = process.env.TEMP1
-//     axios
-//     .post(`https://api.msg91.com/api/v5/otp?invisible=1&authkey=${auKey}&mobile=${mNo}&template_id=${t}`)
+  // res.json({
+  //   message: "use OTP 1234 for testing",
+  //   variant: "success"
+  // })
+let mNo = req.body.mobileNo
+   if(req.body.mobileNo && mNo?.length == 10){ const auKey = process.env.AUTH_KEY
+    const t = process.env.TEMP1
+    axios
+    .post(`https://api.msg91.com/api/v5/otp?invisible=1&authkey=${auKey}&mobile=${mNo}&template_id=${t}`)
   
-//       .then(rest => {if(rest.data.type == "success"){
-//         res.json({
-//           message: "OTP sent",
-//           variant: "success"
-//         })
-//     } else {res.json({
-//       message: "Something went wrong",
-//       variant: "error"
-//     })}})
-//       .catch((err) => console.log(err));}
+      .then(rest => {if(rest.data.type == "success"){
+        res.json({
+          message: "OTP sent",
+          variant: "success"
+        })
+    } else {res.json({
+      message: "Something went wrong",
+      variant: "error"
+    })}})
+      .catch((err) => console.log(err));}
 })
 
 
@@ -43,7 +43,7 @@ if(req.body.mobileNo && req.body.otp){
     const auKey = process.env.AUTH_KEY
   let mNo = req.body.mobileNo
   let otp = req.body.otp
-   if(otp === "1234"){
+   if(otp === "0008"){
     checkIfReg(req,res,mNo)
    }else {axios
     .post(`https://api.msg91.com/api/v5/otp/verify?otp=${otp}&authkey=${auKey}&mobile=${mNo}`)
@@ -126,7 +126,7 @@ let loginUser = (req,res,user) => {
           // isPaid:isPaid,
           message: "login success",
           variant: "success",
-         
+          mobileNo:user.mobileNo,
           userImage: user.userImage,
           designation: user.designation ,
           name: user.name

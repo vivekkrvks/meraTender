@@ -16,7 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { red, yellow,purple  } from '@mui/material/colors';
+import { red, yellow,purpl,black  } from '@mui/material/colors';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import KayakingIcon from '@mui/icons-material/Kayaking';
 import CottageIcon from '@mui/icons-material/Cottage';
@@ -32,6 +32,15 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import PolicyIcon from '@mui/icons-material/Policy';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemButton from '@mui/material/ListItemButton';
+import Collapse from '@mui/material/Collapse';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
 
 const drawerWidth = 240;
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -49,7 +58,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PubDrawerCom(props) {
 
+  const [open, setOpen] = React.useState(false);
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const { state, dispatch } = useContext(MainContext);
 const designationId = state.designation.id;
 const handleLogout = () => {
@@ -57,6 +70,7 @@ const handleLogout = () => {
 };
   const theme = useTheme();
 
+  const mobileNo = localStorage.getItem('mobileNo');
 
   return (
 
@@ -104,7 +118,7 @@ const handleLogout = () => {
       </Badge>
         </ListItemAvatar>
         <ListItemText
-          primary={state.name || state.mobileNo || state.designation.label}
+          primary={state.name || state.mobileNo || mobileNo}
           secondary={
             <React.Fragment>
               <Typography
@@ -124,24 +138,46 @@ const handleLogout = () => {
 
           {listData1.map((l, i) => (
               ("aa"=="aa" || (designationId==="admin" && l.admin=== true) || (designationId==="supervisor" && l.supervisor=== true) || (designationId==="fieldPartner" && l.fieldPartner=== true)) &&
-              (<Link href={l.link} to={l.link} key={l.link} color="inherit" underline="hover">
+              (<Link href={l.link} to={l.link} key={l.link} color="inherit" underline="none">
                   <ListItem button >
                   <Tooltip title={l.text} placement="right">
               <ListItemIcon>
                 {l.icon}
               </ListItemIcon>
               </Tooltip>
-              <ListItemText primary={l.text} />
+              <ListItemText style={{color:"black"}} primary={l.text} />
             </ListItem>
           </Link>)
                  
           ))}
         </List>
         <Divider />
-        <List>
-        {listData2.map((l, i) => (
+  
+      
+
+      <List
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Some public pages in General
+        </ListSubheader>
+      }
+    >
+
+      <ListItemButton onClick={handleClick}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="General" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          {listData2.map((l, i) => (
               ("aa"=="aa" || (designationId==="admin" && l.admin=== true) || (designationId==="supervisor" && l.supervisor=== true) || (designationId==="fieldPartner" && l.fieldPartner=== true)) &&
-              (<Link href={l.link} to={l.link} key={l.link} color="inherit" underline="hover">
+              (<Link href={l.link} to={l.link} key={l.link} color="inherit" underline="none">
                   <ListItem button >
                   <Tooltip title={l.text} placement="right">
               <ListItemIcon>
@@ -154,6 +190,8 @@ const handleLogout = () => {
                  
           ))}
         </List>
+      </Collapse>
+    </List>
         <Divider />
         <List>
         {listData3.map((l, i) => (
@@ -175,7 +213,7 @@ const handleLogout = () => {
      <LogoutIcon sx={{ color: red[500] }}/>
      </ListItemIcon>
      </Tooltip>
-     <ListItemText primary="LogOut" />
+     <ListItemText  style={{color:"black"}} primary="LogOut" />
    </ListItem>
  </Link>
 				) : (

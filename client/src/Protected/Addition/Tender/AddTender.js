@@ -58,8 +58,9 @@ export default function AddTender() {
 	const [file2Url, setFile2Url] = useState("");
 	const [file2Id, setFile2Id] = useState("");	
 	const [shortDescription, setShortDescription] = useState("");
+	const [showLiveOnPhoto, setShowLiveOnPhoto] = useState(false);
 
-	const [isAdvance, setIsAdvance] = useState(true);
+	const [isAdvance, setIsAdvance] = useState(false);
 	const [tenderLink, setTenderLink] = useState("");
 	const [coverImgUrl, setCoverImgUrl] = useState("");
 	const [coverImgId, setCoverImgId] = useState("");	
@@ -125,7 +126,7 @@ export default function AddTender() {
 			visibility,tenderNumber,tenderTitle,
 			openingDate,closingDate,tenderAmount,
 			department,state,district,file1Url,file1Id,
-			file2Url,file2Id,shortDescription,isAdvance,
+			file2Url,file2Id,shortDescription,isAdvance,showLiveOnPhoto,
 			tenderLink,coverImgUrl,coverImgId,isHtml,longDescription
 			};
 		await axios
@@ -163,6 +164,7 @@ export default function AddTender() {
 		setShortDescription("");
 
 		setIsAdvance(false);	
+		setShowLiveOnPhoto(false);	
 		setTenderLink("");	
 		setCoverImgUrl("");	
 		setCoverImgId("");	
@@ -210,6 +212,7 @@ export default function AddTender() {
 		setShortDescription(res.data.shortDescription);
 
 		setIsAdvance(res.data.isAdvance);	
+		setShowLiveOnPhoto(res.data.showLiveOnPhoto);	
 		setTenderLink(res.data.tenderLink);	
 		setCoverImgUrl(res.data.coverImg.url);	
 		setCoverImgId(res.data.coverImg.publicId);	
@@ -431,6 +434,11 @@ export default function AddTender() {
 									onChange={(e) => setShortDescription(e.target.value)}
 								/>
 							</Grid>
+							<Grid item xs={12}>
+							<FormControlLabel
+										control={<Switch checked={showLiveOnPhoto} onChange={() => setShowLiveOnPhoto(!showLiveOnPhoto)} name="checkShowLive" />}
+										label={showLiveOnPhoto ? "Live" : "Normal"}
+									/></Grid>	
 							<Grid item xs={12}>
 							<FormControlLabel
 										control={<Switch checked={isAdvance} onChange={() => setIsAdvance(!isAdvance)} name="checkedA" />}

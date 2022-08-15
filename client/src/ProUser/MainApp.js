@@ -189,7 +189,8 @@ export default function FullWidthTabs() {
                  departmentLogo={v.departmentLogo}
                  file1Url={v.file1.url}
                  file2Url={v.file2.url}
-                 isSaved={v.isSaved}           
+                 isSaved={v.isSaved} 
+                 showLiveOnPhoto={v.showLiveOnPhoto}          
                   from={"allTender"}
                  />
                 )))}
@@ -209,7 +210,8 @@ export default function FullWidthTabs() {
                  departmentLogo={v.departmentLogo}
                  file1Url={v.file1.url}
                  file2Url={v.file2.url}    
-                 isSaved={v.isSaved}           
+                 isSaved={v.isSaved}   
+                 showLiveOnPhoto={v.showLiveOnPhoto}        
                  from={"allSavedTender"}
                  />
                 )))}

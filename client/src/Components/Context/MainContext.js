@@ -18,6 +18,7 @@ const initialState = {
 	isAuthenticated: false,
 	token: "",
 	id: "",
+	mobileNo:"",
 	designation: "",
 	name: "",
 	snackbar: {

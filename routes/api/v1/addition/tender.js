@@ -43,6 +43,7 @@ router.post(
     tenderValues.file2.url = req.body.file2Url;
     tenderValues.file2.publicId = req.body.file2Id;
     tenderValues.shortDescription = req.body.shortDescription;
+    tenderValues.showLiveOnPhoto = req.body.showLiveOnPhoto;
 
     tenderValues.isAdvance = req.body.isAdvance;
     //link start
@@ -245,6 +246,7 @@ router.post(
     }
   }
   if(req.body.shortDescription)tenderValues.shortDescription = req.body.shortDescription;
+  if(req.body.showLiveOnPhoto == true || req.body.showLiveOnPhoto == false )tenderValues.showLiveOnPhoto = req.body.showLiveOnPhoto;
 
   if(req.body.isAdvance==true || req.body.isAdvance==false )tenderValues.isAdvance = req.body.isAdvance;
   //link start

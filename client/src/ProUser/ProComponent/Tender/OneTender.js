@@ -10,6 +10,35 @@ import { FiBookmark } from "react-icons/fi";
 import { FcBookmark } from "react-icons/fc";
 import { GrDocumentPdf } from "react-icons/gr";
 import { VscFilePdf } from "react-icons/vsc";
+import { Avatar, Badge } from '@mui/material';
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}));
 
 const Img = styled('img')({
   margin: 'auto',
@@ -36,7 +65,16 @@ export default function OneTenderCom(props) {
           <Grid container spacing={2}  >
         <Grid item xs={3} >
           <ButtonBase sx={{ width: "auto", height: "auto" }}>
-            <Img style={{borderRadius:"12px"}} alt="complex" src={props.departmentLogo} />
+          <StyledBadge
+          invisible={!props.showLiveOnPhoto}
+        overlap="circular"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        variant="dot"
+      >
+            {/* <Img style={{borderRadius:"12px"}} alt="complex" src={props.departmentLogo} /> */}
+
+        <Avatar alt="Remy Sharp"    sx={{ width: 70, height: 70 }} md={{ width: 180, height: 180 }} src={props.departmentLogo} />
+      </StyledBadge>
           </ButtonBase>
         </Grid>
         <Grid item xs={9} sm container >

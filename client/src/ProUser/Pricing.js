@@ -46,7 +46,7 @@ function Pricing() {
           <Typography variant='subtitle2' color="primary"> ⭐️ <b>Benifits of Business Plan</b> ⭐️</Typography>
           <ul>
             <li>Says it all! Tension-free. Unlimited Tender downloads.</li>
-            <li>Daily Updated Tender.c</li>
+            <li>Daily Updated Tender</li>
             <li>No Need Waste your time on Newspaper or Magazine.</li>
             <li>Any class of Contractor can subscribe & use it easily.</li>
             <li>{`Easy to use & User Friendly App Interface.`}</li>
