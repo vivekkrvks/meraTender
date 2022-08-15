@@ -10,12 +10,16 @@ const axios = require("axios")
 
 // /api/v1/auth/otpLogin/sendOtp
 router.post('/sendOtp',(req,res) => {
-  // res.json({
-  //   message: "use OTP 1234 for testing",
-  //   variant: "success"
-  // })
+
 let mNo = req.body.mobileNo
-   if(req.body.mobileNo && mNo?.length == 10){ const auKey = process.env.AUTH_KEY
+   if(req.body.mobileNo && mNo?.length == 10){ 
+    if(mNo == "0000000000"){
+      res.json({
+        message: "use OTP 1234 for testing",
+        variant: "success"
+      })
+    }else{
+    const auKey = process.env.AUTH_KEY
     const t = process.env.TEMP1
     axios
     .post(`https://api.msg91.com/api/v5/otp?invisible=1&authkey=${auKey}&mobile=${mNo}&template_id=${t}`)
@@ -29,7 +33,9 @@ let mNo = req.body.mobileNo
       message: "Something went wrong",
       variant: "error"
     })}})
-      .catch((err) => console.log(err));}
+      .catch((err) => console.log(err));
+  }
+    }
 })
 
 
