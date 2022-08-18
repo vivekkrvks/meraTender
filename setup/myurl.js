@@ -8,6 +8,6 @@ module.exports = {
 
     // localFrontend:'192.168.1.10:3000',
   // localBackend:'192.168.1.10:2040',
-  localFrontend:'http://pro.meratender.com',
-  localBackend:'http://pro.meratender.com',
+  localFrontend:'https://pro.meratender.com',
+  localBackend:'https://pro.meratender.com',
 };
