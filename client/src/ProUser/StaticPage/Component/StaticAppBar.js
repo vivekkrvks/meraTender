@@ -63,7 +63,7 @@ export default function StaticAppBar({children}) {
       <CssBaseline />
       <AppBar>
         <Toolbar>
-        <Link href={"/MainApp"} to={"/MainApp"}   underline="hover">
+        <Link href={"/pricing"} to={"/pricing"}   underline="hover">
           <Typography variant="h6" style={{color:"white"}} component="div">
             Go Back to Home Page
           </Typography></Link>

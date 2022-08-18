@@ -26,6 +26,7 @@ const otpLogin = require("./routes/api/v1/auth/otpLogin");
 const category = require("./routes/api/v1/addition/category");
 const department = require("./routes/api/v1/addition/department");
 const tender = require("./routes/api/v1/addition/tender");
+const price = require("./routes/api/v1/addition/price");
 // Addition --> Location
 const state = require("./routes/api/v1/addition/location/state");
 const district = require("./routes/api/v1/addition/location/district");
@@ -36,6 +37,7 @@ const publicDropDown = require("./routes/api/v1/dropDown/publicDropDown")
 // for public web
 const getTender = require("./routes/api/v1/forPublicWeb/getTender")
 const saveTender = require("./routes/api/v1/forPublicWeb/saveTender")
+const paytm = require("./routes/api/v1/forPublicWeb/paytm")
 
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
@@ -91,6 +93,7 @@ app.use("/api/v1/auth/otpLogin", otpLogin);
 app.use("/api/v1/addition/category", category);
 app.use("/api/v1/addition/department", department);
 app.use("/api/v1/addition/tender", tender);
+app.use("/api/v1/addition/price", price);
 // add -> loc
 app.use("/api/v1/addition/location/state", state);
 app.use("/api/v1/addition/location/district", district);
@@ -102,6 +105,7 @@ app.use("/api/v1/dropDown/publicDropDown", publicDropDown);
 // for public web
 app.use("/api/v1/forPublicWeb/getTender", getTender);
 app.use("/api/v1/forPublicWeb/saveTender", saveTender);
+app.use("/api/v1/forPublicWeb/paytm", paytm);
 
 
 //other

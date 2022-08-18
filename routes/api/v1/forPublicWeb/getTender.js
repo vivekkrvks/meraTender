@@ -41,7 +41,8 @@ router.post(
             shortDescription:1,
             showLiveOnPhoto:1
            }  
-          }    
+          },
+          { $sort : { date : -1 } }    
         ]).exec()
         let x = 0;
         let finalData = []

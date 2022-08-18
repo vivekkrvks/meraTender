@@ -236,7 +236,7 @@ const handleLogout = () => {
 }
 
 const listData1 = [
-	{ text: "Dashboard", link: "/MainApp", icon: <DashboardIcon color="primary"  />,admin:true,supervisor:true,fieldPartner:true  },
+	{ text: "Home", link: "/MainApp", icon: <DashboardIcon color="primary"  />,admin:true,supervisor:true,fieldPartner:true  },
   { text: "Profile", link: "/UserProfile", icon: <AssignmentIndIcon color="success" />,admin:true },
   { text: "Transaction", link: "/transaction", icon: <PaidIcon color="success" />,admin:true },
 ];

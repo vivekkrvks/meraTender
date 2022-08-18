@@ -71,7 +71,8 @@ export default function ProContact() {
 	const data = [
 		// { title: "Registered Office", value: "47, Qualifier Building, Tollygunge, Kolkata - India" },
 		{ title: "Email", value: "support@meratender.com" },
-		{ title: "Phone No. ", value: "comming Soon" },
+		{ title: "Phone No. ", value: "8084452610" },
+		{ title: "Address ", value: "67, Marvari Patti, Boring Canal Road - Patna, Pin Code - 800001" },
 	];
 	return (
 		<StaticAppBar>		<Fragment>

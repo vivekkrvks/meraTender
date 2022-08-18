@@ -36,7 +36,7 @@ const sendLoginKey = (req,res,user) => {
   });
 }
 // Route to Login With Password
-// /api/v1/auth/user/loginWithPassword
+// /api/v1/auth/loginApi/user/loginWithPassword
 router.post('/user/loginWithPassword',(req,res) => {
   let password = req.body.password
   if(req.body.loginId && req.body.password){
@@ -68,7 +68,7 @@ router.post('/user/loginWithPassword',(req,res) => {
     .catch(err => console.log(`error in login username match ${err}`));
   } else {
     res.json({
-      message: "Mandatory Parameter missing",
+      message: "Mandatory Parameter missing most probably login ID",
       variant: "error"
     })
   }
