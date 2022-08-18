@@ -151,7 +151,7 @@ router.post(
             ]).exec()
             td.departmentLogo = myimageurl.biharGovLogo
             // console.log(DepartmentData)
-            if(DepartmentData[0].logo.url)
+            if(DepartmentData[0]?.logo?.url)
             {td.departmentLogo = DepartmentData[0].logo.url}
             td.isSaved = true
             finalData.push(td)

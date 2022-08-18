@@ -51,8 +51,9 @@ async function paymentsucMSG(pMobile,pEmail,response){
   // /api/v1/forPublicWeb/paytm/payment
     router.get('/payment/:random/:id',(req,res)=> {
 console.log("received1")
+console.log(req.params.id)
         AllTransaction.findOne({
-
+            _id:req.params.id
         }).then(
             allData => {
                 User.findOne({_id:allData.user})
@@ -380,7 +381,7 @@ sendNewLink(req,res,allTran){
     } 
       const id1 = randomStr(5, '687asdfkjdilfisd54691cgaa65412')
       const allTranId = allTran._id
-
+    console.log(allTranId)
     res.status(200).json(keys.localBackend+ `/api/v1/forPublicWeb/paytm/payment/${id1}/${allTranId}`);
 }
 

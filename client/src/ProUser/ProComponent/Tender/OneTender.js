@@ -90,7 +90,7 @@ export default function OneTenderCom(props) {
               {props.shortDescription}
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-                 Tender Amount : ₹<b> {props.tenderAmount}</b>
+              <b> Tender Amount : ₹ {props.tenderAmount}</b>
                  </Typography>
             </Grid>   
           </Grid>         

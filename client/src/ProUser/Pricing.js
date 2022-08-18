@@ -2,9 +2,9 @@ import './App.css';
 import React, {  useState,useContext, useEffect } from "react";
 import axios from "axios";
 import { MainContext } from "../Components/Context/MainContext";
-
+import { makeStyles } from '@mui/styles';
 import { Link, Navigate } from "react-router-dom";
-import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText} from '@mui/material/';
+import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress} from '@mui/material/';
 
 function Pricing() {
     const [priceId, setPriceId] = useState()
@@ -12,7 +12,13 @@ function Pricing() {
     const [mrp, setMrp] = useState()
     const [sellingPrice, setSellingPrice] = useState()
     const { state } = useContext(MainContext);
-
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleOpen = () => {
+      setOpen(true);
+    };
     const setPricing = async (pri) => {
       setPriceId(pri._id)
       setPeriod(pri.period)
@@ -25,10 +31,12 @@ function Pricing() {
     }, []);
 
     const getPricing = async() => {
+      handleOpen()
       await axios
               .get(`/api/v1/addition/price/allprice`)
               .then((res) => (setPricing(res.data[0]),console.log(res.data)))
               .catch(err => console.log(err))
+              handleClose()
   }
 
     const [redirect, setRedirect] = useState(false) 
@@ -65,6 +73,13 @@ function Pricing() {
   return (
     <div className='pricingBg' >
      <Container maxWidth="sm" style={{minHeight:"100vh"}}>
+     <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     <Grid container spacing={2}>
       <Grid item xs={12}>
       <Button onClick={()=>handlePay()} variant="contained" color='secondary' fullWidth style={{marginTop:"2rem", borderRadius:30}}>Best Value</Button>

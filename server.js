@@ -41,6 +41,7 @@ const paytm = require("./routes/api/v1/forPublicWeb/paytm")
 
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
+const pstatus = require("./routes/api/v1/other/pstatus");
 // 
 
 //passport 
@@ -110,6 +111,7 @@ app.use("/api/v1/forPublicWeb/paytm", paytm);
 
 //other
 app.use("/api/v1/other/fileUpload",fileUpload)
+app.use("/api/v1/other/pstatus",pstatus)
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

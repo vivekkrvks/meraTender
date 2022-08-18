@@ -29,6 +29,7 @@ import RefundPolicy from "../../ProUser/StaticPage/RefundPolicy";
 import PricingContent from "../../ProUser/StaticPage/Pricing";
 import ProContact from "../../ProUser/StaticPage/ContactUs";
 import UserProfile from "../../ProUser/Profile/UserProfile";
+import PaymentVerify from "../../ProUser/PaymentVerify";
 
 
 const PrivateRoute = ({ children }) => {
@@ -84,7 +85,8 @@ export default function MainRoute() {
           <PrivateRoute children={<Pricing />} />     
         } /> 
         <Route  path="/MainApp" element={
-          <PrivateRoute children={<MainApp />} />     
+           <PrivateRoute children={<MainApp /> } />   
+         
         } /> 
       	<Route path="/about" element={<About />}/>
       	<Route path="/PrivacyPolicy" element={<PrivacyPolicy />}/>
@@ -93,6 +95,7 @@ export default function MainRoute() {
       	<Route path="/PricingContent" element={<PricingContent />}/>
       	<Route path="/ProContact" element={<ProContact />}/>
       	<Route path="/UserProfile" element={<UserProfile />}/>
+			<Route path="/paymentverify/:paymentCompany/:status/:paymentId" element={<PaymentVerify/>} />
 
     	</Routes>
 	);
