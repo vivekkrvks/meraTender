@@ -160,6 +160,6 @@ const listData1 = [
   { text: "Privacy Policy", link: "/PrivacyPolicy",admin:true },
   { text: "Term & Condition", link: "/TermAndCondition", admin:true },
   { text: "Contact Us", link: "/ProContact", admin:true },
-  { text: "Pricing", link: "/PricingContent",admin:true },
+  // { text: "Pricing", link: "/PricingContent",admin:true },
   { text: "Refund Policy", link: "/RefundPolicy", admin:true },
 ];

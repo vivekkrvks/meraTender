@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jsonwt = require("jsonwebtoken");
 const passport = require("passport");
-var mongoose = require('mongoose');
+const key = require("../../../../setup/myurl");
+const jwt_decode = require("jwt-decode");
+const User = require("../../../../models/User")
+const axios = require("axios")
 
 
 var mongoose = require('mongoose');
@@ -11,7 +16,7 @@ const SucTransaction = require("../../../../models/ProUser/Payment/SucTransactio
 // /api/v1/other/pstatus/:sorf/:id
 // /api/v1/other/pstatus/success/62fe90704de8aba379b57fce
     router.get(
-        "/:sorf/:id",
+        "/getinfo/:sorf/:id",
         async (req,res) => {
             console.log("i am called")
 
@@ -113,10 +118,11 @@ const SucTransaction = require("../../../../models/ProUser/Payment/SucTransactio
         }
     );
 
-router.get("/getKeys",
-passport.authenticate("jwt",{session: false}),async(req,res)=> {
+router.get("/getKeys/:id",
+async(req,res)=> {
+    console.log("i am")
 
-    User.findOne({_id:req.user.id}).then(user => {
+    User.findOne({_id:req.params.id}).then(user => {
             if(user){
                 loginUser(req,res,user)
             }else{
@@ -125,6 +131,8 @@ passport.authenticate("jwt",{session: false}),async(req,res)=> {
     })
 })
     let loginUser = (req,res,user) => {
+    console.log("i am fn")
+
         const payload = {
             id: user._id,
           
@@ -148,7 +156,7 @@ passport.authenticate("jwt",{session: false}),async(req,res)=> {
               designation: user.designation ,
               name: user.name
             }
-            console.log(obj)
+            console.log("sending obj")
             res.json(obj)
             const decoded = jwt_decode(token);     
           });

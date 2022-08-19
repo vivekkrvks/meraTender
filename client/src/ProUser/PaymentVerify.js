@@ -85,14 +85,14 @@ export default function PaymentVerify(props) {
 		 let { paymentId } = useParams();
 
 	useEffect(() => {
+		getNewKey()
 		
 		axios
-			.get(`/api/v1/other/pstatus/${status}/${paymentId}`)
+			.get(`/api/v1/other/pstatus/getinfo/${status}/${paymentId}`)
 			.then((res) => (setData(res.data),console.log(res.data)))
 			.then(() => {
 				if (status === "success") {
 					setSuccess(true);
-					getNewKey()
 				} else setSuccess(false);
 			})
 			.catch((err) => console.log(err));
@@ -100,15 +100,20 @@ export default function PaymentVerify(props) {
 		
 	}, []);
 	const getNewKey = async() => {
-		await axios
-		.get(`/api/v1/other/pstatus/getKeys`)
+	
+		var x = localStorage.getItem("data");
+		const data = JSON.parse(x)
+		console.log(`/api/v1/other/pstatus/getKeys/${data.id}`)
+
+        await axios
+		.get(`/api/v1/other/pstatus/getKeys/${data.id}`)
 		.then((res) => {
 		  if(res.data.variant==="success"){
 			dispatch({ type : LOGIN_USER, payload : res.data});
 		  }
-		})
-		.catch((err) => console.log(err));
-	}
+		}).catch(err => console.log(err))
+    }
+
 
 	const classes = useStyles();
 	return (
