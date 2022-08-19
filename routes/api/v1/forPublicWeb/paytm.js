@@ -114,7 +114,7 @@ console.log(req.params.id)
     }
 
 // http://localhost:2040/api/v1/forPublicWeb/paytm/callback/62fe90704de8aba379b57fce
-    router.get("/callback/:allTranId",  (req, res) => {
+    router.post("/callback/:allTranId",  (req, res) => {
         const allTranId = req.params.allTranId
 //    
         /* initialize an object */
