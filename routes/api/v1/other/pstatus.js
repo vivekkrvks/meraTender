@@ -6,9 +6,10 @@ var mongoose = require('mongoose');
 
 var mongoose = require('mongoose');
 const AllTransaction = require("../../../../models/ProUser/Payment/AllTransaction");
+const SucTransaction = require("../../../../models/ProUser/Payment/SucTransaction");
 
 // /api/v1/other/pstatus/:sorf/:id
-
+// /api/v1/other/pstatus/success/62fe90704de8aba379b57fce
     router.get(
         "/:sorf/:id",
         async (req,res) => {
@@ -76,7 +77,7 @@ const AllTransaction = require("../../../../models/ProUser/Payment/AllTransactio
                   ).catch(err => console.log(err))
           
                  }else {
-          SucTransaction.findOne({"paymentDetails.ORDERID":id})
+                    AllTransaction.findOne({_id: id})
           .then(upay => {
               if(upay){
                   const data = [

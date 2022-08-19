@@ -5,6 +5,7 @@ import { MainContext } from "../Components/Context/MainContext";
 import { makeStyles } from '@mui/styles';
 import { Link, Navigate } from "react-router-dom";
 import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress} from '@mui/material/';
+import CheckPage from './ProComponent/Tender/checkForPage';
 
 function Pricing() {
     const [priceId, setPriceId] = useState()
@@ -13,6 +14,8 @@ function Pricing() {
     const [sellingPrice, setSellingPrice] = useState()
     const { state } = useContext(MainContext);
     const [open, setOpen] = useState(false);
+
+    
     const handleClose = () => {
       setOpen(false);
     };
@@ -58,8 +61,6 @@ function Pricing() {
             .catch((err) => console.log(err));
         
       } else {
-        console.log("this else called")
-
         handleSubmit();
       }
     };
@@ -68,10 +69,13 @@ function Pricing() {
       setRedirect(true)
     }
    if(redirect){
-    return <Navigate to="/MainApp"/>
+    return <Navigate to="/"/>
   }
   return (
     <div className='pricingBg' >
+      <CheckPage
+      from="Pricing"
+      />
      <Container maxWidth="sm" style={{minHeight:"100vh"}}>
      <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

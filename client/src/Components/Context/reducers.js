@@ -17,6 +17,9 @@ const MainReducer = (state, action) => {
 				userImage: action.payload.userImage,
 				designation: action.payload.designation,
 				name: action.payload.name,
+				mobileNo:action.payload.mobileNo,
+				isProUser:action.payload.isProUser,
+				valdity:action.payload.validity
 			};
 		case LOGOUT_USER:
 			return {

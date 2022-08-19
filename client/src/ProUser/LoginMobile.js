@@ -7,35 +7,18 @@ import MySnackbar from "../../src/Components/MySnackbar";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { MainContext } from "../Components/Context/MainContext";
+import CheckPage from './ProComponent/Tender/checkForPage';
 
 const axios = require("axios")
 
 function App() {
 	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
-
-  const checkForAuth = () => {
-    let isSubscribed= true
-    if(isSubscribed){
-      if (state.isAuthenticated) {  
-        setRedirectToPricing(true)  
-    }
-    return () => {
-      isSubscribed = false;
-    };
-  }
-  
-  }
-    useEffect( async() => {
-      handleOpen()
-     await checkForAuth()
-      handleClose()
-  
-    }, [state.designation,state.isAuthenticated])
-
   const [mobileNo, setMobileNo] = useState("")
   const [redirect, setRedirect] = useState(false)
-  const [redirectTOPricing, setRedirectToPricing] = useState(false)
+
+
+
   const handleChangeMobileNo = (e) => {
     if(e.length<=10){
       setMobileNo(e)
@@ -74,16 +57,16 @@ function App() {
     handleClose()
   }
 
-  if(redirectTOPricing){
-    return <Navigate to="/pricing"/>
 
- }
   if(redirect){
     return <Navigate to="/LoginOtp"/>
   }
 
   return (
     <div >
+      <CheckPage
+      from="Login"
+      />
      <Container maxWidth="sm" className="bg1">
      <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

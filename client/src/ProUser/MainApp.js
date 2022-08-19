@@ -7,6 +7,7 @@ import { FcHome,FcBusinessman,FcLike } from "react-icons/fc";
 import OneTenderCom from './ProComponent/Tender/OneTender';
 import axios from "axios";
 import { FcBookmark } from "react-icons/fc";
+import CheckPage from "./ProComponent/Tender/checkForPage";
 
 
 export default function FullWidthTabs() {
@@ -100,7 +101,9 @@ export default function FullWidthTabs() {
 
   return (
 	<>
-
+ <CheckPage
+      from="MainApp"
+      />
 	<CommonPubDash compo = {
               <Box sx={{ width: '100%' }} className="mainbg" >
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

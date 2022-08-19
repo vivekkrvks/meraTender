@@ -114,7 +114,7 @@ export default function PaymentVerify(props) {
 								</Grid>
 								<Grid item xs={12} md={6}>
 									<Typography variant="subtitle1" align="right" gutterBottom color="textSecondary">
-										Thanks for the purchasing the course.
+										Thanks for the purchasing .
 									</Typography>
 									<br />
 									<span className={classes.transac}>TRANSACTION DETAILS</span>

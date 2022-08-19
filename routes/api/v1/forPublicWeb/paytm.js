@@ -9,7 +9,7 @@ const passport = require("passport");
 const axios = require("axios");
 
 const SucTransaction = require("../../../../models/ProUser/Payment/AllTransaction");
-const Transaction = require("../../../../models/ProUser/Payment/AllTransaction");
+const AllTransaction = require("../../../../models/ProUser/Payment/AllTransaction");
 
 async function paymentsucMSG(pMobile,pEmail,response){
 
@@ -113,8 +113,8 @@ console.log(req.params.id)
         })
     }
 
-
-    router.post("/callback/:allTranId",  (req, res) => {
+// http://localhost:2040/api/v1/forPublicWeb/paytm/callback/62fe90704de8aba379b57fce
+    router.get("/callback/:allTranId",  (req, res) => {
         const allTranId = req.params.allTranId
 //    
         /* initialize an object */
@@ -131,7 +131,7 @@ console.log(req.params.id)
         * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys 
         */
 
-    async function get1(response){
+    async function get1(response,allTranId){
            if(response){
             AllTransaction.findOne({_id : allTranId})
             .then(allTran => {
@@ -210,13 +210,23 @@ console.log(req.params.id)
                    
          
                          new SucTransaction(SucTransactionValues)
-                         .save()
-                        
+                         .save()  
+                         .then(console.log("i was done"))                      
                          .catch(err => console.log(err))
                          /////////////////////////////////////
                          let AllTransactionValues = {                         
                             status:"success"
                            }
+                           let UserValue = {
+                            validity:allTran.lastFormatedDay,
+                            isProUser:true
+                           }
+                  User.findOneAndUpdate({_id : allTran.user},
+                      { $set: UserValue },
+                      { new: true })
+                      .then(console.log(allTran.user))
+                      .catch(err => console.log(err))
+
                   AllTransaction.findOneAndUpdate({_id : allTranId},
                       { $set: AllTransactionValues },
                       { new: true })
@@ -270,7 +280,7 @@ const Key = process.env.M_KEY
         
                 post_res.on('end', function(){
                
-                        get1(JSON.parse(response))
+                        get1(JSON.parse(response),allTranId)
                         get2(JSON.parse(response),allTranId)
                 });
 
@@ -291,7 +301,7 @@ const Key = process.env.M_KEY
     {
 
         // paymentsucMSG(pMobile,pEmail,response)
-     return res.redirect(keys.localFrontend+ `/paymentverify/paytm/success/${response.TXNID}`)
+     return res.redirect(keys.localFrontend+ `/paymentverify/paytm/success/${allTranId}`)
     };
     }
         });

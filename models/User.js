@@ -73,6 +73,14 @@ district: {
     default: "user"
   }
 },
+validity:{
+  type:String,
+  default:"00000000"
+},
+isProUser:{
+  type:Boolean,
+  default:false
+},
 
 accountStatus:{
   type:String,

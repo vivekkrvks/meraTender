@@ -19,6 +19,8 @@ const initialState = {
 	token: "",
 	id: "",
 	mobileNo:"",
+	validity:"00000000",
+	isProUser:"hi",
 	designation: "",
 	name: "",
 	snackbar: {

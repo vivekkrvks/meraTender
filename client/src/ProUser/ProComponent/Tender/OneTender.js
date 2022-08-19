@@ -137,13 +137,13 @@ export default function OneTenderCom(props) {
          <Grid item  xs={1} >
          </Grid>            
          {(props.file1Url)&&(<Grid item style={{borderStyle:"outset"}} xs={3} >
-          <a href={props.file1Url} target="_blank" download>
+          <a href={props.file1Url}  >
              <GrDocumentPdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>   )}
          <Grid item  xs={1} >
          </Grid>          
         {(props.file2Url)&&( <Grid item style={{borderStyle:"outset"}} xs={3} >
-          <a href={props.file2Url} target="_blank" download>
+          <a href={props.file2Url} >
             <VscFilePdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>  )}           
 

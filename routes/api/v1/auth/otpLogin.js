@@ -13,7 +13,7 @@ router.post('/sendOtp',(req,res) => {
 
 let mNo = req.body.mobileNo
    if(req.body.mobileNo && mNo?.length == 10){ 
-    if(mNo == "0000000000"){
+    if(mNo == "9846173905"){
       res.json({
         message: "use OTP 1234 for testing",
         variant: "success"
@@ -132,11 +132,14 @@ let loginUser = (req,res,user) => {
           // isPaid:isPaid,
           message: "login success",
           variant: "success",
+          validity:user.validity,
+          isProUser:user.isProUser,
           mobileNo:user.mobileNo,
           userImage: user.userImage,
           designation: user.designation ,
           name: user.name
         }
+        console.log(obj)
         res.json(obj)
         const decoded = jwt_decode(token);     
       });
