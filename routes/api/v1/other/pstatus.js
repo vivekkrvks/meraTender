@@ -113,8 +113,46 @@ const SucTransaction = require("../../../../models/ProUser/Payment/SucTransactio
         }
     );
 
+router.get("/getKeys",
+passport.authenticate("jwt",{session: false}),async(req,res)=> {
 
-
+    User.findOne({_id:req.user.id}).then(user => {
+            if(user){
+                loginUser(req,res,user)
+            }else{
+                console.log("not found")
+            }
+    })
+})
+    let loginUser = (req,res,user) => {
+        const payload = {
+            id: user._id,
+          
+            designation: user.designation,
+            userImage: user.userImage,
+        
+            name: user.name
+          };
+          jsonwt.sign(payload, key.secret,  (err, token) => {
+            let obj = {
+              success: true,
+              token: "Bearer " + token,
+              id: user._id,
+              // isPaid:isPaid,
+              message: "login success",
+              variant: "success",
+              validity:user.validity,
+              isProUser:user.isProUser,
+              mobileNo:user.mobileNo,
+              userImage: user.userImage,
+              designation: user.designation ,
+              name: user.name
+            }
+            console.log(obj)
+            res.json(obj)
+            const decoded = jwt_decode(token);     
+          });
+    }
 
 
 

@@ -13,7 +13,7 @@ router.post('/sendOtp',(req,res) => {
 
 let mNo = req.body.mobileNo
    if(req.body.mobileNo && mNo?.length == 10){ 
-    if(mNo == "9846173905"){
+    if( mNo =="9939237283" || mNo == "9460117600" || mNo == "0000000000"){
       res.json({
         message: "use OTP 1234 for testing",
         variant: "success"

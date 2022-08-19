@@ -1,9 +1,11 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState,useContext, useEffect } from "react";
 
 import { Link,useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Typography, Paper, Grid, Table, Fab, TableRow, TableCell, TableBody } from "@mui/material/";
 import { makeStyles } from '@mui/styles';
+import { LOGIN_USER } from "../Components/Context/types";
+import { MainContext } from "../Components/Context/MainContext";
 const useStyles = makeStyles(() => ({
 	topBg: {
 		height: "30vh",
@@ -74,6 +76,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function PaymentVerify(props) {
+    const { state, dispatch } = useContext(MainContext);
+
 	const [success, setSuccess] = useState(null);
 	const [data, setData] = useState({});
 		 let { paymentCompany } = useParams();
@@ -88,10 +92,23 @@ export default function PaymentVerify(props) {
 			.then(() => {
 				if (status === "success") {
 					setSuccess(true);
+					getNewKey()
 				} else setSuccess(false);
 			})
 			.catch((err) => console.log(err));
+
+		
 	}, []);
+	const getNewKey = async() => {
+		await axios
+		.get(`/api/v1/other/pstatus/getKeys`)
+		.then((res) => {
+		  if(res.data.variant==="success"){
+			dispatch({ type : LOGIN_USER, payload : res.data});
+		  }
+		})
+		.catch((err) => console.log(err));
+	}
 
 	const classes = useStyles();
 	return (
@@ -114,7 +131,7 @@ export default function PaymentVerify(props) {
 								</Grid>
 								<Grid item xs={12} md={6}>
 									<Typography variant="subtitle1" align="right" gutterBottom color="textSecondary">
-										Thanks for the purchasing .
+										Thanks for the purchasing the course.
 									</Typography>
 									<br />
 									<span className={classes.transac}>TRANSACTION DETAILS</span>
