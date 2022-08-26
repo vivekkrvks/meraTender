@@ -50,6 +50,18 @@ router.post(
         if(!(td.tenderAmount)){
           td.tenderAmount = "Refer PDF"
         }
+        // openingDate
+        const opDate = td.openingDate;
+      const [year1, month1, day1] = opDate.split('-');
+      const opResult = [month1, day1, year1].join('/');
+      td.openingDate = opResult
+        // closingDate
+        const clDate = td.openingDate;
+      const [year, month, day] = clDate.split('-');
+      const clResult = [month, day, year].join('/');
+      td.closingDate = opResult
+
+
         let dep = td.department
         let dUrl = dep.departmentLink
         let DepartmentData = await Department.aggregate([
