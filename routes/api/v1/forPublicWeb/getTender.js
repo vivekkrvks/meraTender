@@ -41,13 +41,15 @@ router.post(
             shortDescription:1,
             showLiveOnPhoto:1
            }  
-          },
-          { $sort : { date : -1 } }    
+          }   
         ]).exec()
         let x = 0;
         let finalData = []
         while(x<TenderData.length){
         let td = TenderData[x]
+        if(!(td.tenderAmount)){
+          td.tenderAmount = "Refer PDF"
+        }
         let dep = td.department
         let dUrl = dep.departmentLink
         let DepartmentData = await Department.aggregate([
@@ -77,7 +79,7 @@ router.post(
             x++
         }
         
-        res.json(finalData)
+        res.json(finalData.reverse())
   }
 );
 // @type    GET

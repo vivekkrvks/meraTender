@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { SiGooglemaps } from "react-icons/si";
 import { FcLike,FcInternal,FcLowPriority } from "react-icons/fc";
 import { FiBookmark } from "react-icons/fi";
 import { FcBookmark } from "react-icons/fc";
@@ -84,7 +84,7 @@ export default function OneTenderCom(props) {
            { props.tenderTitle }
             </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-                 {<FaMapMarkerAlt/>} {props.district?.districtName}
+                 {<SiGooglemaps/>} {props.district?.districtName}
                  </Typography>
               <Typography variant="body2" color="text.secondary">
               {props.shortDescription}
@@ -131,18 +131,19 @@ export default function OneTenderCom(props) {
           onClick={() => (
             props.saveThisTender(props.id,props.district,props.department,props.from,props.position))}
         
-          item  xs={3} style={{borderStyle:"outset",cursor:"pointer"}} >
+          item  xs={3} style={{cursor:"pointer"}} >
           {props.isSaved? <FcBookmark style={{width:"100%",height:"100%"}}/> : <FiBookmark style={{width:"100%",height:"100%"}}/> }  
          </Grid> 
          <Grid item  xs={1} >
-         </Grid>            
-         {(props.file1Url)&&(<Grid item style={{borderStyle:"outset"}} xs={3} >
+         </Grid>      
+         {/* borderStyle:"outset"       */}
+         {(props.file1Url)&&(<Grid item style={{cursor:"pointer"}} xs={3} >
           <a href={props.file1Url}  >
              <GrDocumentPdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>   )}
          <Grid item  xs={1} >
          </Grid>          
-        {(props.file2Url)&&( <Grid item style={{borderStyle:"outset"}} xs={3} >
+        {(props.file2Url)&&( <Grid item style={{cursor:"pointer"}} xs={3} >
           <a href={props.file2Url} >
             <VscFilePdf style={{width:"100%",height:"100%"}}/></a>
          </Grid>  )}           
