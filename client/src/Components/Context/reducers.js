@@ -19,7 +19,8 @@ const MainReducer = (state, action) => {
 				name: action.payload.name,
 				mobileNo:action.payload.mobileNo,
 				isProUser:action.payload.isProUser,
-				valdity:action.payload.validity
+				validityStatusEndDate:action.payload.validityStatusEndDate,
+				validity:action.payload.validity
 			};
 		case LOGOUT_USER:
 			return {

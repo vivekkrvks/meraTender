@@ -134,14 +134,14 @@ router.get(
   async(req, res) => {
    let allData = await Tender.aggregate(
         [
-            {$project:{tenderTitle:1,shortDescription:1}}
+            {$project:{tenderTitle:1,shortDescription:1}},
         ]
     )   .catch(err =>
         res
           .status(404)
           .json({ message: "No Tender Found", variant: "error" })
       );
-      res.json(allData)
+      res.json(allData.reverse())
    
   }
 );

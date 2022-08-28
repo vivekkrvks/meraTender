@@ -53,13 +53,13 @@ router.post(
         // openingDate
         const opDate = td.openingDate;
       const [year1, month1, day1] = opDate.split('-');
-      const opResult = [month1, day1, year1].join('/');
+      const opResult = [day1, month1,  year1].join('/');
       td.openingDate = opResult
         // closingDate
-        const clDate = td.openingDate;
+        const clDate = td.closingDate;
       const [year, month, day] = clDate.split('-');
-      const clResult = [month, day, year].join('/');
-      td.closingDate = opResult
+      const clResult = [day, month,  year].join('/');
+      td.closingDate = clResult
 
 
         let dep = td.department

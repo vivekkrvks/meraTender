@@ -76,7 +76,6 @@ const handleLogout = () => {
 
       <SwipeableDrawer
       variant="temporary"
-      
       anchor="left"
       open={props.open}
          onClose={props.handleDrawerClose}
@@ -94,13 +93,13 @@ const handleLogout = () => {
             keepMounted: true, // Better open performance on mobile.
         }}
       >
-        <DrawerHeader 
+        {/* <DrawerHeader 
                
         >
           <IconButton onClick={props.handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </DrawerHeader>
+        </DrawerHeader> */}
         <Divider />
         <List
             
@@ -129,7 +128,7 @@ const handleLogout = () => {
               >
                Valid till
               </Typography>
-              - 22/11/22
+              - {` ${state.validityStatusEndDate}`}
             </React.Fragment>
           }
         />

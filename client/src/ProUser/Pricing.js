@@ -1,7 +1,8 @@
 import './App.css';
 import React, {  useState,useContext, useEffect } from "react";
-import axios from "axios";
 import { MainContext } from "../Components/Context/MainContext";
+import { DRAWER, LOGOUT_USER } from "../Components/Context/types";
+import axios from "axios";
 import { makeStyles } from '@mui/styles';
 import { Link, Navigate } from "react-router-dom";
 import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress} from '@mui/material/';
@@ -12,7 +13,8 @@ function Pricing() {
     const [period, setPeriod] = useState()
     const [mrp, setMrp] = useState()
     const [sellingPrice, setSellingPrice] = useState()
-    const { state } = useContext(MainContext);
+    const { state, dispatch } = useContext(MainContext);
+
     const [open, setOpen] = useState(false);
 
     
@@ -71,6 +73,11 @@ function Pricing() {
    if(redirect){
     return <Navigate to="/"/>
   }
+
+
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT_USER });
+  };
   return (
     <div className='pricingBg' >
       <CheckPage
@@ -137,6 +144,8 @@ function Pricing() {
           </Link>
                  
           ))}
+				 <Link onClick={handleLogout} to={"#"} href={"#"} color="inherit" underline="hover">
+                  <Typography textAlign="center">Logout</Typography> </Link>
         </div>
        </Grid>
        <Grid item xs={12}>

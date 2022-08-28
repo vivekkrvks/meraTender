@@ -151,6 +151,7 @@ async(req,res)=> {
               variant: "success",
               validity:user.validity,
               isProUser:user.isProUser,
+               validityStatusEndDate:user.validityStatus.endDate,
               mobileNo:user.mobileNo,
               userImage: user.userImage,
               designation: user.designation ,

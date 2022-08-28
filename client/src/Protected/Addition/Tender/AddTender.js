@@ -69,7 +69,7 @@ export default function AddTender() {
 
 	const [allTender, setAllTender] = useState([]);
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
+	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [err] = useState({ errIn: "", msg: "" });
 	const snackRef = useRef();
 	const [open, setOpen] = useState(false);
@@ -328,7 +328,7 @@ export default function AddTender() {
 			   			</Grid>									
 							<Grid item xs={12} md={4}>
 								<TextField
-								type="number"
+								// type="number"
 									variant="outlined"
 									fullWidth
 									inputProps={{ maxLength: "42" }}
@@ -573,13 +573,22 @@ export default function AddTender() {
 							</TableBody>
 							<TableFooter>
 								<TableRow>
-									<TablePagination
+								<TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={allTender.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={(e, page) => setPage(page)}
+          onRowsPerPageChange={ (event) => (setRowsPerPage(parseInt(event.target.value, 10)),setPage(0))}
+        />
+									{/* <TablePagination
 										count={allTender.length}
 										rowsPerPage={rowsPerPage}
 										page={page}
 										onChangePage={(e, page) => setPage(page)}
 										onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
-									/>
+									/> */}
 								</TableRow>
 							</TableFooter>
 						</Table>

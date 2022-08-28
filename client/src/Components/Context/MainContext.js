@@ -21,6 +21,7 @@ const initialState = {
 	mobileNo:"",
 	validity:"00000000",
 	isProUser:"hi",
+	validityStatusEndDate:"00/00/0000",
 	designation: "",
 	name: "",
 	snackbar: {

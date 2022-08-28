@@ -11,6 +11,8 @@ import { FcBookmark } from "react-icons/fc";
 import { GrDocumentPdf } from "react-icons/gr";
 import { VscFilePdf } from "react-icons/vsc";
 import { Avatar, Badge } from '@mui/material';
+import PdfDialog from "./PdfViewer"
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     backgroundColor: '#44b700',
@@ -138,14 +140,22 @@ export default function OneTenderCom(props) {
          </Grid>      
          {/* borderStyle:"outset"       */}
          {(props.file1Url)&&(<Grid item style={{cursor:"pointer"}} xs={3} >
-          <a href={props.file1Url}  >
-             <GrDocumentPdf style={{width:"100%",height:"100%"}}/></a>
+          <PdfDialog 
+          fileUrl ={props.file1Url}
+          fileIcon= {<GrDocumentPdf style={{width:"100%",height:"100%"}}/>}
+          fileName={props.tenderTitle}
+          />
+       
          </Grid>   )}
          <Grid item  xs={1} >
          </Grid>          
         {(props.file2Url)&&( <Grid item style={{cursor:"pointer"}} xs={3} >
-          <a href={props.file2Url} >
-            <VscFilePdf style={{width:"100%",height:"100%"}}/></a>
+        <PdfDialog 
+          fileUrl ={props.file2Url}
+          fileIcon= {<VscFilePdf style={{width:"100%",height:"100%"}}/>}
+          fileName={props.tenderTitle}
+          />
+         
          </Grid>  )}           
 
          </Grid>             

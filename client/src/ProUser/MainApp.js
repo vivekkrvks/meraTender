@@ -8,8 +8,7 @@ import OneTenderCom from './ProComponent/Tender/OneTender';
 import axios from "axios";
 import { FcBookmark } from "react-icons/fc";
 import CheckPage from "./ProComponent/Tender/checkForPage";
-
-
+import SwipeableViews from 'react-swipeable-views';
 export default function FullWidthTabs() {
   const [tabValue, setTabValue]=useState(0)
   const [department, setDepartment]=useState({"departmentName":"","departmentLink":""})
@@ -114,13 +113,13 @@ export default function FullWidthTabs() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-                <Tabs value={tabValue} variant="fullWidth" onChange={(e,v)=>(setTabValue(v))} aria-label="tabs">
+
+                <Tabs value={tabValue}  textColor="white" indicatorColor="#ffff" variant="fullWidth" onChange={(e,v)=>(setTabValue(v))} aria-label="tabs">
                   <Tab label="All Tender" icon={<FcBusinessman style={{fontSize:"1.2rem"}}/>}  />        
                   <Tab label="Saved Tender" icon={<FcBookmark style={{fontSize:"1.2rem"}}/>}  />
         
                 </Tabs>
               </Box>           
-        
                <div>
                 <Container>
                     <br/>
@@ -162,11 +161,11 @@ export default function FullWidthTabs() {
 
 											 label="Select Department" />}
 									/> 
-                    </Grid>
-        
-        
+                    </Grid>       
                  
                 </Grid>
+      
+
                 {
                   (allTender.length === 0) && (
                     <Typography style={{color: "#447eed", marginTop:"20px"}} 
@@ -176,7 +175,8 @@ export default function FullWidthTabs() {
                   )
                 }
           
-                {(tabValue === 0) &&(allTender.map((v,i)=> (
+                {(tabValue === 0) &&(
+                  allTender.map((v,i)=> (
                  <OneTenderCom 
                  key={v._id}
                  saveThisTender={saveThisTender}
@@ -220,7 +220,6 @@ export default function FullWidthTabs() {
                 )))}
            
                
-        
                 </Container>
               </div>
 		<MySnackbar ref={snackRef} />

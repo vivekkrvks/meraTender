@@ -127,8 +127,8 @@
 }
 .mainbg{
   min-height: 100vh;
-  background-image: url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp");
-  background-color: #fff;
+  /* background-image: url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp"); */
+  background-color: rgb(230, 255, 223);
   background-attachment: fixed;
   
 }

@@ -116,6 +116,8 @@ let registerNewUser = async(req,res,mNo) => {
         );
       }     
 let loginUser = (req,res,user) => {
+  let vDate = user.validity
+  let endDate = `${vDate.slice(6,8)}-${vDate.slice(4,6)}-${vDate.slice(0,4)}`
     const payload = {
         id: user._id,
       
@@ -134,12 +136,12 @@ let loginUser = (req,res,user) => {
           variant: "success",
           validity:user.validity,
           isProUser:user.isProUser,
+          validityStatusEndDate:endDate,
           mobileNo:user.mobileNo,
           userImage: user.userImage,
           designation: user.designation ,
           name: user.name
         }
-        console.log(obj)
         res.json(obj)
         const decoded = jwt_decode(token);     
       });
