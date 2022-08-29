@@ -44,6 +44,32 @@ export default function PdfDialog(props) {
         console.log(err);
       });
   };
+  const forceImgDow = () => {
+    var link = document.createElement('a');
+link.href = 'images.jpg';
+link.download = 'Download.jpg';
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+  }
+
+
+  function ForceDownloadImage(url, name){
+    fetch(url)
+      .then(resp => resp.blob())
+      .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          // the filename you want
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+      })
+      .catch(() => alert('An error sorry'));
+}
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -83,14 +109,8 @@ export default function PdfDialog(props) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Document
             </Typography>
-            <a
-        href= "#"
-        onClick={e => download(e,props.fileUrl)}
-      >
-        <i className="fa fa-download" />
-        download
-      </a>
-          <Button onClick = {() => downloadImage(props.fileUrl)} variant="contained" color="primary">
+     
+          <Button onClick = {() => ForceDownloadImage(props.fileUrl,props.fileName)} variant="contained" color="primary">
              Download
             </Button>
 
