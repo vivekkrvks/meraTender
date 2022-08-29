@@ -24,7 +24,26 @@ export default function PdfDialog(props) {
   const downloadImage = (url) => {
     saveAs(url,`meraTender_${props.fileName}`) // Put your image url here.
   }
-
+  const download = e => {
+    console.log(e.target.href);
+    fetch(e.target.href, {
+      method: "GET",
+      headers: {}
+    })
+      .then(response => {
+        response.arrayBuffer().then(function(buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "image.png"); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -64,6 +83,14 @@ export default function PdfDialog(props) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Document
             </Typography>
+            <a
+        href="https://upload.wikimedia.org/wikipedia/en/6/6b/Hello_Web_Series_%28Wordmark%29_Logo.png"
+        download
+        onClick={e => download(e)}
+      >
+        <i className="fa fa-download" />
+        download
+      </a>
           <Button onClick = {() => downloadImage(props.fileUrl)} variant="contained" color="primary">
              Download
             </Button>
