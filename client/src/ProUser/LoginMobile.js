@@ -100,7 +100,7 @@ function App() {
      <Button variant="contained" fullWidth style={{borderRadius:10}} onClick={handleSubmit}>Continue</Button>
       </Grid>
       <Grid item xs={12}>
-      <img style={{marginTop:"40px",widht:"full"}} src="https://res.cloudinary.com/mera-tender/image/upload/v1659903946/defaultImage/in-app-bidding_nafmf5.png" alt="Girl in a jacket" width="100%" height="auto" />
+      <img style={{marginTop:"40px",widht:"full"}} src="https://res.cloudinary.com/mera-tender/image/upload/v1661768619/defaultImage/front_photo_eb62my.jpg" alt="Girl in a jacket" width="100%" height="auto" />
       </Grid>
     </Grid>
          

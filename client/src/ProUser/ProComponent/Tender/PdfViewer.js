@@ -24,9 +24,9 @@ export default function PdfDialog(props) {
   const downloadImage = (url) => {
     saveAs(url,`meraTender_${props.fileName}`) // Put your image url here.
   }
-  const download = e => {
-    console.log(e.target.href);
-    fetch(e.target.href, {
+  const download = (e,fileUrl) => {
+    console.log(fileUrl);
+    fetch(fileUrl, {
       method: "GET",
       headers: {}
     })
@@ -84,9 +84,8 @@ export default function PdfDialog(props) {
               Document
             </Typography>
             <a
-        href="https://upload.wikimedia.org/wikipedia/en/6/6b/Hello_Web_Series_%28Wordmark%29_Logo.png"
-        download
-        onClick={e => download(e)}
+        href= "#"
+        onClick={e => download(e,props.fileUrl)}
       >
         <i className="fa fa-download" />
         download

@@ -117,7 +117,7 @@ function Otp() {
      <Button variant="contained" onClick={() => handleSubmit()}  fullWidth style={{borderRadius:10}}>Submit</Button>
       </Grid>
       <Grid item xs={12}>
-      <img style={{marginTop:"40px",widht:"full"}} src="https://res.cloudinary.com/mera-tender/image/upload/v1659903947/defaultImage/hidder-bid-cover_qxath8.jpg" alt="Girl in a jacket" width="100%" height="auto" />
+      <img style={{marginTop:"40px",widht:"full"}} src="https://res.cloudinary.com/mera-tender/image/upload/v1661768619/defaultImage/front_photo_eb62my.jpg" alt="Girl in a jacket" width="100%" height="auto" />
       </Grid>
   
     </Grid>

@@ -97,6 +97,26 @@ export default function FullWidthTabs() {
                 .catch(err => console.log(err))
                 handleClose()
     }
+    const changeDist = async(e) => {
+  console.log(e.target)
+      if(e.target.value === "--All District--"){
+        setDistrict({"districtName": "","districtLink": ""})
+
+      }else
+      {
+        setDistrict({"districtName": e.target.value,"districtLink": e.target.value})
+    }
+   
+  }
+    const changeDepartment = async(e) => {
+      if(e.target.value === "--All Department--"){
+        setDepartment({"departmentName": "","departmentLink": ""})
+
+      }else
+      {
+        setDepartment({"departmentName": e.target.value,"departmentLink": e.target.value})
+    }
+    }
 
   return (
 	<>
@@ -114,7 +134,7 @@ export default function FullWidthTabs() {
         <CircularProgress color="inherit" />
       </Backdrop>
 
-                <Tabs value={tabValue}  textColor="white" indicatorColor="#ffff" variant="fullWidth" onChange={(e,v)=>(setTabValue(v))} aria-label="tabs">
+                <Tabs value={tabValue}   variant="fullWidth" onChange={(e,v)=>(setTabValue(v))} aria-label="tabs">
                   <Tab label="All Tender" icon={<FcBusinessman style={{fontSize:"1.2rem"}}/>}  />        
                   <Tab label="Saved Tender" icon={<FcBookmark style={{fontSize:"1.2rem"}}/>}  />
         
@@ -123,16 +143,30 @@ export default function FullWidthTabs() {
                <div>
                 <Container>
                     <br/>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} >
                     <Grid item xs={6}>
-                    <Autocomplete										
+                    <select
+                    style={{width:"100%"}}
+										id="education"
+										onChange={(e) => {
+                      changeDist(e)
+										}}
+									>
+										<option disabled>--Please choose a District--</option>
+                    <option >--All District--</option>
+
+										{allDistrict.map((e) => (
+											<option key={e.districtLink} value={e.districtName} label={e.districtName} />
+										))}
+									</select>
+                    {/* <Autocomplete										
 										options={allDistrict}
 										filterSelectedOptions
 										getOptionLabel={(option) => option?.districtName}
 										isOptionEqualToValue={(option, value) =>
 											 (option.districtName === value.districtName )}
 										onChange={(e, v) => {
-											setDistrict(v);
+										
 										
 										}}
 										value={district}
@@ -141,10 +175,26 @@ export default function FullWidthTabs() {
                   helperText="Filter result with District"
 
 											 label="Select District" />}
-									/> 
+									/>  */}
                     </Grid>
-                    <Grid item xs={6}>
-                    <Autocomplete										
+                    
+                    <Grid item xs={6} >
+                    <select
+										id="education"
+                    style={{width:"100%"}}
+
+										onChange={(e,v) => {
+                      changeDepartment(v);
+										}}
+									>
+
+										<option disabled>--Please choose a Department--</option>
+										<option >--All Department--</option>
+										{allDepartment.map((e) => (
+											<option key={e.departmentName} value={e.departmentName} label={e.departmentName} />
+										))}
+									</select>
+                    {/* <Autocomplete										
 										options={allDepartment}
 										filterSelectedOptions
 										getOptionLabel={(option) => option?.departmentName}
@@ -160,10 +210,10 @@ export default function FullWidthTabs() {
                   helperText="Filter result with Department"
 
 											 label="Select Department" />}
-									/> 
+									/>  */}
                     </Grid>       
                  
-                </Grid>
+                     </Grid>
       
 
                 {

@@ -121,7 +121,7 @@ export default function PubAppBarCom(props) {
 const myList = [
 	// { text: "Dashboard", link: "/dashboard" },
   // { text: "Transaction", link: "/AddTender"},
-  { text: "Profile", link: "/AddDepartment"},
+  { text: "Profile", link: "/UserProfile"},
 ];
 
 
