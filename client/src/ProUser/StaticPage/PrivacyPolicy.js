@@ -163,9 +163,9 @@ You shall solely be responsible for any Loss that may be incurred by any person 
 					</Typography>
 					<b />
 
-					<Typography color="textSecondary" className={classes.padding}>
+					{/* <Typography color="textSecondary" className={classes.padding}>
 						Managed By : Om Prakash
-					</Typography>
+					</Typography> */}
 			
 					<b />
 					<b />
