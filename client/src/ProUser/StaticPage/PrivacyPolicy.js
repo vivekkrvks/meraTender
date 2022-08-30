@@ -161,6 +161,11 @@ You shall solely be responsible for any Loss that may be incurred by any person 
 						for the purpose of litigating all such claims or disputes. This Agreement shall be governed by Indian law. This paragraph shall survive
 						termination of this Agreement.
 					</Typography>
+					<b />
+
+					<Typography color="textSecondary" className={classes.padding}>
+						Managed By : Om Prakash
+					</Typography>
 			
 					<b />
 					<b />
