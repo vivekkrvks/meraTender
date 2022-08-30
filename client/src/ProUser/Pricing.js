@@ -149,7 +149,7 @@ function Pricing() {
         </div>
        </Grid>
        <Grid item xs={12}>
-        {/* <Typography variant='subtitle2' color="secondary"> Managed By <b>OM PRAKASH</b></Typography> */}
+        <Typography variant='subtitle2' color="secondary"> Managed By <b>OM PRAKASH</b></Typography>
        </Grid>
      
   
