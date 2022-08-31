@@ -8,7 +8,8 @@ import OneTenderCom from './ProComponent/Tender/OneTender';
 import axios from "axios";
 import { FcBookmark } from "react-icons/fc";
 import CheckPage from "./ProComponent/Tender/checkForPage";
-import SwipeableViews from 'react-swipeable-views';
+import InfiniteScroll from 'react-infinite-scroller';
+
 export default function FullWidthTabs() {
   const [tabValue, setTabValue]=useState(0)
   const [department, setDepartment]=useState({"departmentName":"","departmentLink":""})
@@ -19,6 +20,36 @@ export default function FullWidthTabs() {
   const [allSavedTender, setAllSavedTender]=useState([])
 	const snackRef = useRef();
 	const [open, setOpen] = useState(false);
+	const [page, setPage] = useState(0);
+	const [hasMore, setHasMore] = useState(true);
+
+  const handleLoadMore = async(e) => {
+
+    if(page === 0)
+    {
+      handleOpen()
+    }
+   if(hasMore){ 
+    let myData = {district,department,page}
+      await axios
+              .post(`/api/v1/forPublicWeb/getTender/tenderWithFilter`,myData)
+              .then(async(res) =>  {
+                if(res.data.length <5){
+                 await setHasMore(false)
+                }
+                setAllTender([...allTender, ...res.data])
+              
+                })
+              .catch(err => console.log(err))}
+              if(page === 0)
+              {
+                getAllSavedTender()
+
+              }
+              handleClose()
+              setPage(+(+page+1))
+  }
+
 	const handleClose = () => {
 	  setOpen(false);
 	};
@@ -26,14 +57,14 @@ export default function FullWidthTabs() {
 	  setOpen(true);
 	};
 	useEffect(() => {
-		getAllDistrict("");
-		getAllDepartment("");
-    getAllTender("");
-	}, [district,department]);
+		getAllDistrict();
+		getAllDepartment();
+    // getAllTender("");
+	}, []);
     const getAllDistrict = async() => {
         await axios
                 .get(`/api/v1/dropDown/publicDropDown/allDistrict`)
-                .then((res) => (setAllDistrict(res.data), console.log(allDistrict)))
+                .then((res) => (setAllDistrict(res.data)))
                 .catch(err => console.log(err))
     }
     const getAllDepartment = async() => {
@@ -42,15 +73,7 @@ export default function FullWidthTabs() {
                 .then((res) => (setAllDepartment(res.data)))
                 .catch(err => console.log(err))
     }
-    const getAllTender = async() => {
-      handleOpen()
-      let myData = {district,department}
-        await axios
-                .post(`/api/v1/forPublicWeb/getTender/tenderWithFilter`,myData)
-                .then((res) => (setAllTender(res.data)))
-                .catch(err => console.log(err))
-                getAllSavedTender()
-    }
+
     const getAllSavedTender = async() => {
       handleOpen()
 
@@ -98,7 +121,8 @@ export default function FullWidthTabs() {
                 handleClose()
     }
     const changeDist = async(e) => {
-  console.log(e.target)
+      e.preventDefault();
+
       if(e.target.value === "--All District--"){
         setDistrict({"districtName": "","districtLink": ""})
 
@@ -106,9 +130,12 @@ export default function FullWidthTabs() {
       {
         setDistrict({"districtName": e.target.value,"districtLink": e.target.value})
     }
-   
+    setAllTender([])
+   await setPage(0)
+   await setHasMore(true)
   }
     const changeDepartment = async(e) => {
+      e.preventDefault();
       if(e.target.value === "--All Department--"){
         setDepartment({"departmentName": "","departmentLink": ""})
 
@@ -116,6 +143,9 @@ export default function FullWidthTabs() {
       {
         setDepartment({"departmentName": e.target.value,"departmentLink": e.target.value})
     }
+    setAllTender([])
+    await setPage(0)
+    await setHasMore(true)
     }
 
   return (
@@ -156,7 +186,7 @@ export default function FullWidthTabs() {
                     <option >--All District--</option>
 
 										{allDistrict.map((e) => (
-											<option key={e.districtLink} value={e.districtName} label={e.districtName} />
+											<option key={e.districtLink} value={e.districtLink} label={e.districtName} />
 										))}
 									</select>
                     {/* <Autocomplete										
@@ -183,15 +213,15 @@ export default function FullWidthTabs() {
 										id="education"
                     style={{width:"100%"}}
 
-										onChange={(e,v) => {
-                      changeDepartment(v);
+										onChange={(e) => {
+                      changeDepartment(e);
 										}}
 									>
 
 										<option disabled>--Please choose a Department--</option>
 										<option >--All Department--</option>
 										{allDepartment.map((e) => (
-											<option key={e.departmentName} value={e.departmentName} label={e.departmentName} />
+											<option key={e.departmentLink} value={e.departmentLink} label={e.departmentName} />
 										))}
 									</select>
                     {/* <Autocomplete										
@@ -224,8 +254,19 @@ export default function FullWidthTabs() {
                      </Typography>
                   )
                 }
-          
-                {(tabValue === 0) &&(
+{(tabValue === 0) &&(<InfiniteScroll
+    pageStart={0}
+    loadMore={() => handleLoadMore()}
+    hasMore={hasMore}
+    loader={		<div key={0} className="center">
+									<CircularProgress />
+									&nbsp;&nbsp;
+									<Typography gutterBottom align="center">
+										More Tender Loading...
+									</Typography>
+								</div>}
+>
+{
                   allTender.map((v,i)=> (
                  <OneTenderCom 
                  key={v._id}
@@ -246,7 +287,9 @@ export default function FullWidthTabs() {
                  showLiveOnPhoto={v.showLiveOnPhoto}          
                   from={"allTender"}
                  />
-                )))}
+                ))}
+</InfiniteScroll>)}
+            
                 {(tabValue === 1) &&(allSavedTender.map((v,i)=> (
                  <OneTenderCom 
                  key={v._id}

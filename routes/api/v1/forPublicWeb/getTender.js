@@ -18,6 +18,10 @@ router.post(
   "/tenderWithFilter",
   passport.authenticate("jwt", { session: false }),
   async(req, res) => {
+    let page = 0
+    page = req.body.page
+    console.log(page)
+    let toSkip = page * 5
     // console.log(req.body)
     let myMatch = {"visibility.id":"public"}
     if(req.body.district?.districtLink){
@@ -41,7 +45,10 @@ router.post(
             shortDescription:1,
             showLiveOnPhoto:1
            }  
-          }   
+          },
+          { $sort : { date : -1,creationDate:-1,_id: -1 } },
+          { $skip : toSkip },
+          { $limit : 5 } 
         ]).exec()
         let x = 0;
         let finalData = []
@@ -90,8 +97,7 @@ router.post(
             finalData.push(td)
             x++
         }
-        
-        res.json(finalData.reverse())
+        res.json(finalData)
   }
 );
 // @type    GET
