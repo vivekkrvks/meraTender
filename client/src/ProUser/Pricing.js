@@ -80,7 +80,7 @@ function Pricing() {
   };
   return (
     <div className='pricingBg' >
-      <a href="https://wa.me/6202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase">
+      <a href="https://wa.me/916202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase" target="_blank">
            <Fab
         color="success"
         aria-label="add"
