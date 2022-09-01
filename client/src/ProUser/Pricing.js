@@ -5,9 +5,9 @@ import { DRAWER, LOGOUT_USER } from "../Components/Context/types";
 import axios from "axios";
 import { makeStyles } from '@mui/styles';
 import { Link, Navigate } from "react-router-dom";
-import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress} from '@mui/material/';
+import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress, Fab} from '@mui/material/';
 import CheckPage from './ProComponent/Tender/checkForPage';
-
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 function Pricing() {
     const [priceId, setPriceId] = useState()
     const [period, setPeriod] = useState()
@@ -80,6 +80,15 @@ function Pricing() {
   };
   return (
     <div className='pricingBg' >
+      <a href="https://wa.me/6202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase">
+           <Fab
+        color="success"
+        aria-label="add"
+        
+        sx={{ position: "absolute", bottom: 16, right: 16 }}
+      >
+        <WhatsAppIcon fontSize="large" />
+      </Fab></a>
       <CheckPage
       from="Pricing"
       />
@@ -109,9 +118,10 @@ function Pricing() {
        <Grid item xs={12} style={{alignItems:"center"}}>
         <div className="card" onClick={()=>handlePay()}>
           <span>For {period}</span>
+          <small>Limited Period Offer</small>
              <p><s> ₹ {mrp}.00 </s>  </p> 
           <h6> ₹ {sellingPrice}.00  </h6>         
-      <button > Subscribe Now</button>
+      <button >Click to Buy Now</button>
 
         </div>
        </Grid>

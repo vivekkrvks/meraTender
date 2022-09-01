@@ -69,7 +69,7 @@
 }
 .card button{
   display: block;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
   color:navy;
   font-family:Georgia, 'Times New Roman', Times, serif;
@@ -81,9 +81,35 @@
   border: none;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+  animation: myanimation 10s infinite;
+  /* background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8); */
   cursor: pointer;
 
+}
+@keyframes myanimation {
+  0% {background-color: white; font-size: 30px;color:black }
+  25%{background-color:grey;font-size: 25px;color:white}
+  50%{background-color:white;font-size: 22px;color:black}
+  75%{background-color:grey;font-size: 25px;color:white}
+  100% {background-color: black;font-size: 30px;color:white}
+}
+.card small{
+  position: relative;
+  right: 80px;
+  top: -25px;
+  border: #c779d0;
+  width: 180px;
+  text-align: center;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 0px;
+  height: 30px;
+  font-weight: 600;
+  font-size: 18px;
+  color:#000000;
+  font-family:"Charm";
+  background: linear-gradient(to right, #fdfc47, #fe9166)
 }
 .card span{
   position: relative;

@@ -9,6 +9,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { MainContext } from "../Components/Context/MainContext";
 import CheckPage from './ProComponent/Tender/checkForPage';
 
+import Box from "@mui/material/Box";
+
+import Fab from "@mui/material/Fab";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+
 const axios = require("axios")
 
 function App() {
@@ -63,11 +68,25 @@ function App() {
   }
 
   return (
-    <div >
+    <div tyle={{ flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',}}>
       <CheckPage
       from="Login"
       />
-     <Container maxWidth="sm" className="bg1">
+      <a href="https://wa.me/6202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase">
+     
+     <Fab
+        color="success"
+        aria-label="add"
+        
+        sx={{ position: "absolute", bottom: 16, right: 16 }}
+      >
+        <WhatsAppIcon fontSize="large" />
+      </Fab>
+      </a>
+
+     <Container maxWidth="sm" className="bg1" s>
      <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -75,6 +94,7 @@ function App() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+ 
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h6" style={{marginTop:"3rem",fontWeight: 700}} component="div">
