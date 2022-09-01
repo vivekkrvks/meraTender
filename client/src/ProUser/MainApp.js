@@ -96,7 +96,7 @@ export default function FullWidthTabs() {
                 .post(`/api/v1/forPublicWeb/saveTender/saveThis`,myData)
                 .then((res) => 
                  { 
-                  console.log(res.data)
+                  
                   if(res.data.variant === "success"){
                 getAllSavedTender()
                     snackRef.current.handleSnack(res.data);
@@ -104,12 +104,12 @@ export default function FullWidthTabs() {
                       let tp = allTender
                       tp[onePosition].isSaved = true
                       setAllTender(tp)
-                      console.log(allTender)
+                     
                     } else  if(res.data.type === "removed"){
                       let tp = allTender
                       tp[onePosition].isSaved = false
                       setAllTender(tp)
-                      console.log(allTender)
+                  
 
                     } 
                     handleClose()

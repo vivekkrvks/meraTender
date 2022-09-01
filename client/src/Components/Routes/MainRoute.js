@@ -10,6 +10,7 @@ import AddState from "../../Protected/Addition/Location/AddState"
 import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
 // Report
 import AllUser from "../../Protected/Report/AllUser"
+import AllTransaction from "../../ProUser/StaticPage/AllTransaction"
 
 import CommonPubDash from "../Navigation/PublicAppBarNavBar/CommonPubDash"
 
@@ -26,7 +27,7 @@ import About from "../../ProUser/StaticPage/AboutUs";
 import PrivacyPolicy from "../../ProUser/StaticPage/PrivacyPolicy";
 import TermAndCondition from "../../ProUser/StaticPage/TermAndCondition";
 import RefundPolicy from "../../ProUser/StaticPage/RefundPolicy";
-import PricingContent from "../../ProUser/StaticPage/Pricing";
+import PricingContent from "../../ProUser/StaticPage/ProPricing";
 import ProContact from "../../ProUser/StaticPage/ContactUs";
 import UserProfile from "../../ProUser/Profile/UserProfile";
 import PaymentVerify from "../../ProUser/PaymentVerify";
@@ -65,6 +66,9 @@ export default function MainRoute() {
         } />
               <Route  path="/AllUser" element={
           <PrivateRoute children={<AllUser />} />        
+        } />
+              <Route  path="/transaction" element={
+          <PrivateRoute children={<AllTransaction />} />        
         } />
 
         <Route  path="/AddDepartment" element={

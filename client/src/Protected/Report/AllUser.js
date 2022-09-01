@@ -187,6 +187,7 @@ const classes = useStyles();
     
       { field: 'date', headerName: 'Date', width: 210 },
       { field: 'mobileNo', headerName: 'Mobile No', width: 210 },
+      { field: 'isProUser', headerName: 'Paid By User', width: 210 },
       { field: 'mobileVerified', headerName: 'Mobile Verified', width: 210 },
       { field: 'name', headerName: 'Name', width: 130 },
       { field: '_id', headerName: 'ID ', width: 210 },

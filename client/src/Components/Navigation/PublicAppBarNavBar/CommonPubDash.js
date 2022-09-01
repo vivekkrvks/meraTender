@@ -55,7 +55,7 @@ export default function PersistentDrawerLeft({compo}) {
   const checkForAuth = () => {
     let isSubscribed= true
     if(isSubscribed){
-      console.log(state)
+     
       if (!(state.isAuthenticated)) {  
         // setRedirectToLogin(true)  
     }

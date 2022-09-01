@@ -1,14 +1,15 @@
-import './App.css';
+import './../App.css';
 import React, {  useState,useContext, useEffect } from "react";
-import { MainContext } from "../Components/Context/MainContext";
-import { DRAWER, LOGOUT_USER } from "../Components/Context/types";
+import { MainContext } from "../../Components/Context/MainContext";
+import { DRAWER, LOGOUT_USER } from "../../Components/Context/types";
 import axios from "axios";
 import { makeStyles } from '@mui/styles';
 import { Link, Navigate } from "react-router-dom";
 import {Container,Typography,Button, Grid, ListItem, Tooltip, ListItemText, Backdrop, CircularProgress} from '@mui/material/';
-import CheckPage from './ProComponent/Tender/checkForPage';
+import CheckPage from './../ProComponent/Tender/checkForPage';
+import StaticAppBar from './Component/StaticAppBar';
 
-function Pricing() {
+function ProPricing() {
     const [priceId, setPriceId] = useState()
     const [period, setPeriod] = useState()
     const [mrp, setMrp] = useState()
@@ -39,7 +40,7 @@ function Pricing() {
       handleOpen()
       await axios
               .get(`/api/v1/addition/price/allprice`)
-              .then((res) => (setPricing(res.data[0]),console.log(res.data)))
+              .then((res) => setPricing(res.data[0]))
               .catch(err => console.log(err))
               handleClose()
   }
@@ -79,10 +80,9 @@ function Pricing() {
     dispatch({ type: LOGOUT_USER });
   };
   return (
-    <div className='pricingBg' >
-      <CheckPage
-      from="Pricing"
-      />
+	<StaticAppBar> 
+		   <div className='pricingBg' >
+  
      <Container maxWidth="sm" style={{minHeight:"100vh"}}>
      <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -158,11 +158,12 @@ function Pricing() {
       
       
      </Container>
-    </div>
+    </div></StaticAppBar>
+
   );
 }
 
-export default Pricing;
+export default ProPricing;
 
 const listData1 = [
 	{ text: "All Transaction", link: "/transaction", admin:true,supervisor:true,fieldPartner:true  },

@@ -120,7 +120,8 @@ Sincerely,
 				</div>
 			</div>
 	
-		</div></StaticAppBar>
+		</div>
+		</StaticAppBar>
 	);
 }
 
