@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Button, Typography, Grid, Table, TableBody, TableRow, TableCell, Chip, Card } from '@mui/material/';
+import { Button, Typography, Grid, Table, TableBody, TableRow, TableCell, Chip, Card, Backdrop, CircularProgress } from '@mui/material/';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -38,15 +38,34 @@ const useStyles = styled((theme) => ({
 export default function Transaction() {
 	const classes = useStyles();
 	const [transData, setTransData] = useState([]);
-	useEffect(() => {
-		axios
+	const [open, setOpen] = useState(false);
+
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleOpen = () => {
+      setOpen(true);
+    };
+	useEffect(async() => {
+		handleOpen()
+		await axios
 			.get("/api/v1/report/getUserReport/trans/getall")
-			.then((res) => (setTransData(res.data),console.log(transData)))
+			.then((res) => (setTransData(res.data),console.log(transData),handleClose()))
 			.catch((err) => console.log(err));
+			handleClose()
 	}, []);
 
 	return (
 		<StaticAppBar>
+			   <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress
+		 color="inherit" />
+      </Backdrop>
 		<Fragment>
 			<div className={classes.tansTop}>
 				<Typography align="center" gutterBottom variant="h5" color="primary">
