@@ -80,7 +80,7 @@ function Pricing() {
   };
   return (
     <div className='pricingBg' >
-      <a href="https://wa.me/916202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase" target="_blank">
+      {/* <a href="https://wa.me/916202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase" target="_blank">
            <Fab
         color="success"
         aria-label="add"
@@ -88,7 +88,7 @@ function Pricing() {
         sx={{ position: "absolute", bottom: 16, right: 16 }}
       >
         <WhatsAppIcon fontSize="large" />
-      </Fab></a>
+      </Fab></a> */}
       <CheckPage
       from="Pricing"
       />
@@ -114,6 +114,7 @@ function Pricing() {
        <Typography variant="h5" textAlign="center" color="textSecondary" gutterBottom component="div">
        Spend your time winning Tender, not finding it.
         </Typography>
+   
       </Grid>
        <Grid item xs={12} style={{alignItems:"center"}}>
         <div className="card" onClick={()=>handlePay()}>
@@ -125,7 +126,12 @@ function Pricing() {
 
         </div>
        </Grid>
-
+       <Grid item xs={12}>
+    
+       <Typography variant="h6" textAlign="center" color="textSecondary" gutterBottom component="div">
+       Contact us with WhatsApp : 6202971746
+        </Typography>
+      </Grid>
        <Grid item xs={12}>
         <div className="benefit">
           <br/>

@@ -96,7 +96,7 @@
 .card small{
   position: relative;
   right: 80px;
-  top: -25px;
+  top: -27px;
   border: #c779d0;
   width: 180px;
   text-align: center;
@@ -134,7 +134,7 @@
   height: auto;
   width: "100%";
   background: rgb(252,255,92);
-  background: linear-gradient(132deg, rgba(252,255,92,0.8076272745426296) 41%, rgba(247,141,12,0.8048261540944502) 61%, rgba(163,244,152,0.8300362381280637) 78%);
+  background: linear-gradient(132deg, rgba(244, 244, 244, 0.808) 41%, rgba(248, 210, 163, 0.805) 61%, rgba(215, 254, 210, 0.83) 78%);
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 30px;
   border-top-left-radius: 30px;

@@ -74,17 +74,7 @@ function App() {
       <CheckPage
       from="Login"
       />
-      <a href="https://wa.me/6202971746?text=I'm%20interested%20in%20your%20MeraTender%20App%20Purchase">
-     
-     <Fab
-        color="success"
-        aria-label="add"
-        
-        sx={{ position: "absolute", bottom: 16, right: 16 }}
-      >
-        <WhatsAppIcon fontSize="large" />
-      </Fab>
-      </a>
+
 
      <Container maxWidth="sm" className="bg1" s>
      <Backdrop
