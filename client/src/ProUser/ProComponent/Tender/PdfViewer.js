@@ -20,6 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function PdfDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [myUrl,setMyUrl] = useState(props.fileUrl);
+  const [viewUrl,setViewUrl] = useState(props.fileUrl);
 
   const downloadImage = () => {
     let url = myUrl
@@ -27,9 +28,16 @@ export default function PdfDialog(props) {
     let result = url.replace(fileExtension, "pdf");
     setMyUrl(result)
   }
+  const showImage = () => {
+    let url = viewUrl
+    let fileExtension = url.split('.').pop();
+    let result = url.replace(fileExtension, "jpg");
+    setViewUrl(result)
+  }
 
 	useEffect(() => {
 		downloadImage()
+    showImage()
 	}, [props]);
 
 
@@ -65,7 +73,7 @@ export default function PdfDialog(props) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Document
+            {props.fileName}  Document 
             </Typography>
      <a href={myUrl} target="_blank" download={props.fileName}>
           <Button onClick = {() => downloadImage()} variant="contained" color="primary">
@@ -75,7 +83,13 @@ export default function PdfDialog(props) {
           </Toolbar>
         </AppBar>
         <div >
-        <img style={{maxWidth:"100%",height:"auto"}} src={props.fileUrl} />
+        <img style={{maxWidth:"100%",height:"auto"}} src={viewUrl} />
+     </div>
+     <div style={{marginLeft:"12.5%"}}>
+        <a href={myUrl} target="_blank" download={props.fileName} >
+          <Button onClick = {() => downloadImage()} variant="contained" color="secondary">
+             Download Full {props.fileName} Document
+            </Button></a>
     </div>
       </Dialog>
     </div>

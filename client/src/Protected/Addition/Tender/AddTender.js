@@ -293,7 +293,7 @@ export default function AddTender() {
 									variant="outlined"
 									required
 									fullWidth
-									inputProps={{ maxLength: "42" }}
+									inputProps={{ maxLength: "100" }}
 									onBlur={() => handleErr("tenderTitle")}
 									error={err.errIn === "tenderTitle" ? true : false}
 									label={err.errIn === "tenderTitle" ? err.msg : "Tender Title"}
