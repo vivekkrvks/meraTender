@@ -71,20 +71,21 @@ export default function ProContact() {
 	const data = [
 		// { title: "Registered Office", value: "47, Qualifier Building, Tollygunge, Kolkata - India" },
 		{ title: "Email", value: "support@meratender.com" },
-		{ title: "Phone No. ", value: "8084452610" },
-		{ title: "Address ", value: "67, Marvari Patti, Boring Canal Road - Patna, Pin Code - 800001" },
+		{ title: "Phone No. ", value: "+916202971746" },
+		{ title: "Address ", value: "corporate office no. 4 old madras road· Bangalore Karnataka - 560016 " },
 	];
 	return (
 		<StaticAppBar>		<Fragment>
 	
 			<div className={classes.contactTopBg}>Contact Us </div>
 			<Container className={classes.container}>
+				
 				<Paper>
 					<Grid container justify="center" spacing={4}>
 						<Grid item xs={12} md={6} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 							<img src={"https://qualifier.co.in/static/media/Chat.71331b0c.svg"} alt="Contact-Svg" />
 
-							<a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default">
+							<a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/6316fb4c54f06e12d892f573/1gc8sb9kk">
 								<Fab size="medium" color="secondary" variant="extended">
 									Start Chat Now
 								</Fab>
