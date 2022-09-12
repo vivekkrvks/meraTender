@@ -8,6 +8,7 @@ import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
 import AddState from "../../Protected/Addition/Location/AddState"
 import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
+import AddCafe from "../../Protected/Addition/Cafe/AddCafe"
 // Report
 import AllUser from "../../Protected/Report/AllUser"
 import AllTransaction from "../../ProUser/StaticPage/AllTransaction"
@@ -63,6 +64,9 @@ export default function MainRoute() {
         } />
               <Route  path="/AddDistrict" element={
           <PrivateRoute children={<AddDistrict />} />        
+        } />
+              <Route  path="/AddCafe" element={
+          <PrivateRoute children={<AddCafe />} />        
         } />
               <Route  path="/AllUser" element={
           <PrivateRoute children={<AllUser />} />        

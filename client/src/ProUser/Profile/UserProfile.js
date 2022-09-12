@@ -39,8 +39,8 @@ const useStyles = makeStyles(() => ({
 		backgroundPosition: `50% 100%`,
 	},
 	profileImg: {
-		width: 10,
-		height: 10,
+		width: "1000",
+		height: "1000",
 		marginLeft: "auto",
 		marginRight: "auto",
 	},
@@ -162,12 +162,13 @@ function Profile() {
 			<div className={classes.profileTop}>
 				<Typography align="center" gutterBottom variant="h5" color="primary">
 					Hello,
-					{data.firstName}!
+					{data.firstName }!
 				</Typography>
-				<input accept="image/*" style={{ display: "none" }} id="productImg" type="file" onChange={handleImg} />
+				<input accept="image/*" style={{ display: "none",width:"120px",height:"120px" }} id="productImg" type="file" onChange={handleImg} />
 				<label htmlFor="productImg">
 					<Tooltip title="Click to Change Image" placement="right">
-						<Avatar alt={data.fullName} className={classes.profileImg} src={data.image} />
+
+						<Avatar  sx={{ width: 100, height: 100 }} alt={data.fullName} className={classes.profileImg} src={data.image} />
 					</Tooltip>
 				</label>
 			</div>

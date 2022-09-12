@@ -118,14 +118,6 @@ export default function OneTenderCom(props) {
               </Typography>
          </Grid>             
                    
-          {/* <Grid item xs={2} >
-          <Typography variant="body2" color="text.secondary">
-              Amount
-              </Typography>
-              <Typography variant="caption" display="block" gutterBottom>
-              {props.tenderAmount}
-              </Typography>
-         </Grid>              */}
           <Grid item container xs={6} >
           <Grid item  xs={1} >
          </Grid>             
@@ -142,7 +134,7 @@ export default function OneTenderCom(props) {
          {(props.file1Url)&&(<Grid item style={{cursor:"pointer"}} xs={3} >
           <PdfDialog 
           fileUrl ={props.file1Url}
-          fileIcon= {<svg style={{width:"130%",height:"130%"}}version="1.0" xmlns="http://www.w3.org/2000/svg"
+          fileIcon= {<svg style={{width:"110%",height:"110%"}}version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="500.000000pt" height="500.000000pt" viewBox="0 0 500.000000 500.000000"
           preserveAspectRatio="xMidYMid meet">
          

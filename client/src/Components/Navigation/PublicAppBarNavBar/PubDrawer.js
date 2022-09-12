@@ -75,6 +75,7 @@ const handleLogout = () => {
   return (
 
       <SwipeableDrawer
+  
       variant="temporary"
       anchor="left"
       open={props.open}
@@ -82,7 +83,7 @@ const handleLogout = () => {
 	    onOpen={props.handleDrawerOpen}
         sx={{
           width: drawerWidth,
-          
+      
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
@@ -104,7 +105,8 @@ const handleLogout = () => {
         <List
             
         >
-             <ListItem alignItems="flex-start">
+                   <Link href={"/UserProfile"} to={"/UserProfile"}  color="inherit" underline="none">
+             <ListItem alignItems="flex-start" >
         <ListItemAvatar>
         <Badge
         overlap="circular"
@@ -132,12 +134,12 @@ const handleLogout = () => {
             </React.Fragment>
           }
         />
-      </ListItem>
+      </ListItem></Link>
       <Divider variant="inset" component="li" />
 
           {listData1.map((l, i) => (
               ("aa"=="aa" || (designationId==="admin" && l.admin=== true) || (designationId==="supervisor" && l.supervisor=== true) || (designationId==="fieldPartner" && l.fieldPartner=== true)) &&
-              (<Link href={l.link} to={l.link} key={l.link} color="inherit" underline="none">
+              (<Link onClick={() => (props.handleDrawerClose)} href={l.link} to={l.link} key={l.link} color="inherit" underline="none">
                   <ListItem button >
                   <Tooltip title={l.text} placement="right">
               <ListItemIcon>

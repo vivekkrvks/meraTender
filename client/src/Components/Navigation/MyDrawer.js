@@ -207,10 +207,10 @@ const listData1 = [
   { text: "Add Department", link: "/AddDepartment", icon: <KayakingIcon color="success" />,admin:true },
   { text: "Add State", link: "/AddState", icon: <CottageIcon color="success" />,admin:true },
   { text: "Add District", link: "/AddDistrict", icon: <ChaletIcon color="success" />,admin:true },
+  { text: "Add Cafe", link: "/AddCafe", icon: <KayakingIcon color="success" />,admin:true },
 ];
 const listData2 = [
-	{ text: "Login Mobile", link: "/LoginMobile", icon: <AddBoxIcon sx={{ color: purple [500] }}/> },
-	{ text: "Common Pub Dash", link: "/CommonPubDash", icon: <KayakingIcon sx={{ color: purple [500] }}/> },
+
 	{ text: "All User", link: "/AllUser", icon: <GroupIcon sx={{ color: purple [500] }}/> },
 
 
