@@ -20,7 +20,6 @@ router.post(
   async(req, res) => {
     let page = 0
     page = req.body.page
-    console.log(page)
     let toSkip = page * 5
     // console.log(req.body)
     let myMatch = {"visibility.id":"public"}
