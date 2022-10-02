@@ -88,12 +88,12 @@ export default function Transaction() {
 					{transData?.map((d) => (
 						<Grid item key={d._id} xs={12} md={4}>
 							<Card elevation={3} className={classes.transCard}>
-								<div className={classes.statusRibbon} style={{ background: d.paymentDetails.STATUS ? "#2ec948" : "#f96868" }}>
-									{d.paymentDetails.STATUS ? "Success" : "Failure"}
+								<div className={classes.statusRibbon} style={{ background: d.paymentDetails.STATUS === "TXN_SUCCESS" ? "#2ec948" : "#f96868" }}>
+									{d.paymentDetails.STATUS === "TXN_SUCCESS" ? "Success" : "Failure"}
 								</div>
 
 								<center>
-									<Chip label={d.paymentDetails.ORDERID} variant="outlined" color="primary" />
+									<Chip label={d.paymentDetails.ORDERID || d._id} variant="outlined" color="primary" />
 								</center>
 								<br />
 								<Typography align="center" color="textSecondary">{`Payment Date : ${d.paymentDetails.TXNDATE}`}</Typography>
@@ -108,7 +108,7 @@ export default function Transaction() {
 											</TableCell>
 											<TableCell size="small">
 												<Typography variant="body1" color="secondary">
-													{d.paymentDetails.TXNAMOUNT}
+													{d.paymentDetails.TXNAMOUNT || d.sellingPrice}
 												</Typography>
 											</TableCell>
 										</TableRow>
@@ -123,19 +123,19 @@ export default function Transaction() {
 											<TableCell size="small" align="right" style={{ width: "50%" }}>
 												Bank
 											</TableCell>
-											<TableCell size="small">{d.paymentDetails.BANKNAME}</TableCell>
+											<TableCell size="small">{d.paymentDetails.BANKNAME || "Data Not Available"}</TableCell>
 										</TableRow>
 										<TableRow hover>
 											<TableCell size="small" align="right" style={{ width: "50%" }}>
 												Mode
 											</TableCell>
-											<TableCell size="small">{d.paymentDetails.PAYMENTMODE}</TableCell>
+											<TableCell size="small">{d.paymentDetails.PAYMENTMODE || "Data Not Available"}</TableCell>
 										</TableRow>
 										<TableRow hover>
 											<TableCell size="small" align="right" style={{ width: "50%" }}>
                                             GATEWAYNAME
 											</TableCell>
-											<TableCell size="small">{d.paymentDetails.GATEWAYNAME}</TableCell>
+											<TableCell size="small">{d.paymentDetails.GATEWAYNAME || "Data Not Available"}</TableCell>
 										</TableRow>
 									</TableBody>
 								</Table>

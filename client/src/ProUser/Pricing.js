@@ -122,7 +122,7 @@ function Pricing() {
           <small>Limited Period Offer</small>
              <p><s> ₹ {mrp}.00 </s>  </p> 
           <h6> ₹ {sellingPrice}.00  </h6>         
-      <button >Click to Buy Now</button>
+      
 
         </div>
        </Grid>

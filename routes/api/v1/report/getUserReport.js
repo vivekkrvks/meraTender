@@ -41,7 +41,10 @@ router.get(
 
    let allData = await AllTransaction.aggregate(
         [
-            {$match:{user:req.user._id}},
+            {$match:{
+                user:req.user._id,
+                
+            }},
            
         ]
     )   .catch(err =>

@@ -8,7 +8,7 @@ import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
 import AddState from "../../Protected/Addition/Location/AddState"
 import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
-import AddCafe from "../../Protected/Addition/Cafe/AddCafe"
+import AddPartner from "../../Protected/Addition/Partner/AddPartner"
 // Report
 import AllUser from "../../Protected/Report/AllUser"
 import AllTransaction from "../../ProUser/StaticPage/AllTransaction"
@@ -45,6 +45,16 @@ const PrivateRoute = ({ children }) => {
     // return <Login />
   }
 };
+const AdminRoute = ({ children }) => {
+	const { state } = useContext(MainContext);
+	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" || state.designation.id === "supervisor" ||  state.designation.id === "fieldPartner") ? true : false;
+	if(isAuthenticated){
+   return children
+  } else {
+
+    return <Login />
+  }
+};
 
 
 export default function MainRoute() {
@@ -54,29 +64,29 @@ export default function MainRoute() {
         <Route  path="/login" element={<Login />} />
   
         <Route  path="/Dashboard" element={
-          <PrivateRoute children={<Dashboard />} />        
+          <AdminRoute children={<Dashboard />} />        
         } />
               <Route  path="/AddTender" element={
-          <PrivateRoute children={<AddTender />} />        
+          <AdminRoute children={<AddTender />} />        
         } />
               <Route  path="/AddState" element={
-          <PrivateRoute children={<AddState />} />        
+          <AdminRoute children={<AddState />} />        
         } />
               <Route  path="/AddDistrict" element={
-          <PrivateRoute children={<AddDistrict />} />        
+          <AdminRoute children={<AddDistrict />} />        
         } />
-              <Route  path="/AddCafe" element={
-          <PrivateRoute children={<AddCafe />} />        
+              <Route  path="/AddPartner" element={
+          <AdminRoute children={<AddPartner />} />        
         } />
               <Route  path="/AllUser" element={
-          <PrivateRoute children={<AllUser />} />        
+          <AdminRoute children={<AllUser />} />        
         } />
               <Route  path="/transaction" element={
-          <PrivateRoute children={<AllTransaction />} />        
+          <AdminRoute children={<AllTransaction />} />        
         } />
 
         <Route  path="/AddDepartment" element={
-          <PrivateRoute children={<AddDepartment />} />     
+          <AdminRoute children={<AddDepartment />} />     
         } />
         <Route  path="/CommonPubDash" element={
           <PrivateRoute children={<CommonPubDash />} />     

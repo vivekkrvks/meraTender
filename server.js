@@ -27,7 +27,7 @@ const category = require("./routes/api/v1/addition/category");
 const department = require("./routes/api/v1/addition/department");
 const tender = require("./routes/api/v1/addition/tender");
 const price = require("./routes/api/v1/addition/price");
-const cafe = require("./routes/api/v1/addition/cafe");
+const addPartner = require("./routes/api/v1/addition/addPartner");
 // Addition --> Location
 const state = require("./routes/api/v1/addition/location/state");
 const district = require("./routes/api/v1/addition/location/district");
@@ -96,7 +96,7 @@ app.use("/api/v1/addition/category", category);
 app.use("/api/v1/addition/department", department);
 app.use("/api/v1/addition/tender", tender);
 app.use("/api/v1/addition/price", price);
-app.use("/api/v1/addition/cafe", cafe);
+app.use("/api/v1/addition/addPartner", addPartner);
 // add -> loc
 app.use("/api/v1/addition/location/state", state);
 app.use("/api/v1/addition/location/district", district);

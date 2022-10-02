@@ -10,7 +10,7 @@ import { FiBookmark } from "react-icons/fi";
 import { FcBookmark } from "react-icons/fc";
 import { GrDocumentPdf } from "react-icons/gr";
 import { VscFilePdf } from "react-icons/vsc";
-import { Avatar, Badge } from '@mui/material';
+import { Avatar, Badge, Button } from '@mui/material';
 import PdfDialog from "./PdfViewer"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -52,6 +52,7 @@ const Img = styled('img')({
 export default function OneTenderCom(props) {
   
   return (
+    <div>
     <Paper
       sx={{
         p: 1,
@@ -254,5 +255,7 @@ export default function OneTenderCom(props) {
         </Grid>
    
     </Paper>
+    <Button></Button>
+    </div>
   );
 }
