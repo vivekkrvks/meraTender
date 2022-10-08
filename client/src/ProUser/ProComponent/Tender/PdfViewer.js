@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Document, Page } from 'react-pdf';
 
+import axios from "axios";
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -13,6 +14,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { GrDocumentPdf } from 'react-icons/gr';
 import { saveAs } from 'file-saver'
+import OneShopCom from './OneShop';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,6 +26,7 @@ export default function PdfDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [myUrl,setMyUrl] = useState(props.fileUrl);
   const [viewUrl,setViewUrl] = useState(props.fileUrl);
+  const [allPartner,setAllPartner] = useState([]);
 
   const downloadImage = () => {
     let url = myUrl
@@ -41,7 +47,15 @@ export default function PdfDialog(props) {
 	}, [props]);
 
 
+    const getAllPartner = async() => {
+        await axios
+                .get(`/api/v1/addition/addPartner/forPublic/partner/${props.shopDist?.districtLink}/${props.shopCat}`)
+                .then((res) => (setAllPartner(res.data)))
+                .catch(err => console.log(err))
+    }
+
   const handleClickOpen = () => {
+    getAllPartner()
     setOpen(true);
   };
 
@@ -82,25 +96,47 @@ export default function PdfDialog(props) {
 
           </Toolbar>
         </AppBar>
-        <div >
-        <img style={{maxWidth:"100%",height:"auto"}} src={viewUrl} />
+        <div  >
+        <TransformWrapper style={{maxWidth:"100%",height:"auto"}}>
+        <TransformComponent style={{maxWidth:"100%",height:"auto"}}>
+          <img style={{maxWidth:"100%",height:"auto"}} src={viewUrl} alt="test" />
+        </TransformComponent>
+      </TransformWrapper>
+        {/* <img style={{maxWidth:"100%",height:"auto"}} src={viewUrl} /> */}
      </div>
      <div style={{marginLeft:"12.5%"}}>
         <a href={myUrl} target="_blank" download={props.fileName} >
           <Button onClick = {() => downloadImage()} variant="contained" color="secondary">
-             Download Full {props.fileName} Document
+          📄Download Full {props.fileName} Document📄
             </Button></a>
+    </div>
+    <div style={{marginTop:"10px"}}>
+    <Stack spacing={1} alignItems="center">
+      <Stack direction="row" spacing={1}>
+        {/* <h3>{props.shopDist?.districtLink}</h3>
+        <h3>{props.shopCat}</h3> */}
+        <Chip label="You May Contact below Cafe 👇👇👇" color="success" />
+      </Stack>
+    
+    </Stack>
+    {
+                  allPartner.map((v,i)=> (
+                    <>
+                    {/* <h3>{v.partnerName}</h3> */}
+                    <OneShopCom 
+           key={v._id}
+           partnerName={v.partnerName}
+           districtName={props.shopDist?.districtName}
+           isVerified={v.isVerified}
+           fullAddress={v.fullAddress}
+           mobileNo={v.mobileNo}
+           whatsAppNo={v.whatsAppNo}
+           emailId={v.emailId}
+          /></>
+                ))}
+       
     </div>
       </Dialog>
     </div>
   );
 }
-
-
-// export default function PdfView() {
-
-
-//   return (
-
-//   );
-// }

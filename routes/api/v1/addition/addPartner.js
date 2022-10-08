@@ -353,4 +353,32 @@ router.get(
 );
 
 
+// @type    GET
+//@route    /api/v1/addition/addPartner/forPublic/partner/:districtLink/:partnerType
+// @desc    route for getting all partner for public by district
+// @access  PRIVATE
+
+router.get(
+  "/forPublic/partner/:districtLink/:partnerType",
+  // passport.authenticate("jwt", { session: false }),
+  async(req, res) => {
+   let allData = await AddPartner.aggregate(
+        [
+          {$match:{
+            "district.districtLink":req.params.districtLink,
+            "partnerType.partnerTypeLink":req.params.partnerType,
+            "visibility.id":"public",
+          }},
+            {$project:{isVerified:1,fullAddress:1,mobileNo:1,whatsAppNo:1,emailId:1,partnerName:1}}
+        ]
+    )   .catch(err =>
+        res
+          .status(404)
+          .json({ message: "No AddPartner Found", variant: "error" })
+      );
+      res.json(allData)
+   
+  }
+);
+
 module.exports = router;

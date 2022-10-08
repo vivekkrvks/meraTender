@@ -134,6 +134,8 @@ export default function OneTenderCom(props) {
          {/* borderStyle:"outset"       */}
          {(props.file1Url)&&(<Grid item style={{cursor:"pointer"}} xs={3} >
           <PdfDialog 
+          shopCat = {"cafe"}
+          shopDist={props.district}
           fileUrl ={props.file1Url}
           fileIcon= {<svg style={{width:"110%",height:"110%"}}version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="500.000000pt" height="500.000000pt" viewBox="0 0 500.000000 500.000000"
@@ -176,6 +178,7 @@ export default function OneTenderCom(props) {
          </Grid>          
         {(props.file2Url)&&( <Grid item style={{cursor:"pointer"}} xs={3} >
         <PdfDialog 
+         shopCat = {"cafe"}
           fileUrl ={props.file2Url}
           fileIcon= {<svg style={{width:"110%",height:"110%"}} version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="494.000000pt" height="505.000000pt" viewBox="0 0 494.000000 505.000000"
