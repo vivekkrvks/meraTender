@@ -207,7 +207,7 @@ const listData1 = [
   { text: "Add Department", link: "/AddDepartment", icon: <KayakingIcon color="success" />,admin:true },
   { text: "Add State", link: "/AddState", icon: <CottageIcon color="success" />,admin:true },
   { text: "Add District", link: "/AddDistrict", icon: <ChaletIcon color="success" />,admin:true },
-  { text: "Add Partner", link: "/AddPartner", icon: <KayakingIcon color="success" />,admin:true },
+  { text: "Add Business", link: "/AddBusiness", icon: <KayakingIcon color="success" />,admin:true },
 ];
 const listData2 = [
 

@@ -27,7 +27,7 @@ const category = require("./routes/api/v1/addition/category");
 const department = require("./routes/api/v1/addition/department");
 const tender = require("./routes/api/v1/addition/tender");
 const price = require("./routes/api/v1/addition/price");
-const addPartner = require("./routes/api/v1/addition/addPartner");
+const addBusiness = require("./routes/api/v1/addition/addBusiness");
 // Addition --> Location
 const state = require("./routes/api/v1/addition/location/state");
 const district = require("./routes/api/v1/addition/location/district");
@@ -43,6 +43,7 @@ const paytm = require("./routes/api/v1/forPublicWeb/paytm")
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
 const pstatus = require("./routes/api/v1/other/pstatus");
+const freeTrial = require("./routes/api/v1/other/freeTrial");
 // 
 
 //passport 
@@ -96,7 +97,7 @@ app.use("/api/v1/addition/category", category);
 app.use("/api/v1/addition/department", department);
 app.use("/api/v1/addition/tender", tender);
 app.use("/api/v1/addition/price", price);
-app.use("/api/v1/addition/addPartner", addPartner);
+app.use("/api/v1/addition/addBusiness", addBusiness);
 // add -> loc
 app.use("/api/v1/addition/location/state", state);
 app.use("/api/v1/addition/location/district", district);
@@ -114,6 +115,7 @@ app.use("/api/v1/forPublicWeb/paytm", paytm);
 //other
 app.use("/api/v1/other/fileUpload",fileUpload)
 app.use("/api/v1/other/pstatus",pstatus)
+app.use("/api/v1/other/freeTrial",freeTrial)
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

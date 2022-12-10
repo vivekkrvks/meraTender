@@ -81,7 +81,10 @@ isProUser:{
   type:Boolean,
   default:false
 },
-
+freeTrialUsed:{
+  type:Boolean,
+  default:false
+},
 accountStatus:{
   type:String,
   default:"active"

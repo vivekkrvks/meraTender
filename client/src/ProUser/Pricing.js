@@ -45,10 +45,24 @@ function Pricing() {
   }
 
     const [redirect, setRedirect] = useState(false) 
-    const handlePay = () => {
-      if (state.isAuthenticated) {
+    const handleFreeTrial = () => {
+      if (state.isAuthenticated) {      
 
+          axios
+            .post("/api/v1/other/freeTrial/checkAndStart", { })
+            .then((res) => {
+             console.log("myData" + res.data)
+
+         
+            })
+            .catch((err) => console.log(err));
         
+      } else {
+        handleSubmit();
+      }
+    };
+    const handlePay = () => {
+      if (state.isAuthenticated) {      
 
           axios
             .post("/api/v1/forPublicWeb/paytm/pay", { priceId})
@@ -116,6 +130,16 @@ function Pricing() {
         </Typography>
    
       </Grid>
+       <Grid item xs={12} style={{alignItems:"center"}}>
+        <div className="card" onClick={()=>handleFreeTrial()}>
+          <span>For 1 Month</span>
+          <small>Start Your Free Trial</small>
+             <p><s> ₹ 1499.00 </s>  </p> 
+          <h6> ₹ 00.00  </h6>         
+      
+
+        </div>
+       </Grid>
        <Grid item xs={12} style={{alignItems:"center"}}>
         <div className="card" onClick={()=>handlePay()}>
           <span>For {period}</span>

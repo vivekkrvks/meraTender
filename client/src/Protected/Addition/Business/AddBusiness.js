@@ -30,7 +30,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-export default function AddPartner() {
+export default function AddBusiness() {
 	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [visibility, setVisibility] = useState({
@@ -38,24 +38,30 @@ export default function AddPartner() {
 		id:"public"
 	});
 	const [isVerified, setIsVerified] = useState(false);
-	const [partnerName, setPartnerName] = useState("");
-	const [partnerLink, setPartnerLink] = useState("");
+	const [businessName, setBusinessName] = useState("");
+	const [businessLink, setBusinessLink] = useState("");
 
 	const [state, setState] = useState({stateName:"Bihar",stateLink:"bihar"});
 	const [allState, setAllState] = useState([]);
 	const [district, setDistrict] = useState({districtName:"",districtLink:""});
 	const [allDistrict, setAllDistrict] = useState([]);
-	const [partnerType, setPartnerType] = useState({partnerTypeName:"",partnerTypeLink:""});
-	const [allPartnerType, setAllPartnerType] = useState([]);
+	const [businessType, setBusinessType] = useState({businessTypeName:"",businessTypeLink:""});
+	const [allBusinessType, setAllBusinessType] = useState([]);
 
-	const [fullAddress, setFullAddress] = useState("");
+	const [ownerName, setOwnerName] = useState("");
 	const [mobileNo, setMobileNo] = useState("");
 	const [whatsAppNo, setWhatsAppNo] = useState("");
 	const [emailId, setEmailId] = useState("");
+	const [website, setWebsite] = useState("");
+	const [gstNumber, setGstNumber] = useState("");
+	const [shortDescription, setShortDescription] = useState("");
+	const [fullDescription, setFullDescription] = useState("");
+	const [fullAddress, setFullAddress] = useState("");
+	const [pinCode, setPinCode] = useState("");
 
 	const [isAdvance, setIsAdvance] = useState(false);
 
-	const [allPartner, setAllPartner] = useState([]);
+	const [allBusiness, setAllBusiness] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [err] = useState({ errIn: "", msg: "" });
@@ -83,14 +89,14 @@ export default function AddPartner() {
 	useEffect(() => {
 		getData("");
 		getAllDistrict();
-		getAllPartnerType();
+		getAllBusinessType();
 	}, []);
 
-	const getAllPartnerType = async () => {
+	const getAllBusinessType = async () => {
 
 		await axios
-			.get(`/api/v1/addition/addPartner/allPartnerType`)
-			.then((res) => (console.log(res.data),setAllPartnerType(res.data)))
+			.get(`/api/v1/addition/addBusiness/allBusinessType`)
+			.then((res) => (console.log(res.data),setAllBusinessType(res.data)))
 			.catch((err) => console.log(err));
 	};
 	const getAllDistrict = async () => {
@@ -102,8 +108,8 @@ export default function AddPartner() {
 	};
 	const getData = async (word) => {	
 		await axios
-			.get(`/api/v1/addition/addPartner/allPartner/${word}`)
-			.then((res) => (setAllPartner(res.data)))
+			.get(`/api/v1/addition/addBusiness/allBusiness/${word}`)
+			.then((res) => (setAllBusiness(res.data)))
 			.catch((err) => console.log(err));
 	};
 
@@ -111,12 +117,12 @@ export default function AddPartner() {
 		e.preventDefault();
 		handleOpen();
 		let newCaf = { _id: id,
-		visibility,isVerified,partnerType,partnerName,
+		visibility,isVerified,businessType,businessName,
 			state,district,fullAddress,
-			mobileNo,whatsAppNo,partnerLink,emailId,isAdvance
+			mobileNo,whatsAppNo,businessLink,ownerName,emailId,isAdvance,website,gstNumber,shortDescription,fullDescription,pinCode
 			};
 		await axios
-			.post(`/api/v1/addition/addPartner/${id}`, newCaf)
+			.post(`/api/v1/addition/addBusiness/${id}`, newCaf)
 			.then((res) => {
 				snackRef.current.handleSnack(res.data);
 				getData("");
@@ -133,10 +139,10 @@ export default function AddPartner() {
 			name:"Public",
 			id:"public"
 		});
-		setPartnerType({partnerTypeName:"",partnerTypeLink:""})
+		setBusinessType({businessTypeName:"",businessTypeLink:""})
 		setIsVerified(false);
-		setPartnerName("");
-		setPartnerLink("");
+		setBusinessName("");
+		setBusinessLink("");
 		setState("");
 		setDistrict("");
 		setState({stateName:"Bihar",stateLink:"bihar"});
@@ -146,12 +152,18 @@ export default function AddPartner() {
 		setMobileNo("");
 		setWhatsAppNo("");
 		setEmailId("");
-
 		setIsAdvance(false);	
+		setOwnerName("");
+		setEmailId("");
+		setWebsite("");
+		setGstNumber("");
+		setShortDescription("");
+		setFullDescription("");
+		setPinCode("");
 
 
 	};
-	const partnerLinkCreator = async (value) => {
+	const businessLinkCreator = async (value) => {
 		var strs = value.replace(/    /g,'-').replace(/   /g,'-').replace(/  /g,'-').replace(/ /g,'-');
 		var rests = strs.replace(/  | |   |    |      /gi, function (x) {
 			return  "";
@@ -159,15 +171,16 @@ export default function AddPartner() {
 		 rests = strs.replace(/--| |   |    |      /gi, function (x) {
 			return  "";
 		  });
-		setPartnerLink(rests.toLowerCase());
+		setBusinessLink(rests.toLowerCase());
 
 	};
 
 	const setData = async (id) => {
 		handleOpen();
 		await axios
-			.get(`/api/v1/addition/partner/get/${id}`)
-			.then((res) => {		
+			.get(`/api/v1/addition/addBusiness/get/${id}`)
+			.then((res) => {	
+				console.log(res.data)	
 		setId(res.data._id);
 		setVisibility({
 			name:"Public",
@@ -178,15 +191,23 @@ export default function AddPartner() {
 		console.log(isVerified)
 		setIsVerified(res.data.isVerified)
 		console.log(isVerified)
-
-		setPartnerName(res.data.partnerName);
-		setPartnerLink(res.data.partnerLink);
+		setBusinessType(res.data.businessType)
+		setBusinessName(res.data.businessName);
+		setBusinessLink(res.data.businessLink);
 		setState({stateName:"Bihar",stateLink:"bihar"});
 		setDistrict(res.data.district);
 		setFullAddress(res.data.fullAddress);
 		setMobileNo(res.data.mobileNo);
 		setWhatsAppNo(res.data.whatsAppNo);
 		setEmailId(res.data.emailId);
+
+		setOwnerName(res.data.ownerName);
+		setEmailId(res.data.emailId);
+		setWebsite(res.data.website);
+		setGstNumber(res.data.gstNumber);
+		setShortDescription(res.data.shortDescription);
+		setFullDescription(res.data.fullDescription);
+		setPinCode(res.data.pinCode);
 
 		setIsAdvance(res.data.isAdvance);	
 	
@@ -197,7 +218,7 @@ export default function AddPartner() {
 	};
 	const handleDelete = (id) => {
 		axios
-			.delete(`/api/v1/addition/partner/delete/${id}`)
+			.delete(`/api/v1/addition/addBusiness/delete/${id}`)
 			.then((res) => alert(res.data.message))
 			.then(() => getData(""))
 			.catch((err) => console.log(err));
@@ -236,7 +257,7 @@ export default function AddPartner() {
 							<Grid item xs={4}></Grid>
 							<Grid item xs={4}>
 								<center>
-									<Chip color="primary" label="Add Partner" />
+									<Chip color="primary" label="Add Business" />
 								</center>
 							</Grid>
 							<Grid item xs={4}>
@@ -247,15 +268,15 @@ export default function AddPartner() {
                             </Grid>
 							<Grid item xs={12} md={5}> 
 			 						 <Autocomplete										
-										options={allPartnerType}
+										options={allBusinessType}
 										filterSelectedOptions
-										getOptionLabel={(option) => option?.partnerTypeName}
-										isOptionEqualToValue={(option, value) => (option.partnerTypeName === value.partnerTypeName )}
+										getOptionLabel={(option) => option?.businessTypeName}
+										isOptionEqualToValue={(option, value) => (option.businessTypeName === value.businessTypeName )}
 										onChange={(e, v) => {
-											setPartnerType(v);										
+											setBusinessType(v);										
 										}}
-										value={partnerType}
-										renderInput={(params) => <TextField {...params} variant="outlined" label="Select Partner Type" />}
+										value={businessType}
+										renderInput={(params) => <TextField {...params} variant="outlined" label="Select Business Type" />}
 									/>            
       								
 									</Grid>
@@ -296,12 +317,12 @@ export default function AddPartner() {
 									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
-									onBlur={() => handleErr("partnerName")}
-									error={err.errIn === "partnerName" ? true : false}
-									label={err.errIn === "partnerName" ? err.msg : "Partner Name"}
-									placeholder="Enter the partner Number.."
-									value={partnerName}
-									onChange={(e) => (setPartnerName(e.target.value),partnerLinkCreator(e.target.value))}
+									onBlur={() => handleErr("businessName")}
+									error={err.errIn === "businessName" ? true : false}
+									label={err.errIn === "businessName" ? err.msg : "Business Name"}
+									placeholder="Enter the business Number.."
+									value={businessName}
+									onChange={(e) => (setBusinessName(e.target.value),businessLinkCreator(e.target.value))}
 								/>
 							</Grid>	
 									<Grid item xs={12}  md={6}>
@@ -368,12 +389,12 @@ export default function AddPartner() {
 									required
 									fullWidth
 									inputProps={{ maxLength: "42" }}
-									onBlur={() => handleErr("partnerLink")}
-									error={err.errIn === "partnerLink" ? true : false}
-									label={err.errIn === "partnerLink" ? err.msg : "Partner link"}
-									placeholder="Link of the Partner.."
-									value={partnerLink}
-									onChange={(e) => setPartnerLink(e.target.value)}
+									onBlur={() => handleErr("businessLink")}
+									error={err.errIn === "businessLink" ? true : false}
+									label={err.errIn === "businessLink" ? err.msg : "Business link"}
+									placeholder="Link of the Business.."
+									value={businessLink}
+									onChange={(e) => setBusinessLink(e.target.value)}
 								/>
 							</Grid>	
 							<Grid item xs={6}>
@@ -385,12 +406,98 @@ export default function AddPartner() {
 									onBlur={() => handleErr("emailId")}
 									error={err.errIn === "emailId" ? true : false}
 									label={err.errIn === "emailId" ? err.msg : "Email Id"}
-									placeholder="Enter partner emailId.."
+									placeholder="Enter business emailId.."
 									value={emailId}
 									onChange={(e) => setEmailId(e.target.value)}
 								/>
 							</Grid>							
-					
+							<Grid item xs={6}>
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									inputProps={{ maxLength: "42" }}
+									onBlur={() => handleErr("ownerName")}
+									error={err.errIn === "ownerName" ? true : false}
+									label={err.errIn === "ownerName" ? err.msg : "Owner Name"}
+									placeholder="Business Owner Name.."
+									value={ownerName}
+									onChange={(e) => setOwnerName(e.target.value)}
+								/>
+							</Grid>	
+							<Grid item xs={6}>
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									inputProps={{ maxLength: "42" }}
+									onBlur={() => handleErr("website")}
+									error={err.errIn === "website" ? true : false}
+									label={err.errIn === "website" ? err.msg : "Website"}
+									placeholder="Business Website.."
+									value={website}
+									onChange={(e) => setWebsite(e.target.value)}
+								/>
+							</Grid>	
+							<Grid item xs={6}>
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									inputProps={{ maxLength: "42" }}
+									onBlur={() => handleErr("gstNumber")}
+									error={err.errIn === "gstNumber" ? true : false}
+									label={err.errIn === "gstNumber" ? err.msg : "Gst Number"}
+									placeholder="Business Gst Number.."
+									value={gstNumber}
+									onChange={(e) => setGstNumber(e.target.value)}
+								/>
+							</Grid>	
+							<Grid item xs={6}>
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									inputProps={{ maxLength: "6" }}
+									onBlur={() => handleErr("pinCode")}
+									error={err.errIn === "pinCode" ? true : false}
+									label={err.errIn === "pinCode" ? err.msg : "Pin Code"}
+									placeholder="PinCode of the Business.."
+									value={pinCode}
+									onChange={(e) => setPinCode(e.target.value)}
+								/>
+							</Grid>	
+							<Grid item xs={6}>
+								<TextField
+
+									variant="outlined"
+									required
+									fullWidth
+									inputProps={{ maxLength: "100" }}
+									onBlur={() => handleErr("shortDescription")}
+									error={err.errIn === "shortDescription" ? true : false}
+									label={err.errIn === "shortDescription" ? err.msg : "Short Description"}
+									placeholder="Short Description of the Business.."
+									value={shortDescription}
+									onChange={(e) => setShortDescription(e.target.value)}
+								/>
+							</Grid>	
+							<Grid item xs={6}>
+								<TextField
+								   id="outlined-textarea"
+								   multiline
+									required
+									fullWidth
+									inputProps={{ maxLength: "1000" }}
+									onBlur={() => handleErr("fullDescription")}
+									error={err.errIn === "fullDescription" ? true : false}
+									label={err.errIn === "fullDescription" ? err.msg : "Full Description"}
+									placeholder="Full Description of the Business.."
+									value={fullDescription}
+									onChange={(e) => setFullDescription(e.target.value)}
+								/>
+							</Grid>	
+							
 				
 							<Grid item xs={12}>
 								<Divider />
@@ -430,13 +537,13 @@ export default function AddPartner() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder= {`Search Partner...`}
+              placeholder= {`Search Business...`}
 			  onChange={(e) => getData(e.target.value)}
 			   
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-				{/* <SearchBar name={ "Partner"}  onChange={(e) => getData(e.target.value)} /> */}
+				{/* <SearchBar name={ "Business"}  onChange={(e) => getData(e.target.value)} /> */}
 				
 				</div>
 				<div className={classes.searchResult}>
@@ -450,10 +557,10 @@ export default function AddPartner() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{allPartner.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+								{allBusiness.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
 									<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 										<TableCell component="td" scope="row">
-											Partner Name : {data.partnerName} , fullAddress : {data.fullAddress} <br />
+											Business Name : {data.businessName} , fullAddress : {data.fullAddress} <br />
 										</TableCell>
 									</TableRow>
 								))}
@@ -463,14 +570,14 @@ export default function AddPartner() {
 								<TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={allPartner.length}
+          count={allBusiness.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={(e, page) => setPage(page)}
           onRowsPerPageChange={ (event) => (setRowsPerPage(parseInt(event.target.value, 10)),setPage(0))}
         />
 									{/* <TablePagination
-										count={allPartner.length}
+										count={allBusiness.length}
 										rowsPerPage={rowsPerPage}
 										page={page}
 										onChangePage={(e, page) => setPage(page)}

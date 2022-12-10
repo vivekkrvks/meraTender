@@ -8,7 +8,7 @@ import AddDepartment from "../../Protected/Addition/Department/AddDepartment"
 // Addition -> Location
 import AddState from "../../Protected/Addition/Location/AddState"
 import AddDistrict from "../../Protected/Addition/Location/AddDistrict"
-import AddPartner from "../../Protected/Addition/Partner/AddPartner"
+import AddBusiness from "../../Protected/Addition/Business/AddBusiness"
 // Report
 import AllUser from "../../Protected/Report/AllUser"
 import AllTransaction from "../../ProUser/StaticPage/AllTransaction"
@@ -23,6 +23,7 @@ import LoginMobile from "../../ProUser/LoginMobile";
 import LoginOtp from "../../ProUser/LoginOtp";
 import Pricing from "../../ProUser/Pricing";
 import MainApp from "../../ProUser/MainApp";
+import BusinessPage from "../../ProUser/Business/BusinessPage";
 import StaticRoute from "./StaticRoute";
 import About from "../../ProUser/StaticPage/AboutUs";
 import PrivacyPolicy from "../../ProUser/StaticPage/PrivacyPolicy";
@@ -36,7 +37,7 @@ import PaymentVerify from "../../ProUser/PaymentVerify";
 
 const PrivateRoute = ({ children }) => {
 	const { state } = useContext(MainContext);
-	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" || state.designation.id === "supervisor" ||  state.designation.id === "fieldPartner") ? true : false;
+	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" || state.designation.id === "supervisor" ||  state.designation.id === "fieldBusiness") ? true : false;
 	if(isAuthenticated){
    return children
   } else {
@@ -47,7 +48,7 @@ const PrivateRoute = ({ children }) => {
 };
 const AdminRoute = ({ children }) => {
 	const { state } = useContext(MainContext);
-	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" || state.designation.id === "supervisor" ||  state.designation.id === "fieldPartner") ? true : false;
+	let isAuthenticated = state.isAuthenticated && (state.designation.id === "admin" || state.designation.id === "supervisor" ||  state.designation.id === "fieldBusiness") ? true : false;
 	if(isAuthenticated){
    return children
   } else {
@@ -75,8 +76,8 @@ export default function MainRoute() {
               <Route  path="/AddDistrict" element={
           <AdminRoute children={<AddDistrict />} />        
         } />
-              <Route  path="/AddPartner" element={
-          <AdminRoute children={<AddPartner />} />        
+              <Route  path="/AddBusiness" element={
+          <AdminRoute children={<AddBusiness />} />        
         } />
               <Route  path="/AllUser" element={
           <AdminRoute children={<AllUser />} />        
@@ -103,8 +104,10 @@ export default function MainRoute() {
           <PrivateRoute children={<Pricing />} />     
         } /> 
         <Route  path="/MainApp" element={
-           <PrivateRoute children={<MainApp /> } />   
-         
+           <PrivateRoute children={<MainApp /> } />           
+        } /> 
+        <Route  path="/business" element={
+           <PrivateRoute children={<BusinessPage /> } />           
         } /> 
       	<Route path="/about" element={<About />}/>
       	<Route path="/PrivacyPolicy" element={<PrivacyPolicy />}/>

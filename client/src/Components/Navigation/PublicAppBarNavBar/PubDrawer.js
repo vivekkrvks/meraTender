@@ -240,6 +240,7 @@ const listData1 = [
 	{ text: "Home", link: "/MainApp", icon: <DashboardIcon color="primary"  />,admin:true,supervisor:true,fieldPartner:true  },
   { text: "Profile", link: "/UserProfile", icon: <AssignmentIndIcon color="success" />,admin:true },
   { text: "Transaction", link: "/transaction", icon: <PaidIcon color="success" />,admin:true },
+  { text: "Find Business", link: "/business", icon: <PolicyIcon color="success" />,admin:true },
 ];
 const listData2 = [
 	{ text: "About Us", link: "/about", icon: <InfoIcon color="secondary"  />,admin:true,supervisor:true,fieldPartner:true  },
