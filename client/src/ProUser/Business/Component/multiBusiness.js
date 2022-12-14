@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { Fragment, useState, useEffect, useRef } from "react";
+
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -6,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { SiGooglemaps } from "react-icons/si";
 import { Avatar, Badge, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
     width: 22,
@@ -22,6 +24,10 @@ const Img = styled('img')({
 
 export default function MultiShopCom(props) {
   
+  const [bLink,setbLink] = useState(props.businessLink)
+//   // const [tabValue, setTabValue]=useState(0)
+// console.log(props)
+// console.log(bLink)
   return (
     <div>
     <Paper
@@ -36,6 +42,7 @@ export default function MultiShopCom(props) {
         marginTop:"10px"
       }}
     >
+     
           <Grid item  container direction="column" spacing={0}  >
           <Grid container spacing={2}  >
         <Grid item xs={3} >
@@ -47,7 +54,7 @@ export default function MultiShopCom(props) {
     <SmallAvatar alt="Remy Sharp" src="https://www.pngitem.com/pimgs/m/302-3024199_instagram-verified-symbol-png-instagram-verified-logo-png.png" />
   }
 >
-<Avatar alt="Remy Sharp"    sx={{ width: 70, height: 70 }} md={{ width: 180, height: 180 }} src={"https://media.istockphoto.com/vectors/glowing-neon-cup-of-coffee-shop-with-free-wifi-zone-icon-isolated-on-vector-id1201146626?k=20&m=1201146626&s=612x612&w=0&h=9vfJGq31qJ8fQwoENk-argVdYFEh8lSTKJOdY5nKGX8="} />
+<Avatar alt="Remy Sharp"    sx={{ width: 70, height: 70 }} md={{ width: 180, height: 180 }} src={"https://previews.123rf.com/images/danilzorin/danilzorin1712/danilzorin171200069/106278513-tienda-online-logo-de-la-tienda-online-logotipo-para-empresas-ilustraci%C3%B3n-vectorial-aislada.jpg"} />
 </Badge>
    
           </ButtonBase>
@@ -62,7 +69,7 @@ export default function MultiShopCom(props) {
                  {<SiGooglemaps/>} {props.districtName}
                  </Typography>
               <Typography variant="body2" color="text.secondary">
-              {props.fullAddress}
+              {props.businessTypeName}
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
               <b> WhatsApp📱 : ₹ {props.whatsAppNo}</b>
@@ -71,13 +78,11 @@ export default function MultiShopCom(props) {
               <b> Call📞 : ₹ {props.mobileNo}</b>
                  </Typography>
             </Grid>   
+
           </Grid>         
         </Grid>
       </Grid>               
-      </Grid>               
-
-    
-   
+      </Grid>         
     </Paper>
     <Button></Button>
     </div>

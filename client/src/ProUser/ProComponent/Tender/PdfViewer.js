@@ -18,6 +18,9 @@ import OneShopCom from './OneShop';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { Link } from 'react-router-dom';
+import MultiShopCom from '../../Business/Component/multiBusiness';
+import OneBusinessDialogCom from '../BusinessCom/OneBusinessDialog'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -26,7 +29,7 @@ export default function PdfDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [myUrl,setMyUrl] = useState(props.fileUrl);
   const [viewUrl,setViewUrl] = useState(props.fileUrl);
-  const [allPartner,setAllPartner] = useState([]);
+  const [allBusiness,setAllBusiness] = useState([]);
 
   const downloadImage = () => {
     let url = myUrl
@@ -47,15 +50,15 @@ export default function PdfDialog(props) {
 	}, [props]);
 
 
-    const getAllPartner = async() => {
+    const getAllBusiness = async() => {
         await axios
-                .get(`/api/v1/addition/addPartner/forPublic/partner/${props.shopDist?.districtLink}/${props.shopCat}`)
-                .then((res) => (setAllPartner(res.data)))
+                .get(`/api/v1/addition/addBusiness/forPublic/business/${props.shopDist?.districtLink}/${props.shopCat}`)
+                .then((res) => (setAllBusiness(res.data)))
                 .catch(err => console.log(err))
     }
 
   const handleClickOpen = () => {
-    getAllPartner()
+    getAllBusiness()
     setOpen(true);
   };
 
@@ -120,20 +123,17 @@ export default function PdfDialog(props) {
     
     </Stack>
     {
-                  allPartner.map((v,i)=> (
-                    <>
-                    {/* <h3>{v.partnerName}</h3> */}
-                    <OneShopCom 
-           key={v._id}
-           partnerName={v.partnerName}
-           districtName={props.shopDist?.districtName}
-           isVerified={v.isVerified}
-           fullAddress={v.fullAddress}
-           mobileNo={v.mobileNo}
-           whatsAppNo={v.whatsAppNo}
-           emailId={v.emailId}
-          /></>
-                ))}
+  allBusiness.map((v,i) => (
+   
+    <OneBusinessDialogCom 
+       key={v._id}
+    v = {v}
+    />
+
+
+   
+  ))
+} 
        
     </div>
       </Dialog>

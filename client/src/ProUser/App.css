@@ -158,6 +158,13 @@
   background-attachment: fixed;
   
 }
+.businessPagebg{
+  min-height: 100vh;
+  /* background-image: url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp"); */
+  background-color: rgb(245, 238, 189);
+  background-attachment: fixed;
+  
+}
 .mainCard{
   margin-top: 10px;
   padding: 10px;

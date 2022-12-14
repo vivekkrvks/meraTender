@@ -17,7 +17,7 @@ function CheckPage({from}) {
     let isSubscribed= true
     if(isSubscribed){
       if (state.isAuthenticated) {  
-        if(state.isProUser){
+        if(state.isProUser || !state.isProUser){
             if(from !== "MainApp")
           {setRedirectToMainApp(true)}
         }else

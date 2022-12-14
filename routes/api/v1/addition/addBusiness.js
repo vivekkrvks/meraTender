@@ -383,7 +383,12 @@ router.get(
             "businessType.businessTypeLink":req.params.businessType,
             "visibility.id":"public",
           }},
-            {$project:{isVerified:1,fullAddress:1,mobileNo:1,whatsAppNo:1,emailId:1,businessName:1}}
+          {$project: { 
+            businessName:1,
+            businessLink:1,
+            ownerName:1,mobileNo:1,whatsAppNo:1,district:1
+             }  
+            },
         ]
     )   .catch(err =>
         res
@@ -392,6 +397,61 @@ router.get(
       );
       res.json(allData)
    
+  }
+);
+
+/////// creating route api for business page
+// /api/v1/addition/addBusiness/businessPage/businessWithFilter
+
+router.post(
+  "/businessPage/businessWithFilter",
+  // passport.authenticate("jwt", { session: false }),
+  async(req, res) => {
+    let page = 0
+    page = req.body.page  //
+    let toSkip = page * 5
+    // console.log(req.body)
+    let myMatch = {"visibility.id":"public"}
+    if(req.body.district?.districtLink){
+      myMatch["district.districtLink"] = req.body.district?.districtLink   //
+    }
+    if(req.body.businessType?.businessTypeLink){
+      myMatch["businessType.businessTypeLink"] = req.body.businessType?.businessTypeLink  // 
+    }
+    // console.log(myMatch)
+    let BusinessData = await AddBusiness.aggregate([
+        {$match:myMatch},
+        {$project: { 
+          businessName:1,
+          businessLink:1,
+          ownerName:1,mobileNo:1,whatsAppNo:1,district:1,
+          businessType:1
+           }  
+          },
+          { $sort : { date : -1 } },
+          { $skip : toSkip },
+          { $limit : 5 } 
+        ]).exec()
+      console.log(BusinessData)
+        res.json(BusinessData)
+  }
+);
+
+// @type    get with Link
+//@route    /api/v1/addition/addBusiness/getLink/:businessLink
+// @desc    route to get single addBusiness by id
+// @access  PRIVATE
+router.get(
+  "/getLink/:businessLink",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    AddBusiness.findOne({
+      businessLink: req.params.businessLink
+    }).then(AddBusiness => {res.json(AddBusiness),console.log(AddBusiness)})
+    .catch(err => 
+      res.json({
+        message: "Problem in finding With this Id",
+       variant: "error"}));
   }
 );
 

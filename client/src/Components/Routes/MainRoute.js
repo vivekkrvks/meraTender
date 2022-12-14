@@ -24,6 +24,7 @@ import LoginOtp from "../../ProUser/LoginOtp";
 import Pricing from "../../ProUser/Pricing";
 import MainApp from "../../ProUser/MainApp";
 import BusinessPage from "../../ProUser/Business/BusinessPage";
+import OneBusiness from "../../ProUser/Business/Component/OneBusiness";
 import StaticRoute from "./StaticRoute";
 import About from "../../ProUser/StaticPage/AboutUs";
 import PrivacyPolicy from "../../ProUser/StaticPage/PrivacyPolicy";
@@ -108,6 +109,9 @@ export default function MainRoute() {
         } /> 
         <Route  path="/business" element={
            <PrivateRoute children={<BusinessPage /> } />           
+        } /> 
+        <Route  path="/onebusiness/:businessLink" component={OneBusiness} element={
+           <PrivateRoute children={<OneBusiness /> } />           
         } /> 
       	<Route path="/about" element={<About />}/>
       	<Route path="/PrivacyPolicy" element={<PrivacyPolicy />}/>

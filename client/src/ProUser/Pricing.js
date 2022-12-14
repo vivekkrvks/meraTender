@@ -130,7 +130,7 @@ function Pricing() {
         </Typography>
    
       </Grid>
-       <Grid item xs={12} style={{alignItems:"center"}}>
+       {/* <Grid item xs={12} style={{alignItems:"center"}}>
         <div className="card" onClick={()=>handleFreeTrial()}>
           <span>For 1 Month</span>
           <small>Start Your Free Trial</small>
@@ -139,7 +139,7 @@ function Pricing() {
       
 
         </div>
-       </Grid>
+       </Grid> */}
        <Grid item xs={12} style={{alignItems:"center"}}>
         <div className="card" onClick={()=>handlePay()}>
           <span>For {period}</span>

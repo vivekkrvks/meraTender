@@ -3,18 +3,20 @@ import MySnackbar from "../../Components/MySnackbar";
 import CommonPubDash from "../../Components/Navigation/PublicAppBarNavBar/CommonPubDash"
 
 import {Grid,Container,TextField,MenuItem,Typography, Box,Tabs,Tab, Autocomplete, Backdrop, CircularProgress} from '@mui/material/';
-import { FcHome,FcBusinessman,FcLike } from "react-icons/fc";
-import OneTenderCom from './../ProComponent/Tender/OneTender';
+
 import axios from "axios";
-import { FcBookmark } from "react-icons/fc";
+
 import CheckPage from "./../ProComponent/Tender/checkForPage";
-import InfiniteScroll from 'react-infinite-scroller';
+
 import MultiShopCom from "./Component/multiBusiness";
+import InfiniteScroll from 'react-infinite-scroller';
+import { Link } from "react-router-dom";
 
 export default function FullWidthTabs() {
   const [tabValue, setTabValue]=useState(0)
   const [businessType, setBusinessType]=useState({"businessTypeName":"","businessTypeLink":""})
   const [allBusinessType, setAllBusinessType]=useState([])
+  const [allBusiness, setAllBusiness]=useState([])
   const [district, setDistrict]=useState({"districtName":"","districtLink":""})
   const [allDistrict, setAllDistrict]=useState([])
 	const snackRef = useRef();
@@ -31,8 +33,31 @@ export default function FullWidthTabs() {
   useEffect(() => {
 		getAllDistrict();
 		getAllBusinessType();
-    // getAllTender("");
 	}, []);
+  
+  const handleLoadMore = async(e) => {
+
+    if(page === 0)
+    {
+      handleOpen()
+    }
+   if(hasMore){ 
+    let myData = {page,district,businessType}
+    await axios
+            .post(`/api/v1/addition/addBusiness/businessPage/businessWithFilter`,myData)
+            .then(async(res) => {
+              if(res.data.length <5){
+                await setHasMore(false)
+               }
+               setAllBusiness([...allBusiness, ...res.data])
+             
+   })
+            .catch(err => console.log(err))            
+            }         
+              handleClose()
+              setPage(+(+page+1))
+  }
+
     const getAllDistrict = async() => {
         await axios
                 .get(`/api/v1/dropDown/publicDropDown/allDistrict`)
@@ -56,18 +81,20 @@ export default function FullWidthTabs() {
     {
       setDistrict({"districtName": e.target.value,"districtLink": e.target.value})
   }
+  setAllBusiness([])
  await setPage(0)
  await setHasMore(true)
 }
   const changeBusinessType = async(e) => {
     e.preventDefault();
-    if(e.target.value === "--All BusinessType--"){
+    if(e.target.value === "--All Business--"){
       setBusinessType({"businessTypeName": "","businessTypeLink": ""})
 
     }else
     {
       setBusinessType({"businessTypeName": e.target.value,"businessTypeLink": e.target.value})
   }
+  setAllBusiness([])
   await setPage(0)
   await setHasMore(true)
   }
@@ -78,7 +105,7 @@ export default function FullWidthTabs() {
       from="MainApp"
       />
 	<CommonPubDash compo = {
-              <Box sx={{ width: '100%' }} className="mainbg" >
+              <Box sx={{ width: '100%' }} className="businessPagebg" >
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -86,9 +113,7 @@ export default function FullWidthTabs() {
         onClick={handleClose}
       >
         <CircularProgress color="inherit" />
-      </Backdrop>
-
-       
+      </Backdrop>       
               </Box>           
                <div>
                 <Container>
@@ -144,19 +169,36 @@ export default function FullWidthTabs() {
                 }
 
 
-<div>
-  Vivek
-</div>
-             <MultiShopCom 
-           key={"v._id"}
-           partnerName={"v.partnerName"}
-           districtName={"props.shopDist?.districtName"}
-           isVerified={"v.isVerified"}
-           fullAddress={"v.fullAddress"}
-           mobileNo={"v.mobileNo"}
-           whatsAppNo={"v.whatsAppNo"}
-           emailId={"v.emailId"}
-          />       
+<InfiniteScroll
+    pageStart={0}
+    loadMore={() => handleLoadMore()}
+    hasMore={hasMore}
+    loader={		<div key={0} className="center">
+									<CircularProgress />
+									&nbsp;&nbsp;
+									<Typography gutterBottom align="center">
+										More Tender Loading...
+									</Typography>
+								</div>}
+>
+
+{
+  allBusiness.map((v,i) => (
+    <Link to={`/onebusiness/${v.businessLink}`} color="inherit" underline="none" style={{ textDecoration: 'none' }}>
+
+<MultiShopCom 
+    key={v._id}
+    partnerName={v.businessName}
+    districtName={v.district?.districtName}
+    isVerified={true}
+    businessTypeName={v?.businessType?.businessTypeName}
+    mobileNo={v.mobileNo}
+    whatsAppNo={v.whatsAppNo}
+    emailId={"v.emailId"}
+   /> 
+   </Link>
+  ))
+}      </InfiniteScroll>      
                
                 </Container>
               </div>
