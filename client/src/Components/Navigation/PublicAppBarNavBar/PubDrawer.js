@@ -75,7 +75,9 @@ const handleLogout = () => {
   return (
 
       <SwipeableDrawer
-  
+      style={{
+        backgroundColor: 'black',    
+      }}
       variant="temporary"
       anchor="left"
       open={props.open}
@@ -105,8 +107,14 @@ const handleLogout = () => {
         <List
             
         >
-                   <Link href={"/UserProfile"} to={"/UserProfile"}  color="inherit" underline="none">
-             <ListItem alignItems="flex-start" >
+        <Link href={"/UserProfile"} to={"/UserProfile"}         
+        color="none" underline="none"  style={{
+          color: 'white',    
+        }}
+        >
+        <ListItem alignItems="flex-start"  style={{
+          color: 'white',    
+        }}>
         <ListItemAvatar>
         <Badge
         overlap="circular"
@@ -126,27 +134,30 @@ const handleLogout = () => {
                 sx={{ display: 'inline' }}
                 component="span"
                 variant="body2"
-                color="text.primary"
+                style={{
+                  color: 'white',    
+                }}
               >
-               Valid till
+               Valid till - {` ${state.validityStatusEndDate}`}
               </Typography>
-              - {` ${state.validityStatusEndDate}`}
+              
             </React.Fragment>
           }
         />
-      </ListItem></Link>
+      </ListItem>
+      </Link>
       <Divider variant="inset" component="li" />
 
           {listData1.map((l, i) => (
               ("aa"=="aa" || (designationId==="admin" && l.admin=== true) || (designationId==="supervisor" && l.supervisor=== true) || (designationId==="fieldPartner" && l.fieldPartner=== true)) &&
               (<Link onClick={() => (props.handleDrawerClose)} href={l.link} to={l.link} key={l.link} color="inherit" underline="none">
                   <ListItem button >
-                  <Tooltip title={l.text} placement="right">
+                  <Tooltip title={l.text} placement="right" >
               <ListItemIcon>
                 {l.icon}
               </ListItemIcon>
               </Tooltip>
-              <ListItemText style={{color:"black"}} primary={l.text} />
+              <ListItemText style={{color:"white"}} primary={l.text} />
             </ListItem>
           </Link>)
                  
@@ -156,7 +167,7 @@ const handleLogout = () => {
   
       
 
-      <List
+      {/* <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
@@ -192,7 +203,9 @@ const handleLogout = () => {
           ))}
         </List>
       </Collapse>
-    </List>
+    </List> */}
+
+
         <Divider />
         <List>
         {listData3.map((l, i) => (
@@ -207,14 +220,14 @@ const handleLogout = () => {
            </ListItem>
          </Link> ))}
          {state.isAuthenticated ? (
-				 <Link onClick={handleLogout} to={"#"} href={"#"} color="inherit" underline="hover">
+				 <Link onClick={handleLogout} to={"#"} href={"#"} color="white" underline="hover">
          <ListItem button key="LogOut">
          <Tooltip title="LogOut" placement="right">
      <ListItemIcon>
      <LogoutIcon sx={{ color: red[500] }}/>
      </ListItemIcon>
      </Tooltip>
-     <ListItemText  style={{color:"black"}} primary="LogOut" />
+     <ListItemText  style={{color:"white"}} primary="LogOut" />
    </ListItem>
  </Link>
 				) : (
@@ -238,18 +251,18 @@ const handleLogout = () => {
 
 const listData1 = [
 	{ text: "Home", link: "/MainApp", icon: <DashboardIcon color="primary"  />,admin:true,supervisor:true,fieldPartner:true  },
-  { text: "Profile", link: "/UserProfile", icon: <AssignmentIndIcon color="success" />,admin:true },
-  { text: "Transaction", link: "/transaction", icon: <PaidIcon color="success" />,admin:true },
-  { text: "Find Business", link: "/business", icon: <PolicyIcon color="success" />,admin:true },
+  // { text: "Profile", link: "/UserProfile", icon: <AssignmentIndIcon color="success" />,admin:true },
+  // { text: "Transaction", link: "/transaction", icon: <PaidIcon color="success" />,admin:true },
+  // { text: "Find Business", link: "/business", icon: <PolicyIcon color="success" />,admin:true },
   // { text: "One Business", link: "/onebusiness/dev-hostel7", icon: <ContactsIcon color="success" />,admin:true },
 ];
 const listData2 = [
 	{ text: "About Us", link: "/about", icon: <InfoIcon color="secondary"  />,admin:true,supervisor:true,fieldPartner:true  },
-  { text: "Privacy Policy", link: "/PrivacyPolicy", icon: <SecurityIcon color="secondary" />,admin:true },
-  { text: "Term & Condition", link: "/TermAndCondition", icon: <VpnLockIcon color="secondary" />,admin:true },
-  { text: "Contact Us", link: "/ProContact", icon: <ContactsIcon color="secondary" />,admin:true },
-  { text: "Pricing", link: "/PricingContent", icon: <CurrencyRupeeIcon color="secondary" />,admin:true },
-  { text: "Refund Policy", link: "/RefundPolicy", icon: <PolicyIcon color="secondary" />,admin:true },
+  // { text: "Privacy Policy", link: "/PrivacyPolicy", icon: <SecurityIcon color="secondary" />,admin:true },
+  // { text: "Term & Condition", link: "/TermAndCondition", icon: <VpnLockIcon color="secondary" />,admin:true },
+  // { text: "Contact Us", link: "/ProContact", icon: <ContactsIcon color="secondary" />,admin:true },
+  // { text: "Pricing", link: "/PricingContent", icon: <CurrencyRupeeIcon color="secondary" />,admin:true },
+  // { text: "Refund Policy", link: "/RefundPolicy", icon: <PolicyIcon color="secondary" />,admin:true },
 ];
 const listData3 = [
 	// { text: "All User", link: "/AllUser", icon: <GroupIcon sx={{ color: purple [500] }}/> },

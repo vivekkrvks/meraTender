@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { SiGooglemaps } from "react-icons/si";
 import { Avatar, Badge, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
     width: 22,
@@ -43,6 +44,8 @@ export default function MultiShopCom(props) {
       }}
     >
      
+          <Grid item  container direction="column" spacing={0}  >
+          <Grid item xs={10} >
           <Grid item  container direction="column" spacing={0}  >
           <Grid container spacing={2}  >
         <Grid item xs={3} >
@@ -82,6 +85,24 @@ export default function MultiShopCom(props) {
           </Grid>         
         </Grid>
       </Grid>               
+      </Grid>         
+      </Grid>    
+      {/* <Grid item xs={2} >
+      <Grid item  container direction="column" spacing={0}  >
+          <Grid container spacing={2}  >
+        <Grid item xs={6} >
+        <Button variant="outlined"  startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+        </Grid>     
+        <Grid item xs={6} >
+        <Button variant="contained" endIcon={<SendIcon />}>
+        Send
+      </Button>
+        </Grid>     
+        </Grid>     
+        </Grid>     
+        </Grid>      */}
       </Grid>         
     </Paper>
     <Button></Button>

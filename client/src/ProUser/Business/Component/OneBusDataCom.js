@@ -106,7 +106,8 @@ export default function OneBusDataCom({businessLink}) {
            <Item1>Mobile Number</Item1>
          </Grid>
          <Grid item xs={7} md={8}>
-           <Item2>{allData.mobileNo}</Item2>
+         <a href="tel:+4733378901">
+           <Item2>{allData.mobileNo}</Item2></a>
          </Grid></>)}
         {/* iTEM eND */}
 
