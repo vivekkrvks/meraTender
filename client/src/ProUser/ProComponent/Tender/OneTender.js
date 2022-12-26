@@ -120,7 +120,7 @@ export default function OneTenderCom(props) {
          </Grid>             
                    
           <Grid item container xs={6} >
-          <Grid item  xs={1} >
+          <Grid item  xs={5} >
          </Grid>             
           <Grid 
           onClick={() => (
@@ -131,7 +131,7 @@ export default function OneTenderCom(props) {
          </Grid> 
          <Grid item  xs={1} >
          </Grid>      
-         {/* borderStyle:"outset"       */}
+   
          {(props.file1Url)&&(<Grid item style={{cursor:"pointer"}} xs={3} >
           <PdfDialog 
           shopCat = {"cafe"}
@@ -174,7 +174,7 @@ export default function OneTenderCom(props) {
           />
        
          </Grid>   )}
-         <Grid item  xs={1} >
+  {("showNIT"=== "No")&&(      <> <Grid item  xs={1} >
          </Grid>          
         {(props.file2Url)&&( <Grid item style={{cursor:"pointer"}} xs={3} >
         <PdfDialog 
@@ -249,7 +249,8 @@ export default function OneTenderCom(props) {
           File
           />
          
-         </Grid>  )}           
+         </Grid>
+         )} </> )}         
 
          </Grid>             
 
@@ -258,7 +259,14 @@ export default function OneTenderCom(props) {
         </Grid>
    
     </Paper>
-    <Button></Button>
+    <Button 
+    style={{width:"99%",borderRadius: "7px", marginTop:"1px", marginDown:"6px" }}
+    variant="contained" 
+    color="secondary"
+    // endIcon={<SendIcon />}
+    >
+        अधिक जानकारी के लिए click करे।
+      </Button>
     </div>
   );
 }
