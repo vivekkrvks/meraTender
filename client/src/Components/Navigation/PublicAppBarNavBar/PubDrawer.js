@@ -73,11 +73,9 @@ const handleLogout = () => {
   const mobileNo = localStorage.getItem('mobileNo');
 
   return (
-
+    <div id='vivek'>
       <SwipeableDrawer
-      style={{
-        backgroundColor: 'black',    
-      }}
+  
       variant="temporary"
       anchor="left"
       open={props.open}
@@ -85,10 +83,11 @@ const handleLogout = () => {
 	    onOpen={props.handleDrawerOpen}
         sx={{
           width: drawerWidth,
-      
+    
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
+            bgcolor:"#000",
             boxSizing: 'border-box',
           },
         }}
@@ -99,10 +98,13 @@ const handleLogout = () => {
         {/* <DrawerHeader 
                
         >
+
+
           <IconButton onClick={props.handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader> */}
+       
         <Divider />
         <List
             
@@ -138,7 +140,7 @@ const handleLogout = () => {
                   color: 'white',    
                 }}
               >
-               Valid till - {` ${state.validityStatusEndDate}`}
+               Valid till - {` ${state.validityStatusEndDate || "Free Trial"}`}
               </Typography>
               
             </React.Fragment>
@@ -244,8 +246,9 @@ const handleLogout = () => {
 				)}
      
         </List>
+      
       </SwipeableDrawer>
-    
+      </div>
   );
 }
 
