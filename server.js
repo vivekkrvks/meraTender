@@ -39,6 +39,7 @@ const publicDropDown = require("./routes/api/v1/dropDown/publicDropDown")
 const getTender = require("./routes/api/v1/forPublicWeb/getTender")
 const saveTender = require("./routes/api/v1/forPublicWeb/saveTender")
 const paytm = require("./routes/api/v1/forPublicWeb/paytm")
+const tenderInfoPaytm = require("./routes/api/v1/forPublicWeb/tenderInfoPaytm")
 
 // other
 const fileUpload = require("./routes/api/v1/other/fileUpload");
@@ -110,6 +111,7 @@ app.use("/api/v1/dropDown/publicDropDown", publicDropDown);
 app.use("/api/v1/forPublicWeb/getTender", getTender);
 app.use("/api/v1/forPublicWeb/saveTender", saveTender);
 app.use("/api/v1/forPublicWeb/paytm", paytm);
+app.use("/api/v1/forPublicWeb/tenderInfoPaytm", tenderInfoPaytm);
 
 
 //other

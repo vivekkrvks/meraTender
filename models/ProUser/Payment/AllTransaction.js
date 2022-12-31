@@ -31,11 +31,15 @@ validity: {
 },
 lastFormatedDay:{
   type:String,
-  required:true
+  // required:true
 },
 referalCode: {
     type:String,
     default:"Noreferal"
+},
+tenderId: {
+    type:String,
+    default:""
 },
 
 paymentDetails:{

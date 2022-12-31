@@ -1,9 +1,14 @@
-import * as React from 'react';
+import React, {  useState,useContext, useEffect } from "react";
+import { MainContext } from "../../../Components/Context/MainContext";
 import { styled } from '@mui/material/styles';
+import axios from "axios";
+
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import { Link, Navigate } from "react-router-dom";
+
 import { SiGooglemaps } from "react-icons/si";
 import { FcLike,FcInternal,FcLowPriority } from "react-icons/fc";
 import { FiBookmark } from "react-icons/fi";
@@ -12,6 +17,7 @@ import { GrDocumentPdf } from "react-icons/gr";
 import { VscFilePdf } from "react-icons/vsc";
 import { Avatar, Badge, Button } from '@mui/material';
 import PdfDialog from "./PdfViewer"
+import TenderInfoPricingCom from "./tenderInfoPricing";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -50,7 +56,17 @@ const Img = styled('img')({
 });
 
 export default function OneTenderCom(props) {
-  
+  const [redirect, setRedirect] = useState(false) 
+  const { state, dispatch } = useContext(MainContext);
+
+
+  const handleSubmit = () => {
+    setRedirect(true)
+  }
+ if(redirect){
+  return <Navigate to="/"/>
+}
+
   return (
     <div>
     <Paper
@@ -259,14 +275,10 @@ export default function OneTenderCom(props) {
         </Grid>
    
     </Paper>
-    <Button 
-    style={{width:"99%",borderRadius: "7px", marginTop:"1px", marginDown:"6px" }}
-    variant="contained" 
-    color="secondary"
-    // endIcon={<SendIcon />}
-    >
-        अधिक जानकारी के लिए click करे।
-      </Button>
+    <TenderInfoPricingCom
+    tenderId={props.id}
+    />
+    
     </div>
   );
 }
